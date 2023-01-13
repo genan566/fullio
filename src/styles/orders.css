@@ -1,0 +1,86 @@
+.orders {
+  margin-top: 1rem;
+  padding: 1rem;
+  padding-top: 0; }
+
+.box-scrollContent {
+  margin-top: 1.5rem;
+  width: 100%;
+  overflow-x: scroll;
+  padding-bottom: 1rem;
+  padding: 0 1rem;
+  padding-left: 0;
+  max-width: calc(100vw - (7rem + 20rem)); }
+  .box-scrollContent::-webkit-scrollbar {
+    display: none; }
+
+.box-title-table {
+  background: white;
+  border-radius: .6rem;
+  padding: .25rem 1rem;
+  display: flex;
+  flex-direction: row;
+  width: calc(fit-content - (7rem + 20rem));
+  gap: .5rem;
+  align-items: center;
+  font-family: "MontSerrat-SemiBold";
+  color: black;
+  justify-content: space-between;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  transition: all .2s ease-out;
+  margin-left: .2rem;
+  border: 1px solid transparent;
+  cursor: pointer; }
+  .box-title-table:hover {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    padding: .25rem 2rem; }
+  .box-title-table-P {
+    margin-bottom: 1rem;
+    background: transparent;
+    padding: .5rem 1rem;
+    width: calc(fit-content - (7rem + 20rem));
+    display: flex;
+    border: 1px solid white;
+    border-radius: .6rem;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    font-family: "MontSerrat-SemiBold";
+    color: white;
+    justify-content: space-between;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    transition: all .2s ease-out; }
+    .box-title-table-P:hover {
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5); }
+  .box-title-table-id {
+    flex-grow: 1;
+    min-width: 100px; }
+  .box-title-table-name {
+    flex-grow: 1;
+    padding: 0 .5rem;
+    min-width: 100px; }
+  .box-title-table-address {
+    flex-grow: 4;
+    min-width: 200px; }
+  .box-title-table-date {
+    flex-grow: 1;
+    min-width: 100px; }
+  .box-title-table-price {
+    flex-grow: 1;
+    min-width: 100px; }
+  .box-title-table-status {
+    flex-grow: 1;
+    min-width: 100px; }
+  .box-title-table-action {
+    flex-grow: 1;
+    min-width: 100px; }
+
+.box-table-data {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: max-content;
+  align-items: stretch;
+  gap: .5rem; }

@@ -1,13 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Montserrat-Light";
+  /* font-size: .8rem; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: white;
+  
+	background:   
+    linear-gradient(-45deg,  #250612,rgb(2, 26, 54), #2b0328, #010a27)
+      /* linear-gradient(45deg, #4114c7,rgb(7, 102, 211), #ff07ea, #0c3bd6) */
+      ;
+      background-position: center center;
+    background-size: 400% 400%;
+    min-height: 100vh;
+    width: 100%;
+    animation: gradient 10s ease infinite;
+
+    /* linear-gradient(45deg, #250612,rgb(2, 26, 54), #2b0328, #010a27) */
+    /* linear-gradient(45deg, #4114c7,rgb(7, 102, 211), #ff07ea, #0c3bd6) */
+    ;
+    background-position: center center;
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+
+  50% {
+      background-position: 100% 50%;
+  }
+
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+input {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgb(255, 255, 255); 
+  border-radius: 50px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgb(46, 47, 48); 
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3d3d3d; 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: local('Montserrat-Regular'), url(./fonts/Montserrat/static/Montserrat-Regular.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+
+@font-face {
+  font-family: 'Montserrat-Medium';
+  src: local('Montserrat-Medium'), url(./fonts/Montserrat/static/Montserrat-Medium.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: local('Montserrat-SemiBold'), url(./fonts/Montserrat/static/Montserrat-SemiBold.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: local('Montserrat-Bold'), url(./fonts/Montserrat/static/Montserrat-Bold.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
+}
+
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: local('Montserrat-Light'), url(./fonts/Montserrat/static/Montserrat-Light.ttf) format('truetype');
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                            'embedded-opentype', and 'svg' */
 }
