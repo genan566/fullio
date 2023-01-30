@@ -12,8 +12,8 @@
     // border-radius: 1rem;
     position: relative;
     background: linear-gradient(-45deg, rgb(97, 6, 253), #0a0d3b, #11b4f0, #ea05ff, #a0ff08);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    background-size: 1000% 400%;
+    animation: gradient 10s ease infinite;
     background-position: center center;
     overflow: hidden;
 
@@ -264,6 +264,11 @@
         gap: .5rem;
         margin: 0 auto;
         margin-top: .5rem;
+
+        &.sB {
+            border-radius: .5rem !important;
+            padding: 1rem 1rem;
+        }
     }
 }
 
@@ -303,7 +308,7 @@
 .custom-w-3 {
     flex-grow: 1;
     // margin-left: 1rem;
-    margin-left: 7rem;
+    margin-left: 9rem;
     margin-right: 4.5rem;
     // transition: all .1s ease-out;
 
@@ -342,8 +347,8 @@
 }
 
 .custom-w-m {
-    width: 3rem;
-    min-width: 3rem;
+    width: fit-content;
+    // min-width: 3rem;
     border-radius: 1rem;
     padding: 2rem;
     background-color: rgba(104, 96, 96, 0.199);
@@ -351,9 +356,10 @@
     transition: all .2s ease-in-out;
     display: flex;
     align-items: center;
-    max-height: 100vh;
+    // max-height: 100vh;
     justify-content: space-between;
     flex-direction: column;
+    overflow: hidden;
     overflow-y: scroll;
     position: relative;
 
@@ -362,7 +368,7 @@
     }
 
     &.showing {
-        width: 20rem;
+        width: 22rem;
     }
 
     // &:hover #onHovP {
@@ -430,23 +436,40 @@
 }
 
 .userProf {
-    height: 130px;
+    min-height: 130px;
+    height: 130px !important;
     width: 130px;
     border-radius: 5rem;
+    background-size: contain;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
     // overflow: hidden;
     box-shadow: 0 0 1.5rem rgba(0, 0, 0, .5);
 
 
     & img {
         height: 100%;
+        // display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         width: 100%;
         border-radius: 5rem;
-        object-fit: cover;
     }
 }
 
 .text-sxl {
     font-size: .7rem;
+}
+
+
+.text-sxl2 {
+    font-size: .8rem;
 }
 
 .mParent {
@@ -623,4 +646,16 @@
     width: 100%;
     // margin-top: 1rem !important;
     // margin-bottom: .5rem;
+}
+
+.bottom-divider {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.212);
+}
+
+.point {
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #fff;
+    content: " ";
 }

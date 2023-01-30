@@ -4,7 +4,8 @@ import Accordion from '../components/Accordion'
 import "../styles/FAQ.scss"
 
 import { motion } from "framer-motion"
-import { RootUserContext } from '../contexts/RootUserContext'
+import { RootUserContext } from '../contexts'
+import { FaqsAPI } from '../APIs/FaqsAPI'
 
 
 const containerVariants = {
@@ -57,11 +58,23 @@ const data = [
     },
 ]
 
+interface FAQs {
+    title: string,
+    description: string
+}
+
 const FAQ = () => {
 
     const [isActive, setIsActive] = React.useState<boolean>(false)
+    const [dataFAQS, setDataFAQS] = React.useState<FAQs[]>([])
 
     const userContext = React.useContext(RootUserContext)
+
+    React.useEffect(() => {
+
+        let respFaqs = new FaqsAPI()
+        respFaqs.get_all_faqs().then(data => setDataFAQS(data))
+    }, [])
 
     return (
         <motion.div
@@ -81,7 +94,7 @@ const FAQ = () => {
                         Reprehenderit voluptatem illum architecto cum cupiditate! Ea modi a doloribus excepturi fuga?</p>
 
                     {
-                        data.map(it => {
+                        dataFAQS.length > 0 && dataFAQS.map(it => {
                             return (
                                 <>
                                     <Accordion
@@ -115,6 +128,13 @@ const FAQ = () => {
                 !userContext?.user && <div className="text-center">
                     <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée n'est à afficher pour l'instant.</h1>
                     <p className="text-white text-sm">Veuillez bien vous connecter pour visualiser ici vos données.</p>
+                </div>
+            }
+
+            {
+                dataFAQS
+                    .length === 0 && <div className="text-center">
+                    <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée FAQ n'est à afficher pour le moment.</h1>
                 </div>
             }
         </motion.div>

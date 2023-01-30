@@ -11,7 +11,7 @@
     padding-bottom: 1rem;
     padding: 0 1rem;
     padding-left: 0;
-    max-width: calc(100vw - (7rem + 20rem));
+    // max-width: calc(100vw - (7rem + 20rem));
 
     &::-webkit-scrollbar {
         display: none;
@@ -114,5 +114,6 @@
     width: max-content;
     align-items: stretch;
     gap: .5rem;
+    flex-wrap: wrap;
     // overflow: hidden;
 }

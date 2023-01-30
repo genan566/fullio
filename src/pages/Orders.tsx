@@ -4,7 +4,8 @@ import "../styles/orders.scss"
 
 
 import { motion } from "framer-motion"
-import { RootUserContext } from '../contexts/RootUserContext';
+import { RootUserContext, RootUserTokenContext } from '../contexts';
+import { OrdersAPI } from '../APIs/OrdersAPI';
 
 
 const containerVariants = {
@@ -26,11 +27,35 @@ const containerVariants = {
     }
 };
 
+interface Orders {
+    named_id: string,
+    addresse: string,
+    name: string
+    status: boolean,
+    action: boolean,
+    price: string,
+    date: string,
+}
+
 
 const Orders = () => {
+    const [ordersData, setOrdersData] = React.useState<Orders[]>([])
 
 
     const userContext = React.useContext(RootUserContext)
+    const userTokenContext = React.useContext(RootUserTokenContext)
+
+    React.useEffect(() => {
+
+        let respFaqs = new OrdersAPI()
+        let token = userTokenContext.token
+        console.log("Je suis là et toi", token)
+        respFaqs.get_all_orders(token).then(data => setOrdersData(data))
+    }, [])
+
+    // React.useEffect(() => {
+    //     console.log("data", ordersData)
+    // }, [ordersData])
 
 
     return (
@@ -44,7 +69,7 @@ const Orders = () => {
             </h1>
             {
                 userContext?.user && <>
-                    <p className="text-sxl mt-1">27 ordres de trouvées</p>
+                    <p className="text-sxl mt-1 w-full">{ordersData.length} ordres de trouvées</p>
                     <div className="box-scrollContent">
 
                         {/* <div style={{ height: "1px", width:, backgroundColor: "red", marginBottom: "1rem", }} /> */}
@@ -73,7 +98,7 @@ const Orders = () => {
                             </div> */}
 
                             {
-                                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26].map(a => {
+                                ordersData.length > 0 && ordersData.map(a => {
                                     return (
                                         <>
                                             <div className="box-title-table">
@@ -90,6 +115,7 @@ const Orders = () => {
                                 })
                             }
 
+
                         </div>
 
 
@@ -98,9 +124,15 @@ const Orders = () => {
             }
 
             {
-                !userContext?.user && <div className="text-center">
+                (!userContext?.user) && <div className="text-center">
                     <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée n'est à afficher pour l'instant.</h1>
                     <p className="text-white text-sm">Veuillez bien vous connecter pour visualiser ici vos données.</p>
+                </div>
+            }
+
+            {
+                ordersData.length === 0 && <div className="text-center">
+                    <h1 className="text-white text-lg font-MontBold mt-10">Vous n'avez aucune ordre de lancée.</h1>
                 </div>
             }
         </motion.div>

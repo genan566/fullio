@@ -9,8 +9,7 @@
   overflow-x: scroll;
   padding-bottom: 1rem;
   padding: 0 1rem;
-  padding-left: 0;
-  max-width: calc(100vw - (7rem + 20rem)); }
+  padding-left: 0; }
   .box-scrollContent::-webkit-scrollbar {
     display: none; }
 
@@ -83,4 +82,5 @@
   flex-direction: column;
   width: max-content;
   align-items: stretch;
-  gap: .5rem; }
+  gap: .5rem;
+  flex-wrap: wrap; }

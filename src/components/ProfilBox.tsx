@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { IoCopy, IoHeart, IoEllipsisHorizontal, IoMenu, IoPerson, IoClose } from "react-icons/io5";
-import { RootUserContext, UserTypesValues } from '../contexts/RootUserContext';
+import { RootUserContext, UserTypesValues } from '../contexts';
 
 import CustomIMG2 from "../imgs/pexels-pixabay.jpg"
 
-const ProfilBox = ({ handleLog, handlShow }: { handleLog: () => void, handlShow: () => void }) => {
+const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => void, handlShow: () => void, handleLogOut: () => void }) => {
 
     const userContext = React.useContext(RootUserContext)
 
@@ -34,7 +34,7 @@ const ProfilBox = ({ handleLog, handlShow }: { handleLog: () => void, handlShow:
 
                         <img
                             className="rounded-full object-cover"
-                            src={userContext?.user.picture}
+                            src={userContext?.user.image}
                             alt="user Profile" />
                     </> : <>
                         <img
@@ -125,10 +125,7 @@ const ProfilBox = ({ handleLog, handlShow }: { handleLog: () => void, handlShow:
 
 
                             <button
-                                onClick={() => {
-                                    userContext.setUser(null)
-                                    localStorage.setItem('dataUser', JSON.stringify(null));
-                                }}
+                                onClick={handleLogOut}
                                 className="bg-red-500
                                 hover:bg-red-600
                                 active:bg-red-700 my-2

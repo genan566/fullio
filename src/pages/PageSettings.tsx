@@ -7,7 +7,7 @@ import { IoCopy } from 'react-icons/io5'
 import { GiCrenelCrown } from "react-icons/gi";
 import { motion } from "framer-motion"
 import { FaIcons, FaUncharted, FaUsers } from 'react-icons/fa';
-import { RootUserContext } from '../contexts/RootUserContext';
+import { RootUserContext } from '../contexts';
 
 
 const containerVariants = {
@@ -63,7 +63,7 @@ const PageSettings = () => {
 
                                     <img
                                         className="h-20 w-20 rounded-full object-cover shadow-lg"
-                                        src={userContext?.user.picture}
+                                        src={userContext?.user.image}
                                         alt="user Profile" />
                                 </> : <>
                                     <img

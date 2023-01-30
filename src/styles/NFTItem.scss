@@ -7,7 +7,7 @@
     min-height: 80px;
     min-width: 250px;
     max-width: 400px;
-    box-shadow: 0 0 1rem rgb(0, 0, 0); 
+    box-shadow: 0 0 1rem rgb(0, 0, 0);
     // width: 1000px !important;
     background-position: center;
 
@@ -20,13 +20,13 @@
         width: 100%;
         background-color: rgb(17, 5, 37);
         position: relative;
-        box-shadow: 0 0 1rem rgb(0, 0, 0); 
+        box-shadow: 0 0 1rem rgb(0, 0, 0);
 
         & .nftsUserImg {
             border-radius: 10rem;
             object-fit: fill;
             height: 60px;
-            box-shadow: 0 0 1rem rgb(0, 0, 0); 
+            box-shadow: 0 0 1rem rgb(0, 0, 0);
             width: 60px;
             top: 0;
             position: absolute;
@@ -43,4 +43,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+}
+
+.customNFTT {
+    width: calc(33% - 10px);
+    max-width: 340px;
+    min-width: 100px;
 }

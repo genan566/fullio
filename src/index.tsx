@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { RootUserContextProvider } from './contexts/RootUserContext';
+import { RootNFTContextProvider, RootUserContextProvider } from './contexts';
+import ScrollToTop from './components/ScrollToTop';
+import Initializer from './Initializer';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,10 +14,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    
-    <RootUserContextProvider>
-      <App />
-    </RootUserContextProvider>
+      <Initializer>
+        <RootUserContextProvider>
+          <RootNFTContextProvider>
+            <ScrollToTop />
+            <App />
+          </RootNFTContextProvider>
+        </RootUserContextProvider>
+      </Initializer>
     </BrowserRouter>
   </React.StrictMode>
 );

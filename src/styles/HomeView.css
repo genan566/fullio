@@ -1,0 +1,48 @@
+.homeView {
+  padding: 1rem 0; }
+
+.homeView-container {
+  text-align: center;
+  width: 100%; }
+
+.homeView .text-dynamique {
+  width: fit-content;
+  display: inline-block;
+  line-height: 3.5vw;
+  font-size: clamp(2.5vw, 2vw, 32px) !important; }
+
+.homeView .text-dynamique span {
+  background: linear-gradient(45deg, #6106fd, #0413e4, #11b4f0, #ea05ff, #a0ff08);
+  background-size: 1000% 400%;
+  animation: gradient 10s ease infinite;
+  background-clip: text;
+  color: transparent;
+  display: block; }
+
+.homeView .text-dynamique span.nof {
+  display: inline-block; }
+
+.homeView-products {
+  margin-top: 4rem; }
+
+.animated_gradient_bg {
+  background: linear-gradient(45deg, #4709b1b4, #0914b4a4, #0a7da793, #9e0aaf94, #75bd0991);
+  background-size: 1000% 400%;
+  animation: gradient 10s ease infinite; }
+
+.animated_gradient_bg.text {
+  background: linear-gradient(45deg, #5108cee1, #0917ced3, #0b97cace, #b408c7cb, #84d807d8);
+  background-size: 1000% 400%;
+  animation: gradient 5s ease infinite; }
+
+.animated_gradient_bg.textS {
+  background: linear-gradient(45deg, #5108cee1, #0917ced3, #0b97cace, #b408c7cb, #84d807d8);
+  background-size: 1000% 400%;
+  background-clip: text;
+  color: transparent;
+  animation: gradient 5s ease infinite; }
+
+.animated_gradient_bg.animFalse {
+  background: linear-gradient(45deg, #4709b1b4, #75bd0991);
+  background-size: 100% 200%;
+  animation: none; }

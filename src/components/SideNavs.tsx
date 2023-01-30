@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IoClose, IoBusiness, IoSettings, IoInfinite, IoLogOut, IoMenu, IoHome } from "react-icons/io5";
+import { IoClose, IoBusiness, IoSettings, IoInfinite, IoLogOut, IoLogIn, IoMenu, IoHome } from "react-icons/io5";
 
 import NFT from "../imgs/nft.png";
 
@@ -9,12 +9,13 @@ import { FaQuinscape } from "react-icons/fa";
 import { useLocation } from "react-router-dom"
 
 import { Link } from 'react-router-dom';
-import { RootUserContext } from '../contexts/RootUserContext';
+import { RootUserContext } from '../contexts';
+import { GiVirtualMarker } from 'react-icons/gi';
 
 
 
-const SideNavs = ({ isOpen, toggleIsOpen, handleLog }:
-    { isOpen: boolean, toggleIsOpen: () => void, handleLog: () => void }) => {
+const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
+    { isOpen: boolean, toggleIsOpen: () => void, handleLog: () => void, handleLogOut: () => void }) => {
 
 
     const location = useLocation();
@@ -66,6 +67,16 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog }:
                 </Link>
 
                 <Link
+                    to={"/nftMarketPlace"}
+                    onClick={() => setIsActive("/nftMarketPlace")} className={isActive === "/nftMarketPlace" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    <GiVirtualMarker
+                        color={isActive === "/nftMarketPlace" ? "black" : "white"}
+                        size={18}
+                    />
+                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Market Place</span>
+                </Link>
+
+                <Link
                     to={"/orders"}
                     onClick={() => setIsActive("/orders")} className={isActive === "/orders" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <IoBusiness
@@ -111,10 +122,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog }:
             {
                 userContext?.user ?
                     <button
-                        onClick={() => {
-                            userContext.setUser(null)
-                            localStorage.setItem('dataUser', JSON.stringify(null));
-                        }}
+                        onClick={handleLogOut}
                         className="customButtonFilterD-S d p0 mt-5">
                         <IoLogOut
                             color="white"
@@ -125,7 +133,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog }:
                     : <button
                         onClick={handleLog}
                         className="customButtonFilterD-S danger p0 mt-5">
-                        <IoLogOut
+                        <IoLogIn
                             color="white"
                             size={18}
                         />
