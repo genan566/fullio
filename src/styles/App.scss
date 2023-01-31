@@ -659,3 +659,30 @@
     background-color: #fff;
     content: " ";
 }
+
+
+.animated_gradient_bg {
+    background: linear-gradient(45deg, #4709b1b4, #0914b4a4, #0a7da793, #9e0aaf94, #75bd0991);
+    background-size: 1000% 400%;
+    animation: gradient 10s ease infinite;
+
+    &.text {
+        background: linear-gradient(45deg, #5108cee1, #0917ced3, #0b97cace, #b408c7cb, #84d807d8);
+        background-size: 1000% 400%;
+        animation: gradient 5s ease infinite;
+    }
+
+    &.textS {
+        background: linear-gradient(45deg, #5108cee1, #0917ced3, #0b97cace, #b408c7cb, #84d807d8);
+        background-size: 1000% 400%;
+        background-clip: text;
+        color: transparent;
+        animation: gradient 10s ease infinite;
+    }
+
+    &.animFalse {
+        background: linear-gradient(45deg, #4709b1b4, #75bd0991);
+        background-size: 100% 200%;
+        animation: none;
+    }
+}

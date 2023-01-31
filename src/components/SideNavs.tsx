@@ -77,6 +77,16 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 </Link>
 
                 <Link
+                    to={"/manageNFTs"}
+                    onClick={() => setIsActive("/manageNFTs")} className={isActive === "/manageNFTs" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    <GiVirtualMarker
+                        color={isActive === "/manageNFTs" ? "black" : "white"}
+                        size={18}
+                    />
+                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Manage NFTs</span>
+                </Link>
+
+                <Link
                     to={"/orders"}
                     onClick={() => setIsActive("/orders")} className={isActive === "/orders" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <IoBusiness

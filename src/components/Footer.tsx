@@ -1,12 +1,12 @@
 import React from 'react'
-import { IoArrowDown, IoArrowForward, IoSearch, IoSend } from 'react-icons/io5'
+import { IoArrowDown, IoArrowForward, IoMail, IoPerson, IoSearch, IoSend } from 'react-icons/io5'
 
 import ISOTOP from "../imgs/vadim-bogulov-lG4A4GmcYYg-unsplash.jpg";
 const Footer = () => {
     return (
         <>
             <div className="mt-[10rem] px-[1rem]">
-                <div className="animated_gradient_bg animFalse w-full rounded-lg shadow-lg p-2 py-[5rem] mt-[5rem] relative">
+                <div className="animated_gradient_bg animFalse w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative">
                     <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
                                 overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
 
@@ -32,36 +32,36 @@ const Footer = () => {
                                     focus:ring-gray-500
                                         py-1 text-white px-3
                                         rounded-lg">
-                                            <p>Check More</p>
+                                <p>Check More</p>
                                 <IoArrowForward
-                                className='ml-1'
+                                    className='ml-1'
                                     // color="white"
                                     size={17}
-                                /> 
+                                />
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className=" mt-[5rem]">
-                <div className="px-[1.5vw] flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+            <div className=" mt-[7rem] bg-slate-800 w-fit mx-auto p-[3rem] rounded-xl shadow-2xl">
+                <div className="px-[1.5vw] max-w-[1100px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                    after:absolute after:top-0 after:left-0 after:bg-white relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%]">
-                        Send message with <span className="block">purshase proposal</span>
+                        after:absolute after:top-0 after:left-0 after:bg-white relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%]">
+                        Send us a mail
                     </h2>
 
                     <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit amet consectetur
                         adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                         libero fugiat! Itaque.</p>
                 </div>
-                <div className="px-[1.5vw]">
+                <div className="px-[1.5vw] max-w-[1100px] mx-auto">
 
                     <div className=" mt-[1rem] flex justify-center items-center gap-[1rem] max-[600px]:flex-wrap">
                         <div className='w-full'>
                             <p className="text-xs font-MontBold text-white mb-4">Enter your name</p>
 
                             <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                <IoSearch
+                                <IoPerson
                                     color="white"
                                     size={18}
                                 />
@@ -76,7 +76,7 @@ const Footer = () => {
                             <p className="text-xs font-MontBold text-white mb-4">Enter your firstname</p>
 
                             <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                <IoSearch
+                                <IoPerson
                                     color="white"
                                     size={18}
                                 />
@@ -86,20 +86,22 @@ const Footer = () => {
                                     className="control-input-S" />
                             </div>
                         </div>
+                    </div>
 
-                        <div className='w-full'>
-                            <p className="text-xs font-MontBold text-white mb-4">Enter your mail</p>
 
-                            <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                <IoSearch
-                                    color="white"
-                                    size={18}
-                                />
-                                <input
-                                    placeholder='Your mail'
-                                    type="email"
-                                    className="control-input-S" />
-                            </div>
+
+                    <div className='w-full mt-[1rem]'>
+                        <p className="text-xs font-MontBold text-white mb-4">Enter your mail</p>
+
+                        <div className="control-container-S mt-3 mb-1" id='cPar'>
+                            <IoMail
+                                color="white"
+                                size={18}
+                            />
+                            <input
+                                placeholder='Your mail'
+                                type="email"
+                                className="control-input-S" />
                         </div>
                     </div>
 
@@ -118,13 +120,13 @@ const Footer = () => {
                 <button
                     // onClick={handleLog}
                     className="bg-violet-600 flex row items-center justify-center gap-1 w-fit  mx-auto mt-[2rem]
-                                hover:bg-transparent hover: border hover: border-violet-600 hover:text-white animate-pulse
-                                focus:outline-none
-                                text-sm font-MontSemiBold
-                                focus:ring-2
-                                focus:ring-gray-500
-                                    py-1 text-white px-[2rem]
-                                    rounded-lg">
+                        hover:bg-transparent hover: border hover: border-violet-600 hover:text-white animate-pulse
+                        focus:outline-none
+                        text-sm font-MontSemiBold
+                        focus:ring-2
+                        focus:ring-gray-500
+                            py-1 text-white px-[2rem]
+                            rounded-lg">
                     <p className='mr-[.5rem]'>Send message</p>
                     <IoSend
                         // color="white"
@@ -132,7 +134,7 @@ const Footer = () => {
                     />
                 </button>
             </div>
-            <div className="flex justify-between gap-[1rem] px-[1rem] mt-[5rem] max-[600px]:flex-wrap">
+            <div className="flex max-w-[1300px] mx-auto justify-between gap-[1rem] px-[1rem] mt-[5rem] max-[600px]:flex-wrap">
                 <div className="gap-[1rem]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Fullio</p>
                     <p className="text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.

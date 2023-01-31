@@ -3,10 +3,10 @@ import { IoArrowDown, IoArrowUp, IoBusiness } from 'react-icons/io5'
 import Accordion from '../components/Accordion'
 import "../styles/FAQ.scss"
 
-import { motion } from "framer-motion"
 import { RootUserContext } from '../contexts'
 import { FaqsAPI } from '../APIs/FaqsAPI'
 
+import { motion } from "framer-motion"
 
 const containerVariants = {
 

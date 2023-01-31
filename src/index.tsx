@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RootNFTContextProvider, RootUserContextProvider } from './contexts';
 import ScrollToTop from './components/ScrollToTop';
 import Initializer from './Initializer';
+import ScrollToTopBtn from './components/ScrollToTopBtn';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
         <RootUserContextProvider>
           <RootNFTContextProvider>
             <ScrollToTop />
+            {/* <ScrollToTopBtn /> */}
             <App />
           </RootNFTContextProvider>
         </RootUserContextProvider>

@@ -33,12 +33,13 @@ import User9 from "../imgs/users/image9.png";
 import User10 from "../imgs/users/image10.png";
 
 import NFTItem from '../components/NFTItem';
-import { RiNotificationBadgeFill } from "react-icons/ri";
+import { RiNotificationBadgeFill, RiShoppingBasket2Line } from "react-icons/ri";
 
 
 import { motion } from "framer-motion"
 import { CategoriesTrending, NftTypesValues, Owner, RootNftContext, SaleHistory } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
+import { Link } from 'react-router-dom';
 
 
 const containerVariants = {
@@ -278,34 +279,47 @@ const ContainerPrincipal = () => {
             <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
                 {/* <img src={ImContainer} className="object-cover" alt="Imgs" /> */}
                 <div className="container-img-content">
-                    <p className="text-4xl text-slate-50 font-MontBold">Page Products <span className="block mt-2">NFTs marketplace</span></p>
-                    <div className="flex gap-4 mt-2">
-                        <button className="bg-violet-500
-                            hover:bg-violet-600
-                            active:bg-violet-700 
-                            focus:outline-none  shadow-md
-                            focus:ring-2 text-md
-                            focus:ring-violet-300
-                                py-2 text-white px-5
-                                rounded-2xl mt-5">
-                            Create your own one
-                        </button>
+                    <p className="text-[3rem] text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Page Products
+                        <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
+                    <div className="mx-auto">
+                        <Link to={"/createNFt"}>
+                            <button
+                                // onClick={handleLog}
+                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                            hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
+                            focus:outline-none
+                            text-sm font-MontSemiBold
+                            focus:ring-2
+                            focus:ring-gray-500 mt-5
+                                py-1 text-white px-3
+                                rounded-lg">
+                                <RiShoppingBasket2Line
+                                    // color="white"
+                                    size={17}
+                                /> <p>Create your own one </p>
+                            </button></Link>
                     </div>
                 </div>
             </div>
 
             <div className="w-full mt-10">
                 <div className="mb-3">
-                    <h2 className="text-xl font-MontSemiBold text-white">Trending Auctions</h2>
+                    <h2 className="text-[1.8rem] font-MontBold text-white">Trending Auctions</h2>
                     <div className="flex mt-2 gap-4 row align-center">
                         <div className="flex mt-2 gap-4 row">
-                            <button className="customButtonFilterD">On sale</button>
-                            <button className="customButtonFilterTransparent">On sale</button>
-                            <button className="customButtonFilterTransparent">On sale</button>
-                            <button className="customButtonFilterTransparent">On sale</button>
-                            <button className="customButtonFilterTransparent">On sale</button>
+                            <button className="p-[1rem] rounded-md 
+                                    shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
+                            <button className="p-[1rem] rounded-md 
+                                            shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
+                            <button className="p-[1rem] rounded-md 
+                                                    shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
+
+                            <button className="p-[1rem] rounded-md 
+                                    shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
                         </div>
-                        <button className="customButtonFilterD">
+                        <button className="p-[1rem] rounded-md 
+                                            shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem]
+                                             hover:bg-indigo-500 flex justify-evenly gap-2 items-center text-sm">
                             <IoFilter
                                 color="white"
                                 size={15}

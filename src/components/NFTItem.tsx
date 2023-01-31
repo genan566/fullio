@@ -12,7 +12,6 @@ const NFTItem = ({ image, categories_trending, creator, rebirth, data }: {
     categories_trending: CategoriesTrending[], creator?: string, rebirth?: string, data?: NftTypesValues
 }) => {
     const nFTContext = React.useContext(RootNftContext)
-    // console.log("Data getted", data)
 
     return (
         <Link
@@ -25,9 +24,9 @@ const NFTItem = ({ image, categories_trending, creator, rebirth, data }: {
                 className="
                     h-96 
                     NFTS
-                    bg-white 
+                    bg-slate-900 
                     bg-cover"
-                style={{ backgroundImage: `url(${image || CustomIMG})`, width: "100%" }}>
+                style={{ backgroundImage: `url(${image})`, width: "100%" }}>
                 <div className="NFTS-details">
                     <p className="text-slate-300 text-md font-MontBold mt-4">{rebirth || "Non défini"}</p>
                     <div className="currentDataBox mt-2">

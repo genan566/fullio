@@ -90,7 +90,7 @@ const HomeView = () => {
                         libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
                 </div>
 
-                <div className="px-[1vw] mt-[3rem] flex flex-wrap gap-[1rem] gap-y-[3rem] justify-start">
+                <div className="px-[1vw] mt-[3rem] flex flex-wrap gap-[1rem] gap-y-[3rem] justify-evenly">
                     <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img
@@ -245,7 +245,7 @@ const HomeView = () => {
                                         <div className='point'></div>Best Popular</div>
                                 </div>
 
-                                <h2 className="text-[2rem] font-MontRegular text-white mt-[1rem]">Missing Puzzle</h2>
+                                <h2 className="text-[2rem] font-MontSemiBold text-white mt-[1rem]">Missing Puzzle</h2>
 
                                 <p className="text-center text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                     Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae

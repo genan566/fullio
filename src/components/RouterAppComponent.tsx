@@ -11,6 +11,8 @@ import { AnimatePresence } from 'framer-motion';
 import DetailNft from '../pages/DetailNft'
 import HomeView from '../pages/HomeView'
 import Footer from './Footer'
+import ManageNFTs from '../pages/ManageNFTs'
+import CreateNFt from '../pages/CreateNFt'
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
     { isOpen: boolean, isOpenUser: boolean, controlSearch: () => void }) => {
@@ -60,6 +62,8 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     <Route path="*" element={<Page404 />} />
                     <Route path="/settings" element={<PageSettings />} />
                     <Route path="/detailNFT" element={<DetailNft />} />
+                    <Route path="/manageNFTs" element={<ManageNFTs />} />
+                    <Route path="/createNFt" element={<CreateNFt />} />
                     {/* <Route path="/virtualVisit" element={<VirtualVisit />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
