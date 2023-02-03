@@ -44,9 +44,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className=" mt-[7rem] bg-slate-800 w-fit mx-auto p-[3rem] rounded-xl shadow-2xl">
-                <div className="px-[1.5vw] max-w-[1100px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                        after:absolute after:top-0 after:left-0 after:bg-white relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%]">
+                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%]">
                         Send us a mail
                     </h2>
 
@@ -54,7 +54,7 @@ const Footer = () => {
                         adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                         libero fugiat! Itaque.</p>
                 </div>
-                <div className="px-[1.5vw] max-w-[1100px] mx-auto">
+                <div className="px-[1.5vw] max-w-[900px] mx-auto">
 
                     <div className=" mt-[1rem] flex justify-center items-center gap-[1rem] max-[600px]:flex-wrap">
                         <div className='w-full'>

@@ -40,6 +40,7 @@ import { motion } from "framer-motion"
 import { CategoriesTrending, NftTypesValues, Owner, RootNftContext, SaleHistory } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { Link } from 'react-router-dom';
+import CardNFT from '../components/CardNFT';
 
 
 const containerVariants = {
@@ -66,7 +67,7 @@ interface NftsInterface {
     title: string,
     id: number,
     description: string,
-    owner: Owner,
+    owner: number,
     image: string,
     price: string | number,
     created_at: string,
@@ -267,6 +268,11 @@ const ContainerPrincipal = () => {
         respFaqs.get_all_nfts().then(data => setnftsData(data))
     }, [])
 
+
+    React.useEffect(() => {
+        console.log(nftsData)
+    }, [nftsData])
+
     return (
         // <div style={{ position: "relative" }}>
 
@@ -331,9 +337,8 @@ const ContainerPrincipal = () => {
                         nftsData.map(item => {
                             let sendedData: NftTypesValues = {
                                 title: item.title,
-                                owner_pic: item.owner.image,
                                 description: item.description,
-                                owner_name: item.owner.email,
+                                owner_id: item.owner,
                                 image: item.image,
                                 price: item.price,
                                 categories_trending: item.categories_trending,
@@ -341,14 +346,16 @@ const ContainerPrincipal = () => {
                             }
                             return (
                                 <>
-                                    <NFTItem
+                                    <CardNFT
                                         data={sendedData}
                                         rebirth={item.title}
+                                        owner={item.owner}
                                         key={item.id}
                                         image={item.image}
+                                        link={true}
                                         categories_trending={item.categories_trending}
                                         sales_history={item.sales_history}
-                                        creator={item.owner.image} />
+                                    />
                                 </>
                             )
                         })

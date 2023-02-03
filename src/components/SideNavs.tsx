@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { IoClose, IoBusiness, IoSettings, IoInfinite, IoLogOut, IoLogIn, IoMenu, IoHome } from "react-icons/io5";
+import { IoClose, IoBusiness, IoSettings, IoInfinite, IoLogOut, IoLogIn, IoMenu, IoHome, IoMedkit, IoInformation, IoAtCircleOutline } from "react-icons/io5";
+import { BsCollection } from "react-icons/bs";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
 
 import NFT from "../imgs/nft.png";
 
@@ -51,7 +53,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 {
                     isOpen && <>
 
-                        <p className="text-md font-MontBold text-white mb-4">FULLIO</p>
+                        <p className="text-md font-MontBold text-white">FULLIO</p>
                     </>
                 }
 
@@ -79,7 +81,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 <Link
                     to={"/manageNFTs"}
                     onClick={() => setIsActive("/manageNFTs")} className={isActive === "/manageNFTs" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
-                    <GiVirtualMarker
+                    <MdOutlineDashboardCustomize
                         color={isActive === "/manageNFTs" ? "black" : "white"}
                         size={18}
                     />
@@ -118,6 +120,8 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
 
 
 
+
+
                 <Link
                     to={"/settings"}
                     onClick={() => setIsActive("Paramètres")} className={isActive === "Paramètres" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
@@ -127,6 +131,30 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                     />
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Paramètres</span>
                 </Link>
+
+
+
+
+                {/* <Link
+                    to={"/collectionsPage"}
+                    onClick={() => setIsActive("/collectionsPage")} className={isActive === "/collectionsPage" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    <BsCollection
+                        color={isActive === "/collectionsPage" ? "black" : "white"}
+                        size={18}
+                    />
+                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Collections</span>
+                </Link> */}
+
+                <Link
+                    to={"/aboutPage"}
+                    onClick={() => setIsActive("/aboutPage")} className={isActive === "/aboutPage" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    <IoAtCircleOutline
+                        color={isActive === "/aboutPage" ? "black" : "white"}
+                        size={18}
+                    />
+                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>About Us</span>
+                </Link>
+                
             </div>
 
             {

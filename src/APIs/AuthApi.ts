@@ -29,10 +29,33 @@ export class AuthAPI {
 
     }
 
-    async retrive_account(token: string) {
+    async retrive_me__account(token: string) {
         if (token) {
             return fetch(
                 api_url('user/mee/'),
+                {
+                    method: "GET",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    }
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on retrieve", er))
+
+        }
+
+    }
+
+    async retrive_account(token: string, id: number) {
+        if (token) {
+            return fetch(
+                api_url('user/retrieve/' + id.toString()),
                 {
                     method: "GET",
                     headers: {

@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { CategoriesTrending, NftTypesValues, RootNftContext, SaleHistory } from '../contexts';
 
 const NFTItem = ({ image, categories_trending, creator, rebirth, data }: {
-    image?: string, sales_history: SaleHistory[],
-    categories_trending: CategoriesTrending[], creator?: string, rebirth?: string, data?: NftTypesValues
+    image?: string, sales_history?: SaleHistory[],
+    categories_trending?: CategoriesTrending[], creator?: string, rebirth?: string, data?: NftTypesValues
 }) => {
     const nFTContext = React.useContext(RootNftContext)
 
@@ -22,7 +22,7 @@ const NFTItem = ({ image, categories_trending, creator, rebirth, data }: {
             to={"/detailNFT"}>
             <div
                 className="
-                    h-96 
+                    h-96 shadow-2xl
                     NFTS
                     bg-slate-900 
                     bg-cover"

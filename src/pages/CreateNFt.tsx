@@ -1,10 +1,12 @@
 import React from 'react'
-import { IoArrowBack, IoArrowForward, IoFileTray, IoFilter, IoRemove, IoSend, IoTrash } from 'react-icons/io5'
+import { IoArrowBack, IoFileTray, IoTrash } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
-import CardNFT1 from '../components/CardNFT1'
-
+import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion"
+import AnimatedMulti from '../components/CustomMultiSelect';
+import { RootUserContext, RootUserTokenContext } from '../contexts';
+import { NftsAPI } from '../APIs/NftsAPI';
 
 const containerVariants = {
 
@@ -24,16 +26,72 @@ const containerVariants = {
         transition: { ease: 'easeInOut' },
     }
 };
+
+type Inputs = {
+    title: string,
+    price: string,
+    description: string,
+    image: File
+};
+
+type FileInterface = {
+    asPreview: string,
+    file: File,
+};
+
+
 const CreateNFt = () => {
-    const [file, setFile] = React.useState<string | undefined>(undefined);
+    const userContext = React.useContext(RootUserContext)
+    const userTokenContext = React.useContext(RootUserTokenContext)
+    const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
+    const [id, setId] = React.useState(0);
+
     function handleChange(e: any) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
+        console.log(e.target.files[0]);
+        setFile({
+            asPreview: URL.createObjectURL(e.target.files[0]),
+            file: e.target.files[0],
+        });
     }
 
     React.useEffect(() => {
         console.log("FileSSSSSSSSSSSSSSSS", file)
     }, [file])
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        console.log(data)
+
+        if (file.file && userContext?.user?.id && (id !== 0)) {
+
+            let respFaqs = new NftsAPI()
+
+
+            respFaqs.create_nfts(
+                {
+                    title: data.title,
+                    owner: id,
+                    sales_history: [1],
+                    categories_trending: [1],
+                    price: data.price,
+                    description: data.description,
+                }
+                , userTokenContext.token)
+                .then(data => {
+                    if (data.id) {
+                        respFaqs.upload_image_to_nft(data.id, { image: file.file, }, userTokenContext.token)
+                            .then((re) => console.log("laisse",re))
+                            .catch(err => console.log("error2", err))
+                    }
+                })
+                .catch(err => console.log("error", err))
+        }
+    };
+    React.useEffect(() => {
+        if (userContext?.user?.id) setId(userContext?.user?.id)
+    }, [userContext])
+
     return (
         <motion.div
             variants={containerVariants}
@@ -72,123 +130,135 @@ const CreateNFt = () => {
             {/* <p className="text-[1.5rem] text-slate-50 font-MontBold text-center w-full mt-[2rem]">Creation Form
                 </p> */}
             <div className="flex gap-2 mt-[5rem] justify-center flex-wrap">
-                <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
-                rounded-lg min-w-[280px] bg-zinc-800 shadow-md flex items-center justify-center">
-                    {
-                        !file && <h2 className="text-white text-[1.5rem] font-MontSemiBold">
-                            Please uplaod image
-                        </h2>
-                    }
-                    {
-                        !file && (
-                            <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
+
+                <form action="" onSubmit={handleSubmit(onSubmit)}>
+                    <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
+                            rounded-lg min-w-[280px] bg-zinc-800 shadow-md flex items-center justify-center">
+                        {
+                            !file.asPreview && <h2 className="text-white text-[1.5rem] font-MontSemiBold">
+                                Please uplaod image
+                            </h2>
+                        }
+                        {
+                            !file.asPreview && (
+                                <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-4 bg-slate-900 shadow-lg">
-                                <IoFileTray
-                                    // color="white"
-                                    size={17}
-                                />
-                                <input type="file" onChange={handleChange} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
-                            </button>
-                        )
-                    }
-                    {
-                        file && (
-                            <button
-                                onClick={() => setFile("")}
-                                className="absolute top-5 active:bg-red-700 right-5 z-[2]
+                                    <IoFileTray
+                                        // color="white"
+                                        size={17}
+                                    />
+                                    <input type="file"
+                                        onChange={handleChange}
+                                        // {...register("title", { required: true })}
+                                        className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
+                                </button>
+                            )
+                        }
+                        {
+                            file.asPreview && (
+                                <button
+                                    onClick={() => setFile({} as any)}
+                                    className="absolute top-5 active:bg-red-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-4 bg-red-900 shadow-lg">
-                                <IoTrash
-                                    // color="white"
-                                    size={17}
-                                />
-                                {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
-                            </button>
-                        )
-                    }
-                    {
-                        file && (
+                                    <IoTrash
+                                        // color="white"
+                                        size={17}
+                                    />
+                                    {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
+                                </button>
+                            )
+                        }
+                        {
+                            file.asPreview && (
 
-                            <img
-                                className="h-full w-full absolute inset-0 z-[1] object-cover "
-                                src={file}
-                                alt="user Profile" />
-                        )
-                    }
-                </figure>
+                                <img
+                                    className="h-full w-full absolute inset-0 z-[1] object-cover "
+                                    src={file.asPreview}
+                                    alt="user Profile" />
+                            )
+                        }
+                    </figure>
 
-                <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
-                    <div className="px-[1.5vw] max-w-[600px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
-                        <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                after:absolute after:top-0 after:left-0 after:bg-white relative text-[1.7rem] leading-[2.5rem] py-4 w-[50%]">
-                            Create your NFT by entering these informations
-                        </h2>
+                    <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
+                        <div className="px-[1.5vw] max-w-[600px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                            <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
+                            after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.7rem] leading-[2.5rem] py-4 w-[50%]">
+                                Create your NFT by entering these informations
+                            </h2>
 
-                        <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit amet consectetur neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
-                            libero fugiat! Itaque.</p>
-                    </div>
-                    <div className="px-[1.5vw] max-w-[600px] mx-auto">
+                            <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit
+                                amet consectetur neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
+                                libero fugiat! Itaque.</p>
+                        </div>
+                        <div className="px-[1.5vw] max-w-[600px] mx-auto">
 
-                        <div className=" mt-[1rem] flex justify-center items-stretch gap-[1rem] max-[600px]:flex-wrap">
-                            <div className='w-full'>
-                                <p className="text-xs font-MontBold text-white mb-4">Enter a title for your Nfts</p>
+                            <div className=" mt-[1rem] flex justify-center items-stretch gap-[1rem] max-[600px]:flex-wrap">
+                                <div className='w-full'>
+                                    <p className="text-xs font-MontBold text-white mb-4">Enter a title for your Nfts</p>
 
-                                <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                    {/* <IoPerson
-                                    color="white"
-                                    size={18}
-                                /> */}
-                                    <input
-                                        placeholder='title NFT'
-                                        type="text"
-                                        className="control-input-S" />
+                                    <div className="control-container-S mt-3 mb-1" id='cPar'>
+                                        {/* <IoPerson
+                                                color="white"
+                                                size={18}
+                                            /> */}
+                                        <input
+                                            placeholder='title NFT'
+                                            type="text"
+                                            className="control-input-S" {...register("title", { required: true })} />
+                                    </div>
+                                    {errors.title && <span>This field is required</span>}
+                                </div>
+
+                                <div className='w-full'>
+                                    <p className="text-xs font-MontBold text-white mb-4">Enter any price to your NFT</p>
+
+                                    <div className="control-container-S mt-3 mb-1" id='cPar'>
+                                        {/* <IoPerson
+                                            color="white"
+                                            size={18}
+                                        /> */}
+                                        <input
+                                            placeholder='Price ex: 50.00'
+                                            type="number"
+                                            className="control-input-S" {...register("price", { required: true })} />
+                                    </div>
+                                    {errors.price && <span>This field is required</span>}
                                 </div>
                             </div>
 
-                            <div className='w-full'>
-                                <p className="text-xs font-MontBold text-white mb-4">Enter any price to your NFT</p>
+                            <div className='w-full mt-[1rem]'>
+                                <p className="text-xs font-MontBold text-white mb-4">Enter any description for your NFT</p>
 
-                                <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                    {/* <IoPerson
-                                    color="white"
-                                    size={18}
-                                /> */}
-                                    <input
-                                        placeholder='Price ex: 50.00'
-                                        type="number"
-                                        className="control-input-S" />
+                                <div className="control-container-S sB mt-3 mb-1" id='cPar'>
+                                    <textarea
+                                        placeholder='Description'
+                                        rows={8}
+                                        className="control-input-S" {...register("description", { required: true })} />
                                 </div>
+                                {errors.description && <span>This field is required</span>}
                             </div>
                         </div>
 
-                        <div className='w-full mt-[1rem]'>
-                            <p className="text-xs font-MontBold text-white mb-4">Enter any description for your NFT</p>
+                        <AnimatedMulti />
 
-                            <div className="control-container-S sB mt-3 mb-1" id='cPar'>
-                                <textarea
-                                    placeholder='Description'
-                                    rows={8}
-                                    className="control-input-S" />
-                            </div>
-                        </div>
+                        <button
+                            type='submit'
+                            className="bg-violet-600 flex row items-center justify-center gap-1 w-fit  mx-auto mt-[2rem]
+                                hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
+                                focus:outline-none
+                                text-sm font-MontSemiBold
+                                focus:ring-2
+                                focus:ring-gray-500
+                                    py-1 text-white px-[2rem]
+                                    rounded-lg">
+                            <p className='mr-[.5rem]'>Send for create</p>
+                            <RiShoppingBasket2Line
+                                // color="white"
+                                size={17}
+                            />
+                        </button>
                     </div>
-
-                    <button
-                        // onClick={handleLog}
-                        className="bg-violet-600 flex row items-center justify-center gap-1 w-fit  mx-auto mt-[2rem]
-                            hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
-                            focus:outline-none
-                            text-sm font-MontSemiBold
-                            focus:ring-2
-                            focus:ring-gray-500
-                                py-1 text-white px-[2rem]
-                                rounded-lg">
-                        <p className='mr-[.5rem]'>Send for create</p>
-                        <RiShoppingBasket2Line
-                            // color="white"
-                            size={17}
-                        />
-                    </button>
-                </div>
+                </form>
             </div>
         </motion.div>
     )

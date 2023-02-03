@@ -47,7 +47,7 @@ function App() {
       let token = userTokenContext.token
 
       respAuth
-        .retrive_account(token)
+        .retrive_me__account(token)
         .then(res => {
           if (res.id) {
             userContext?.setUser(res)

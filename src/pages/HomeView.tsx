@@ -76,7 +76,7 @@ const HomeView = () => {
                 </div>
             </div>
 
-            <div className="homeView-products">
+            <div className="homeView-products px-[4rem]">
 
 
                 <div className="px-[1.5vw] flex flex-row justify-center gap-[1rem] items-center flex-wrap">
@@ -90,7 +90,7 @@ const HomeView = () => {
                         libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
                 </div>
 
-                <div className="px-[1vw] mt-[3rem] flex flex-wrap gap-[1rem] gap-y-[3rem] justify-evenly">
+                <div className="px-[1vw] mt-[5rem] flex flex-wrap gap-[3rem] gap-y-[3rem] justify-center">
                     <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img

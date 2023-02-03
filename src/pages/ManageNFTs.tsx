@@ -3,8 +3,10 @@ import { IoArrowForward, IoFilter } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import CardNFT1 from '../components/CardNFT1'
+import NFT11 from "../imgs/istockphoto.jpg";
 
 import { motion } from "framer-motion"
+import CardNFT from '../components/CardNFT'
 
 const containerVariants = {
 
@@ -83,10 +85,9 @@ const ManageNFTs = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
-
-                    <CardNFT1 />
-                    <CardNFT1 />
-                    <CardNFT1 />
+                    <CardNFT image={NFT11} />
+                    <CardNFT image={NFT11} />
+                    <CardNFT image={NFT11} />
                 </div>
 
                 <div className="mb-3 mt-[5rem]">
@@ -124,9 +125,14 @@ const ManageNFTs = () => {
 
                 <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
 
+                    {/* <CardNFT1 />
                     <CardNFT1 />
-                    <CardNFT1 />
-                    <CardNFT1 />
+                    <CardNFT1 /> */}
+
+                    <CardNFT image={NFT11} />
+                    <CardNFT image={NFT11} />
+                    <CardNFT image={NFT11} />
+
                 </div>
             </div>
 
