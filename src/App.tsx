@@ -46,13 +46,14 @@ function App() {
     if (userTokenContext.token !== "") {
       let token = userTokenContext.token
 
+      console.log("token retrieved", token)
       respAuth
         .retrive_me__account(token)
         .then(res => {
           if (res.id) {
             userContext?.setUser(res)
-            localStorage.setItem('userToken', JSON.stringify(userTokenContext.token));
-            localStorage.setItem('dataUser', JSON.stringify(res));
+            localStorage.setItem('userToken', userTokenContext.token);
+            // localStorage.setItem('dataUser', JSON.stringify(res));
             setIsShownModalsSignIn(false)
           }
         })
@@ -80,23 +81,23 @@ function App() {
       }
 
       userContext?.setUser(dataStructured)
-      localStorage.setItem('dataUser', JSON.stringify(dataStructured));
+      // localStorage.setItem('dataUser', JSON.stringify(dataStructured));
     }
 
     setIsShownModalsSignIn(false)
 
   }
 
-  React.useEffect(() => {
-    let items = localStorage.getItem('dataUser') || "";
-    if (items) {
-      let decoder = JSON.parse(items);
-      console.log("allo", decoder)
-      userContext?.setUser(decoder)
-    }
+  // React.useEffect(() => {
+  //   let items = localStorage.getItem('dataUser') || "";
+  //   if (items) {
+  //     let decoder = JSON.parse(items);
+  //     console.log("allo", decoder)
+  //     userContext?.setUser(decoder)
+  //   }
 
-    // localStorage.setItem('dataKey', JSON.stringify(dataStructured));
-  }, [])
+  //   // localStorage.setItem('dataKey', JSON.stringify(dataStructured));
+  // }, [])
 
   React.useEffect(() => {
     let checker = userContext?.user === null
@@ -127,7 +128,7 @@ function App() {
 
       <div className="App">
         <div className='holdUp'>
-          <RootModals          
+          <RootModals
             isShownModalsFirstSignIn={isShownModalsFirstSignIn}
             navLogin={() => {
               setIsShownModalsFirstSignIn(false)

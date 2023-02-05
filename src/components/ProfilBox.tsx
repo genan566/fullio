@@ -9,6 +9,10 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
 
     const userContext = React.useContext(RootUserContext)
 
+    React.useEffect(() => {
+        console.log("userContext", userContext)
+    }, [])
+
     return (
         <div className="custom-w-d px-1">
 
@@ -30,7 +34,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
             <figure className="userProf">
 
                 {
-                    userContext?.user ? <>
+                    userContext?.user.id ? <>
 
                         <img
                             className="rounded-full object-cover"
@@ -49,14 +53,14 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
             <div className="mt-3" style={{ textAlign: 'center' }}>
 
                 {
-                    !userContext?.user && <>
+                    !userContext?.user.id && <>
                         <p className="text-slate-500 font-MontRegular text-sxl align-center my-5">Nothing to show now</p>
                     </>
                 }
 
 
                 {
-                    !userContext?.user &&
+                    !userContext?.user.id &&
                     <button
                         onClick={handleLog}
                         className="bg-violet-500
@@ -74,14 +78,14 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
 
 
                 {
-                    !userContext?.user && <>
+                    !userContext?.user.id && <>
                         <p className="text-slate-400 font-MontSemiBold text-sm mt-12">Recent Activity</p>
                         <p className="text-slate-500 font-MontRegular text-sxl align-center my-5">Nothing to show now</p>
                     </>
                 }
 
                 {
-                    userContext?.user && <>
+                    userContext?.user.id && <>
 
                         <h3 className="text-xl font-MontBold text-slate-200">{userContext?.user?.name}</h3>
                         <div className="flex mt-3 gap-2 align-center"

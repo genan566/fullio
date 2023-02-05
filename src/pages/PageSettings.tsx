@@ -59,7 +59,7 @@ const PageSettings = () => {
             alt="{user.handle}" /> */}
 
                             {
-                                userContext?.user ? <>
+                                userContext?.user.id ? <>
 
                                     <img
                                         className="h-20 w-20 rounded-full object-cover shadow-lg"

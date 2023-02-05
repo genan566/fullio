@@ -21,7 +21,7 @@ const RightNavBox = ({ userContext, isOpenUser, toggleIsOpenUser, handleLog, han
                     } */}
 
                     {
-                        userContext?.user ? <>
+                        userContext?.user.id ? <>
 
                             <img
                                 className="rounded-full object-cover"

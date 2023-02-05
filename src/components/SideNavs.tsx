@@ -83,7 +83,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 </Link>
 
                 {
-                    userContext.user.is_staff && <Link
+                    userContext.user?.is_staff && <Link
                         to={"/manageNFTs"}
                         onClick={() => setIsActive("/manageNFTs")} className={((isActive === "/manageNFTs") || (isActive === "/createNFt")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                         <MdOutlineDashboardCustomize
