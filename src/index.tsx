@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { RootNFTContextProvider, RootUserContextProvider } from './contexts';
+import { RootCreatorProvider, RootNFTContextProvider, RootUserContextProvider } from './contexts';
 import ScrollToTop from './components/ScrollToTop';
 import Initializer from './Initializer';
 import ScrollToTopBtn from './components/ScrollToTopBtn';
@@ -16,13 +16,15 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Initializer>
-        <RootUserContextProvider>
-          <RootNFTContextProvider>
-            <ScrollToTop />
-            {/* <ScrollToTopBtn /> */}
-            <App />
-          </RootNFTContextProvider>
-        </RootUserContextProvider>
+        <RootCreatorProvider>
+          <RootUserContextProvider>
+            <RootNFTContextProvider>
+              <ScrollToTop />
+              {/* <ScrollToTopBtn /> */}
+              <App />
+            </RootNFTContextProvider>
+          </RootUserContextProvider>
+        </RootCreatorProvider>
       </Initializer>
     </BrowserRouter>
   </React.StrictMode>

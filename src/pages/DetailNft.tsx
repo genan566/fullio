@@ -39,6 +39,8 @@ interface UserRetrieveInterface {
     email: string,
     pseudo: string,
     name: string,
+    is_staff: boolean,
+    is_superuser: boolean,
     image: string | null,
 }
 
@@ -65,6 +67,8 @@ const DetailNft = () => {
                             email: res.email,
                             name: res.name,
                             pseudo: res.pseudo,
+                            is_superuser: res.is_superuser,
+                            is_staff: res.is_staff,
                             image: routeAPIBaseImage + res.image.toString(),
                         }
                         setuserRetrieveData(formatedData)

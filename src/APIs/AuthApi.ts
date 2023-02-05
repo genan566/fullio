@@ -74,4 +74,28 @@ export class AuthAPI {
         }
 
     }
+
+    async retrive_account_update(token: string, id: number, data: any) {
+        if (token) {
+            return fetch(
+                api_url('user/retrieve/' + id.toString()),
+                {
+                    method: "PATCH",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: JSON.stringify(data)
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on retrieve", er))
+
+        }
+
+    }
 }

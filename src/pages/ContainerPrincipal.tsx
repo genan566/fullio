@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IoFilter, IoSearch, IoPerson, IoPawSharp } from "react-icons/io5";
+import { IoFilter, IoSearch, IoPerson, IoPawSharp, IoArrowBack, IoArrowForward } from "react-icons/io5";
 import NFT from "../imgs/nftsImgs/unnamed5.jpg";
 import NFT2 from "../imgs/nftsImgs/unnamed.jpg";
 import NFT3 from "../imgs/nftsImgs/unnamed3.jpg";
@@ -37,10 +37,12 @@ import { RiNotificationBadgeFill, RiShoppingBasket2Line } from "react-icons/ri";
 
 
 import { motion } from "framer-motion"
-import { CategoriesTrending, NftTypesValues, Owner, RootNftContext, SaleHistory } from '../contexts';
+import { CategoriesTrending, NftTypesValues, Owner, RootCreatorContext, RootNftContext, RootUserContext, SaleHistory } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
+import ModalsOnSearch from '../components/modals/ModalsOnSearch';
+import ModalForUserNotStaff from '../components/modals/ModalForUserNotStaff';
 
 
 const containerVariants = {
@@ -75,9 +77,32 @@ interface NftsInterface {
     categories_trending: CategoriesTrending[],
 }
 
+interface PaginatedData {
+    results: NftsInterface[],
+    count: number,
+    next: string,
+    previous: string,
+}
+
 
 const ContainerPrincipal = () => {
-    const [nftsData, setnftsData] = React.useState<NftsInterface[]>([])
+    const userContext = React.useContext(RootUserContext)
+    const creatorContext = React.useContext(RootCreatorContext)
+    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [castedCount, setCastedCount] = React.useState<number[]>([])
+    const [activePage, setActivePage] = React.useState(1)
+    const [requestToStaff, setRequestToStaff] = React.useState(false)
+
+    const history = useNavigate()
+
+
+    const callingTheNestedData = (index: number) => {
+        let respFaqs = new NftsAPI()
+        // window.scrollY = 1000
+        window.scrollTo(0, 200)
+        setActivePage(index)
+        respFaqs.get_all_nfts(index).then(data => setnftsData(data))
+    }
 
 
     const data = [
@@ -262,7 +287,6 @@ const ContainerPrincipal = () => {
     ]
 
     React.useEffect(() => {
-
         let respFaqs = new NftsAPI()
         // let token = userTokenContext.token
         respFaqs.get_all_nfts().then(data => setnftsData(data))
@@ -273,11 +297,30 @@ const ContainerPrincipal = () => {
         console.log(nftsData)
     }, [nftsData])
 
+
+    React.useEffect(() => {
+        if (nftsData.count) {
+            let calculatedNumbersPage = parseInt(((nftsData.count) / 10).toFixed(0))
+            let check_Can_add_Or_Not = (calculatedNumbersPage * 10) >= nftsData.count
+            // console.log(check_Can_add_Or_Not)
+            // console.log(nftsData.count)
+
+            if (check_Can_add_Or_Not) {
+                setCastedCount(Array.from(Array(calculatedNumbersPage).keys()).map(i => i + 1))
+            } else {
+                setCastedCount(Array.from(Array((calculatedNumbersPage + 1)).keys()).map(i => i + 1))
+            }
+
+            // setCastedCount(Array.from(Array().keys()).map(i => i + 1))
+        }
+    }, [nftsData.count])
+
     return (
         // <div style={{ position: "relative" }}>
 
 
         <motion.div
+            className='relative'
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -288,22 +331,28 @@ const ContainerPrincipal = () => {
                     <p className="text-[3rem] text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Page Products
                         <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
                     <div className="mx-auto">
-                        <Link to={"/createNFt"}>
-                            <button
-                                // onClick={handleLog}
-                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
-                            hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
-                            focus:outline-none
-                            text-sm font-MontSemiBold
-                            focus:ring-2
-                            focus:ring-gray-500 mt-5
-                                py-1 text-white px-3
-                                rounded-lg">
-                                <RiShoppingBasket2Line
-                                    // color="white"
-                                    size={17}
-                                /> <p>Create your own one </p>
-                            </button></Link>
+                        {/* <Link to={"/createNFt"}> */}
+                        <button
+                            onClick={() => {
+                                !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                userContext?.user?.is_staff && history("/createNFt")
+
+                                // creatorContext?.setisCreator(true)
+                            }}
+                            className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                                        hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
+                                        focus:outline-none
+                                        text-sm font-MontSemiBold
+                                        focus:ring-2
+                                        focus:ring-gray-500 mt-5
+                                            py-1 text-white px-3
+                                            rounded-lg">
+                            <RiShoppingBasket2Line
+                                // color="white"
+                                size={17}
+                            /> <p>Create your own one </p>
+                        </button>
+                        {/* </Link> */}
                     </div>
                 </div>
             </div>
@@ -334,38 +383,44 @@ const ContainerPrincipal = () => {
                 </div>
                 <div className="flex gap-5 mt-10 align-center pb-10 flex-wrap">
                     {
-                        nftsData.map(item => {
-                            let sendedData: NftTypesValues = {
-                                title: item.title,
-                                description: item.description,
-                                owner_id: item.owner,
-                                image: item.image,
-                                price: item.price,
-                                categories_trending: item.categories_trending,
-                                sales_history: item.sales_history,
+                        nftsData.results && <>
+                            {
+                                nftsData.results.map(item => {
+                                    let sendedData: NftTypesValues = {
+                                        title: item.title,
+                                        description: item.description,
+                                        owner_id: item.owner,
+                                        image: item.image,
+                                        price: item.price,
+                                        categories_trending: item.categories_trending,
+                                        sales_history: item.sales_history,
+                                    }
+                                    return (
+                                        <>
+                                            <CardNFT
+                                                data={sendedData}
+                                                rebirth={item.title}
+                                                owner={item.owner}
+                                                key={item.id}
+                                                image={item.image}
+                                                link={true}
+                                                categories_trending={item.categories_trending}
+                                                sales_history={item.sales_history}
+                                            />
+                                        </>
+                                    )
+                                })
                             }
-                            return (
-                                <>
-                                    <CardNFT
-                                        data={sendedData}
-                                        rebirth={item.title}
-                                        owner={item.owner}
-                                        key={item.id}
-                                        image={item.image}
-                                        link={true}
-                                        categories_trending={item.categories_trending}
-                                        sales_history={item.sales_history}
-                                    />
-                                </>
-                            )
-                        })
+                        </>
                     }
 
                     {
-                        nftsData.length === 0 && <div className="text-center w-full">
+                        ((!nftsData.results)) && <div className="text-center w-full">
                             <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
                         </div>
                     }
+
+
                     {/* <NFTItem image={NFT6} creator={User2} />
                     <NFTItem image={NFT7} creator={User3} />
                     <NFTItem image={NFT8} creator={User4} />
@@ -376,6 +431,47 @@ const ContainerPrincipal = () => {
                     <NFTItem image={NFT4} creator={User9} />
                     <NFTItem image={NFT10} creator={User10} /> */}
                 </div>
+
+
+                {
+                    !(Object.keys(nftsData).length === 0) && <div className="mx-auto flex flex-wrap gap-2 items-center justify-center mt-[1rem]">
+                        {
+                            nftsData.previous && <button
+                                onClick={() => callingTheNestedData(activePage - 1)}
+                                className="bg-indigo-500 w-fit px-2 h-[2rem] gap-[.25rem] rounded-full text-white flex items-center justify-center shadow-md">
+                                <IoArrowBack
+                                    color="white"
+                                    size={15}
+                                />
+                                <p className=" font-MontSemiBold text-xs">Previous</p>
+                            </button>
+                        }
+                        {
+                            castedCount.map(it => (<>
+                                <button
+                                    onClick={() => {
+                                        let respFaqs = new NftsAPI()
+                                        window.scrollTo(0, 200)
+                                        setActivePage(it)
+                                        respFaqs.get_all_nfts(it).then(data => setnftsData(data))
+                                    }}
+                                    className={activePage === it ? "bg-white w-[2rem] h-[2rem] rounded-full text-black shadow-md" :
+                                        "bg-indigo-500 w-[2rem] h-[2rem] rounded-full text-white shadow-md"}>{it}</button>
+                            </>))
+                        }
+                        {
+                            nftsData.next && <button
+                                onClick={() => callingTheNestedData(activePage + 1)}
+                                className="bg-indigo-500 w-fit gap-[.25rem] px-2 h-[2rem] rounded-full text-white flex items-center justify-center shadow-md">
+                                <p className=" font-MontSemiBold text-xs">Next</p>
+                                <IoArrowForward
+                                    color="white"
+                                    size={15}
+                                />
+                            </button>
+                        }
+                    </div>
+                }
             </div>
         </motion.div>
         // </div>

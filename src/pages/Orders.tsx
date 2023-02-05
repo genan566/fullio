@@ -49,7 +49,6 @@ const Orders = () => {
 
         let respFaqs = new OrdersAPI()
         let token = userTokenContext.token
-        console.log("Je suis là et toi", token)
         respFaqs.get_all_orders(token).then(data => setOrdersData(data))
     }, [])
 

@@ -25,6 +25,10 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
 
     const [isActive, setIsActive] = React.useState<string>(`${location?.pathname}`)
 
+    React.useEffect(() => {
+        setIsActive(`${location?.pathname}`)
+    }, [location])
+
     // console.log('location', location.pathname.spl)
 
     return (
@@ -78,15 +82,17 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Market Place</span>
                 </Link>
 
-                <Link
-                    to={"/manageNFTs"}
-                    onClick={() => setIsActive("/manageNFTs")} className={isActive === "/manageNFTs" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
-                    <MdOutlineDashboardCustomize
-                        color={isActive === "/manageNFTs" ? "black" : "white"}
-                        size={18}
-                    />
-                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Manage NFTs</span>
-                </Link>
+                {
+                    userContext.user.is_staff && <Link
+                        to={"/manageNFTs"}
+                        onClick={() => setIsActive("/manageNFTs")} className={((isActive === "/manageNFTs") || (isActive === "/createNFt")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                        <MdOutlineDashboardCustomize
+                            color={((isActive === "/manageNFTs") || (isActive === "/createNFt")) ? "black" : "white"}
+                            size={18}
+                        />
+                        <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Manage NFTs</span>
+                    </Link>
+                }
 
                 <Link
                     to={"/orders"}
@@ -124,9 +130,9 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
 
                 <Link
                     to={"/settings"}
-                    onClick={() => setIsActive("Paramètres")} className={isActive === "Paramètres" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => setIsActive("Paramètres")} className={isActive === "/settings" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <IoSettings
-                        color={isActive === "Paramètres" ? "black" : "white"}
+                        color={isActive === "/settings" ? "black" : "white"}
                         size={18}
                     />
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Paramètres</span>
@@ -154,7 +160,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                     />
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>About Us</span>
                 </Link>
-                
+
             </div>
 
             {

@@ -46,8 +46,8 @@ export type UserTokenTypesValues = {
 }
 
 export interface ValuesTypes {
-    user: UserTypesValues | null,
-    setUser: React.Dispatch<React.SetStateAction<UserTypesValues | null>>
+    user: UserTypesValues,
+    setUser: React.Dispatch<React.SetStateAction<UserTypesValues>>
 }
 
 export interface ValuesNftDataTypes {
@@ -60,18 +60,26 @@ export interface ValuesSetUserTokenDataTypes {
     setToken: React.Dispatch<React.SetStateAction<string>>
 }
 
+export interface ValuesSetIsCreatorDataTypes {
+    isCreator: boolean,
+    setisCreator: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export const RootUserContext = React.createContext<ValuesTypes | null>(null)
+
+export const RootUserContext = React.createContext<ValuesTypes>({} as ValuesTypes)
+export const RootNftContext = React.createContext<ValuesNftDataTypes | null>(null)
+export const RootCreatorContext = React.createContext<ValuesSetIsCreatorDataTypes | null>(null)
+export const RootUserTokenContext = React.createContext<ValuesSetUserTokenDataTypes>({} as ValuesSetUserTokenDataTypes)
+
 
 export const RootUserContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = React.useState<UserTypesValues | null>(null)
+    const [user, setUser] = React.useState<UserTypesValues>({} as UserTypesValues)
 
     return <RootUserContext.Provider value={{ user, setUser }}>
         {children}
     </RootUserContext.Provider>
 }
 
-export const RootNftContext = React.createContext<ValuesNftDataTypes | null>(null)
 
 export const RootNFTContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [nftData, setNftData] = React.useState<NftTypesValues | null>(null)
@@ -82,12 +90,18 @@ export const RootNFTContextProvider = ({ children }: { children: React.ReactNode
 }
 
 
-export const RootUserTokenContext = React.createContext<ValuesSetUserTokenDataTypes>({} as ValuesSetUserTokenDataTypes)
-
 export const RootUserTokenProvider = ({ children }: { children: React.ReactNode }) => {
     const [token, setToken] = React.useState<string>("")
 
     return <RootUserTokenContext.Provider value={{ token, setToken }}>
         {children}
     </RootUserTokenContext.Provider>
+}
+
+export const RootCreatorProvider = ({ children }: { children: React.ReactNode }) => {
+    const [isCreator, setisCreator] = React.useState<boolean>(false)
+
+    return <RootCreatorContext.Provider value={{ isCreator, setisCreator }}>
+        {children}
+    </RootCreatorContext.Provider>
 }

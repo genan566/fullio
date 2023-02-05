@@ -45,11 +45,11 @@ const AboutPage = () => {
 
                 <div className="flex justify-center max-[500px]:flex-wrap items-start mt-[1.5rem] gap-[1rem]">
                     <div className="bg-zinc-800 rounded-md border border-indigo-600 transition-all hover:border-transparent shadow-2xl p-5 w-full max-w-[400px]">
-                    <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">20k+</h2>
+                        <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">20k+</h2>
 
                         <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[.2rem] leading-[1.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h4>
 
-                        <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem] ">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                             Placeat modi deleniti dolor distinctio esse! Nisi explicabo, <span className="text-zinc-200 font-MontBold">tempore magnam eos provident deleniti </span>
                             nesciunt, minima officia reiciendis natus ut ipsam reprehenderit distinctio! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente earum, officia sunt, voluptas officiis alias at laboriosam rem esse minima repellat vitae ea reprehenderit labore tenetur unde illo asperiores fuga.</h4>
                     </div>
@@ -146,8 +146,7 @@ const AboutPage = () => {
                                 <div className='point'></div> The Best Choice</span>
 
                             <h2 className="text-[1.5rem] font-MontBold mt-[.5rem] text-black">Collections</h2>
-                            <p className='text-black text-sm '>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dolor sit amet consectetur dicta <span className="text-black font-MontSemiBold">quam numquam fuga </span>
+                            <p className='text-black text-sm '>Lorem ipsum dolor sit amet consectetur <span className="text-black font-MontSemiBold">quam numquam fuga </span>
                                 libero fugiat! Itaque.</p>
 
                             <button
@@ -177,8 +176,7 @@ const AboutPage = () => {
                                 <div className='point'></div> The Best Choice</span>
 
                             <h2 className="text-[1.5rem] font-MontBold mt-[.5rem] text-black">Collections</h2>
-                            <p className='text-black text-sm '>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dolor sit amet consectetur dicta <span className="text-black font-MontSemiBold">quam numquam fuga </span>
+                            <p className='text-black text-sm '>Lorem ipsum dolor sit amet consectetur <span className="text-black font-MontSemiBold">quam numquam fuga </span>
                                 libero fugiat! Itaque.</p>
 
                             <button

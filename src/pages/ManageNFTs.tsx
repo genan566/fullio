@@ -1,12 +1,13 @@
 import React from 'react'
 import { IoArrowForward, IoFilter } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CardNFT1 from '../components/CardNFT1'
 import NFT11 from "../imgs/istockphoto.jpg";
 
 import { motion } from "framer-motion"
 import CardNFT from '../components/CardNFT'
+import { RootCreatorContext, RootUserContext } from '../contexts'
 
 const containerVariants = {
 
@@ -27,6 +28,19 @@ const containerVariants = {
     }
 };
 const ManageNFTs = () => {
+    const userContext = React.useContext(RootUserContext)
+    const creatorContext = React.useContext(RootCreatorContext)
+
+    const history = useNavigate()
+
+    const check_user_can_create = React.useCallback(() => {
+        userContext?.user?.is_staff === false && history("/")
+    }, [userContext?.user])
+
+    React.useEffect(() => {
+        check_user_can_create()
+    }, [check_user_can_create])
+
     return (
         <motion.div
             variants={containerVariants}
@@ -49,6 +63,10 @@ const ManageNFTs = () => {
                     <Link to={"/createNFt"}>
                         <button
                             // onClick={handleLog}
+                            onClick={() => {
+                                !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                userContext?.user?.is_staff && history("/createNFt")
+                            }}
                             className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                             hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                             focus:outline-none

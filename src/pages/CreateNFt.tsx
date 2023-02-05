@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoArrowBack, IoFileTray, IoTrash } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion"
 import AnimatedMulti from '../components/CustomMultiSelect';
@@ -54,9 +54,20 @@ const CreateNFt = () => {
         });
     }
 
+
+    const history = useNavigate()
+
     React.useEffect(() => {
         console.log("FileSSSSSSSSSSSSSSSS", file)
     }, [file])
+
+    const check_user_can_create = React.useCallback(() => {
+        userContext?.user?.is_staff === false && history("/")
+    }, [userContext?.user])
+
+    React.useEffect(() => {
+        check_user_can_create()
+    }, [check_user_can_create])
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
 
@@ -81,16 +92,19 @@ const CreateNFt = () => {
                 .then(data => {
                     if (data.id) {
                         respFaqs.upload_image_to_nft(data.id, { image: file.file, }, userTokenContext.token)
-                            .then((re) => console.log("laisse",re))
+                            .then((re) => history("/manageNFTs"))
                             .catch(err => console.log("error2", err))
                     }
                 })
                 .catch(err => console.log("error", err))
         }
     };
+
     React.useEffect(() => {
         if (userContext?.user?.id) setId(userContext?.user?.id)
     }, [userContext])
+
+
 
     return (
         <motion.div
@@ -129,68 +143,69 @@ const CreateNFt = () => {
 
             {/* <p className="text-[1.5rem] text-slate-50 font-MontBold text-center w-full mt-[2rem]">Creation Form
                 </p> */}
-            <div className="flex gap-2 mt-[5rem] justify-center flex-wrap">
+            <div className="flex gap-2 mt-[5rem] justify-center max-[800px]:flex-wrap">
 
-                <form action="" onSubmit={handleSubmit(onSubmit)}>
-                    <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
+                <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
                             rounded-lg min-w-[280px] bg-zinc-800 shadow-md flex items-center justify-center">
-                        {
-                            !file.asPreview && <h2 className="text-white text-[1.5rem] font-MontSemiBold">
-                                Please uplaod image
-                            </h2>
-                        }
-                        {
-                            !file.asPreview && (
-                                <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
+                    {
+                        !file.asPreview && <h2 className="text-white text-[1.5rem] font-MontSemiBold">
+                            Please uplaod image
+                        </h2>
+                    }
+                    {
+                        !file.asPreview && (
+                            <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-4 bg-slate-900 shadow-lg">
-                                    <IoFileTray
-                                        // color="white"
-                                        size={17}
-                                    />
-                                    <input type="file"
-                                        onChange={handleChange}
-                                        // {...register("title", { required: true })}
-                                        className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
-                                </button>
-                            )
-                        }
-                        {
-                            file.asPreview && (
-                                <button
-                                    onClick={() => setFile({} as any)}
-                                    className="absolute top-5 active:bg-red-700 right-5 z-[2]
+                                <IoFileTray
+                                    // color="white"
+                                    size={17}
+                                />
+                                <input type="file"
+                                    onChange={handleChange}
+                                    // {...register("title", { required: true })}
+                                    className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
+                            </button>
+                        )
+                    }
+                    {
+                        file.asPreview && (
+                            <button
+                                onClick={() => setFile({} as any)}
+                                className="absolute top-5 active:bg-red-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-4 bg-red-900 shadow-lg">
-                                    <IoTrash
-                                        // color="white"
-                                        size={17}
-                                    />
-                                    {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
-                                </button>
-                            )
-                        }
-                        {
-                            file.asPreview && (
+                                <IoTrash
+                                    // color="white"
+                                    size={17}
+                                />
+                                {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
+                            </button>
+                        )
+                    }
+                    {
+                        file.asPreview && (
 
-                                <img
-                                    className="h-full w-full absolute inset-0 z-[1] object-cover "
-                                    src={file.asPreview}
-                                    alt="user Profile" />
-                            )
-                        }
-                    </figure>
+                            <img
+                                className="h-full w-full absolute inset-0 z-[1] object-cover "
+                                src={file.asPreview}
+                                alt="user Profile" />
+                        )
+                    }
+                </figure>
 
-                    <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
-                        <div className="px-[1.5vw] max-w-[600px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
-                            <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
+                <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
+                    <div className="px-[1.5vw] max-w-[600px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                        <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
                             after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.7rem] leading-[2.5rem] py-4 w-[50%]">
-                                Create your NFT by entering these informations
-                            </h2>
+                            Create your NFT by entering these informations
+                        </h2>
 
-                            <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit
-                                amet consectetur neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
-                                libero fugiat! Itaque.</p>
-                        </div>
+                        <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit
+                            amet consectetur neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
+                            libero fugiat! Itaque.</p>
+                    </div>
+                    <form action="" className='' onSubmit={handleSubmit(onSubmit)}>
                         <div className="px-[1.5vw] max-w-[600px] mx-auto">
+
 
                             <div className=" mt-[1rem] flex justify-center items-stretch gap-[1rem] max-[600px]:flex-wrap">
                                 <div className='w-full'>
@@ -239,7 +254,7 @@ const CreateNFt = () => {
                             </div>
                         </div>
 
-                        <AnimatedMulti />
+                        {/* <AnimatedMulti /> */}
 
                         <button
                             type='submit'
@@ -257,10 +272,10 @@ const CreateNFt = () => {
                                 size={17}
                             />
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </motion.div>
+        </motion.div >
     )
 }
 

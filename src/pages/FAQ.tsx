@@ -73,7 +73,7 @@ const FAQ = () => {
     React.useEffect(() => {
 
         let respFaqs = new FaqsAPI()
-        respFaqs.get_all_faqs().then(data => setDataFAQS(data))
+        respFaqs.get_all_faqs().then(data => setDataFAQS(data.results))
     }, [])
 
     return (
@@ -94,10 +94,11 @@ const FAQ = () => {
                         Reprehenderit voluptatem illum architecto cum cupiditate! Ea modi a doloribus excepturi fuga?</p>
 
                     {
-                        dataFAQS.length > 0 && dataFAQS.map(it => {
+                        dataFAQS.length > 0 && dataFAQS.map((it, idx) => {
                             return (
                                 <>
                                     <Accordion
+                                        key={`${idx}`}
                                         title={it.title}
                                         description={it.description} />
                                 </>

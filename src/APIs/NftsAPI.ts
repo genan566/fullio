@@ -4,9 +4,9 @@ import { api_url } from "./APIRoutes";
 
 export class NftsAPI {
 
-    async get_all_nfts() {
+    async get_all_nfts(page = 1) {
         return fetch(
-            api_url(`core_nfts/`),
+            api_url(`core_nfts/?page=${page}`),
             {
                 method: "GET",
                 headers: {
@@ -64,7 +64,7 @@ export class NftsAPI {
                 body: dataSent
             }
         )
-        .then((js) => js.json())
+            .then((js) => js.json())
 
     }
 }

@@ -127,7 +127,7 @@ function App() {
 
       <div className="App">
         <div className='holdUp'>
-          <RootModals
+          <RootModals          
             isShownModalsFirstSignIn={isShownModalsFirstSignIn}
             navLogin={() => {
               setIsShownModalsFirstSignIn(false)
@@ -146,7 +146,7 @@ function App() {
             toggleOnResearch={
               () => setIsOpenResearch(false)}
             handlerLogoutFunc={() => {
-              userContext?.setUser(null)
+              userContext?.setUser({} as any)
               userTokenContext.setToken("")
               localStorage.setItem('dataUser', JSON.stringify(null));
               localStorage.setItem('userToken', JSON.stringify(null));

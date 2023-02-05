@@ -22,8 +22,15 @@ import Partner6 from "../imgs/partner/partner-6.png";
 
 
 import "../styles/HomeView.scss"
+import { RootCreatorContext, RootUserContext } from '../contexts';
+import { useNavigate } from 'react-router-dom';
 
 const HomeView = () => {
+    const userContext = React.useContext(RootUserContext)
+    const creatorContext = React.useContext(RootCreatorContext)
+
+    const history = useNavigate()
+
     return (
         <div className="homeView ">
             <div className="animated_gradient_bg h-fit rounded-lg shadow-xl p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
@@ -36,6 +43,12 @@ const HomeView = () => {
 
                         <div className="flex gap-4 mt-[2rem]">
                             <button
+                                onClick={() => {
+                                    !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                    userContext?.user?.is_staff && history("/createNFt")
+
+                                    // creatorContext?.setisCreator(true)
+                                }}
                                 // onClick={handleLog}
                                 className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
@@ -52,6 +65,7 @@ const HomeView = () => {
                             </button>
 
                             <button
+                                onClick={() => history("/nftMarketPlace")}
                                 // onClick={handleLog}
                                 className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
@@ -76,10 +90,10 @@ const HomeView = () => {
                 </div>
             </div>
 
-            <div className="homeView-products px-[4rem]">
+            <div className="homeView-products px-[4.2rem]">
 
 
-                <div className="px-[1.5vw] flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                <div className="flex flex-row justify-center gap-[1rem] items-center flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
                     after:absolute after:top-0 after:left-0 after:bg-white relative text-[2rem] leading-[2.5rem] py-4 w-[50%]">
                         Discover a unique <span className="block">collection artistic works</span>
@@ -90,7 +104,7 @@ const HomeView = () => {
                         libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
                 </div>
 
-                <div className="px-[1vw] mt-[5rem] flex flex-wrap gap-[3rem] gap-y-[3rem] justify-center">
+                <div className="mt-[5rem] flex max-[800px]:flex-wrap gap-[3rem] gap-y-[3rem] justify-center">
                     <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img
@@ -186,6 +200,8 @@ const HomeView = () => {
 
                     <button
                         // onClick={handleLog}
+
+                        onClick={() => history("/nftMarketPlace")}
                         className="bg-transparent mx-auto flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
                                         

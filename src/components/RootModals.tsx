@@ -1,5 +1,6 @@
 import React from 'react'
 import { RootModalsTypes } from '../types/RootModalsTypes';
+import ModalForUserNotStaff from './modals/ModalForUserNotStaff';
 import ModalsLogOut from './modals/ModalsLogOut';
 import ModalsOnSearch from './modals/ModalsOnSearch';
 import ModalsShowingLogin from './modals/ModalsShowingLogin';
@@ -35,6 +36,8 @@ const RootModals = ({ isShownModalsSignIn, isShownModalsFirstSignIn, toggleShowS
                 isShownModalsLogOut={isShownModalsLogOut}
                 handlerLogoutFunc={handlerLogoutFunc}
             />
+
+            <ModalForUserNotStaff />
         </>
     )
 }
