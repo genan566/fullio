@@ -37,7 +37,7 @@ export type NftTypesValues = {
     price: number | string,
     owner_id: number,
     image: string,
-    categories_trending: CategoriesTrending[],
+    categories_trending: number[],
     sales_history: SaleHistory[],
 }
 

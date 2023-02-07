@@ -2,12 +2,15 @@ import React from 'react'
 import { IoArrowForward, IoFilter } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { Link, useNavigate } from 'react-router-dom'
-import CardNFT1 from '../components/CardNFT1'
 import NFT11 from "../imgs/istockphoto.jpg";
 
 import { motion } from "framer-motion"
 import CardNFT from '../components/CardNFT'
-import { RootCreatorContext, RootUserContext } from '../contexts'
+import { RootCreatorContext, RootUserContext, RootUserTokenContext } from '../contexts'
+import { NftsAPI } from '../APIs/NftsAPI'
+import { PaginatedData } from './ContainerPrincipal'
+import { NftTypesValues } from "../contexts"
+
 
 const containerVariants = {
 
@@ -30,16 +33,28 @@ const containerVariants = {
 const ManageNFTs = () => {
     const userContext = React.useContext(RootUserContext)
     const creatorContext = React.useContext(RootCreatorContext)
+    const userToken = React.useContext(RootUserTokenContext)
+    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
 
     const history = useNavigate()
 
     const check_user_can_create = React.useCallback(() => {
         userContext?.user?.is_staff === false && history("/")
+        let resNFTs = new NftsAPI()
+        let parsedToken = userToken.token
+        resNFTs.get_all_nfts_by_user(parsedToken).then(data => { setnftsData(data) })
     }, [userContext?.user])
 
     React.useEffect(() => {
         check_user_can_create()
     }, [check_user_can_create])
+
+
+    React.useEffect(() => {
+        console.log('nftData', nftsData)
+    }, [nftsData])
+
+
 
     return (
         <motion.div
@@ -80,7 +95,7 @@ const ManageNFTs = () => {
                                 size={17}
                             /> <p>Create One</p>
                         </button></Link>
-                    <div className="flex mt-[1.5rem] gap-4 row align-center ">
+                    {/* <div className="flex mt-[1.5rem] gap-4 row align-center ">
                         <div className="flex mt-2 gap-4 row">
                             <button className="p-[1rem] rounded-md 
                         shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
@@ -99,16 +114,51 @@ const ManageNFTs = () => {
                                 color="white"
                                 size={15}
                             /> On sale</button>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
-                    <CardNFT image={NFT11} />
-                    <CardNFT image={NFT11} />
-                    <CardNFT image={NFT11} />
+                    {
+                        nftsData.results && <>
+                            {
+                                nftsData.results.map(item => {
+                                    let sendedData: NftTypesValues = {
+                                        title: item.title,
+                                        description: item.description,
+                                        owner_id: item.owner,
+                                        image: item.image,
+                                        price: item.price,
+                                        categories_trending: item.categories_trending,
+                                        sales_history: item.sales_history,
+                                    }
+                                    return (
+                                        <>
+                                            <CardNFT
+                                                data={sendedData}
+                                                rebirth={item.title}
+                                                owner={item.owner}
+                                                key={item.id}
+                                                image={item.image}
+                                                // link={true}
+                                                categories_trending={item.categories_trending}
+                                                sales_history={item.sales_history}
+                                            />
+                                        </>
+                                    )
+                                })
+                            }
+                        </>
+                    }
+
+                    {
+                        ((!nftsData.results)) && <div className="text-center w-full">
+                            <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
+                        </div>
+                    }
+
                 </div>
 
-                <div className="mb-3 mt-[5rem]">
+                {/* <div className="mb-3 mt-[5rem]">
                     <h2 className="text-[1.8rem] font-MontBold text-white">Top Collections</h2>
                     <div className="flex mt-[1.5rem] gap-4 row align-center ">
                         <div className="flex mt-2 gap-4 row">
@@ -124,7 +174,7 @@ const ManageNFTs = () => {
                         </div>
                         <Link to={"/nftMarketPlace"}>
                             <button
-                                // onClick={handleLog}
+                            
                                 className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                             hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                             focus:outline-none
@@ -134,7 +184,7 @@ const ManageNFTs = () => {
                                 py-1 text-white px-3
                                 rounded-lg"> <p>View all</p>
                                 <IoArrowForward
-                                    // color="white"
+                                
                                     size={17}
                                 />
                             </button></Link>
@@ -143,15 +193,11 @@ const ManageNFTs = () => {
 
                 <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
 
-                    {/* <CardNFT1 />
-                    <CardNFT1 />
-                    <CardNFT1 /> */}
-
                     <CardNFT image={NFT11} />
                     <CardNFT image={NFT11} />
                     <CardNFT image={NFT11} />
 
-                </div>
+                </div> */}
             </div>
 
         </motion.div>

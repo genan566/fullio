@@ -18,6 +18,51 @@ export class NftsAPI {
 
     }
 
+    async get_all_nfts_paginate_by_categories(id_category: number, page = 1) {
+        return fetch(
+            api_url(`core_nfts/?categories=${id_category}&page=${page}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
+    async get_all_nfts_by_user(token: string) {
+        return fetch(
+            api_url(`core_nfts/?user=true`),
+            {
+                method: "GET",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': "Token " + JSON.parse(token),
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
+    async get_filtered_by_trendingIDs_nfts(id_category: number) {
+        return fetch(
+            api_url(`core_nfts/?categories=${id_category}`),
+            {
+                method: "GET",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
     async create_nfts(data: any, token: string) {
 
 

@@ -49,7 +49,7 @@ const Orders = () => {
 
         let respFaqs = new OrdersAPI()
         let token = userTokenContext.token
-        respFaqs.get_all_orders(token).then(data => setOrdersData(data))
+        respFaqs.get_all_orders(token).then(data => setOrdersData(data.results))
     }, [])
 
     // React.useEffect(() => {
