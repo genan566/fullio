@@ -1,16 +1,20 @@
 import React from 'react'
 
-import { IoFilter, IoArrowBack, IoArrowForward } from "react-icons/io5";
+import { IoFilter, IoArrowBack, IoArrowForward, IoSearch } from "react-icons/io5";
 
 import { RiShoppingBasket2Line } from "react-icons/ri";
 
 
 import { motion } from "framer-motion"
-import { CategoriesTrending, NftTypesValues, RootCreatorContext, RootUserContext, SaleHistory } from '../contexts';
+import {  RootCreatorContext, RootUserContext, } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { Link, useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { NftsInterface } from '../types/NFTsInterface';
+import { CategoriesTrending } from '../types/CategorieTrendingType';
+import { NftTypesValues } from '../types/NFTTypes';
 
 
 const containerVariants = {
@@ -33,17 +37,6 @@ const containerVariants = {
 };
 
 
-export interface NftsInterface {
-    title: string,
-    id: number,
-    description: string,
-    owner: number,
-    image: string,
-    price: string | number,
-    created_at: string,
-    sales_history: SaleHistory[],
-    categories_trending: number[],
-}
 
 export interface PaginatedData {
     results: NftsInterface[],
@@ -52,6 +45,9 @@ export interface PaginatedData {
     previous: string,
 }
 
+type Inputs = {
+    search: string,
+};
 
 const ContainerPrincipal = () => {
     const userContext = React.useContext(RootUserContext)
@@ -61,16 +57,30 @@ const ContainerPrincipal = () => {
     const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
     const [activeCategoriesTrending, setActiveCategoriesTrending] = React.useState<number>(0)
     const [activePage, setActivePage] = React.useState(1)
+    const [search, setSearch] = React.useState("")
 
     const history = useNavigate()
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
     const callingTheNestedData = (index: number) => {
         if (activeCategoriesTrending) {
             let resNFTs = new NftsAPI()
             window.scrollTo(0, 200)
             setActivePage(index)
-            resNFTs.get_all_nfts_paginate_by_categories(activeCategoriesTrending, index).then(data => setnftsData(data))
-        } else {
+            resNFTs.get_all_nfts_paginate_by_categories(activeCategoriesTrending, index)
+                .then(data => setnftsData(data))
+        }
+
+        if (search) {
+            let resNFTs = new NftsAPI()
+            setActiveCategoriesTrending(0)
+            window.scrollTo(0, 200)
+            setActivePage(index)
+            resNFTs.get_all_nfts_paginate_by_search(search, index)
+                .then(data => setnftsData(data))
+        }
+
+        else {
             let resNFTs = new NftsAPI()
             window.scrollTo(0, 200)
             setActivePage(index)
@@ -84,9 +94,21 @@ const ContainerPrincipal = () => {
             let respFaqs = new NftsAPI()
             window.scrollTo(0, 200)
             setActivePage(it)
-            respFaqs.get_all_nfts_paginate_by_categories(activeCategoriesTrending, it).then(data => setnftsData(data))
+            respFaqs.get_all_nfts_paginate_by_categories(activeCategoriesTrending, it)
+                .then(data => setnftsData(data))
 
-        } else {
+        }
+
+        if (search) {
+            setActiveCategoriesTrending(0)
+            let respFaqs = new NftsAPI()
+            window.scrollTo(0, 200)
+            setActivePage(it)
+            respFaqs.get_all_nfts_paginate_by_search(search, it)
+                .then(data => setnftsData(data))
+        }
+
+        else {
 
             let respFaqs = new NftsAPI()
             window.scrollTo(0, 200)
@@ -96,13 +118,13 @@ const ContainerPrincipal = () => {
 
     }
 
-    const fetching_nfts = () => {
+    const initial_fetching_nfts = () => {
         let resNFTs = new NftsAPI()
         resNFTs.get_all_nfts().then(data => setnftsData(data))
     }
 
     React.useEffect(() => {
-        fetching_nfts()
+        initial_fetching_nfts()
         let categories_trendings = new CategoriesTrendingAPI()
         categories_trendings.get_all_categories().then(data => {
             setCategoriesTrending(data.results)
@@ -120,8 +142,26 @@ const ContainerPrincipal = () => {
                     setActivePage(1)
                 })
         } else
-            fetching_nfts()
+            initial_fetching_nfts()
     }, [activeCategoriesTrending])
+
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        if (data.search.length > 0) {
+            setActiveCategoriesTrending(0)
+            setSearch(data.search)
+            let resNFTs = new NftsAPI()
+            resNFTs
+                .get_filtered_by_search_nfts(data.search)
+                .then(data => {
+                    setnftsData(data)
+                    setActivePage(1)
+                })
+        }
+
+        else {
+            initial_fetching_nfts()
+        }
+    }
 
 
     React.useEffect(() => {
@@ -130,25 +170,23 @@ const ContainerPrincipal = () => {
 
 
     React.useEffect(() => {
-        if (nftsData.count) {
+        if (nftsData.count !== 0) {
             let calculatedNumbersPage = parseInt(((nftsData.count) / 10).toFixed(0))
             let check_Can_add_Or_Not = (calculatedNumbersPage * 10) >= nftsData.count
-            // console.log(check_Can_add_Or_Not)
-            // console.log(nftsData.count)
 
             if (check_Can_add_Or_Not) {
                 setCastedCount(Array.from(Array(calculatedNumbersPage).keys()).map(i => i + 1))
             } else {
-                setCastedCount(Array.from(Array((calculatedNumbersPage + 1)).keys()).map(i => i + 1))
+                !Number.isNaN(calculatedNumbersPage) && setCastedCount(Array.from(Array((calculatedNumbersPage + 1)).keys()).map(i => i + 1))
             }
-
-            // setCastedCount(Array.from(Array().keys()).map(i => i + 1))
         }
+        else {
+            setCastedCount([])
+        }
+
     }, [nftsData.count])
 
     return (
-        // <div style={{ position: "relative" }}>
-
 
         <motion.div
             className='relative'
@@ -191,7 +229,7 @@ const ContainerPrincipal = () => {
             <div className="w-full mt-10">
                 <div className="mb-3">
                     <h2 className="text-[1.8rem] font-MontBold text-white">Trending Auctions</h2>
-                    <div className="flex mt-2 gap-4 row align-center">
+                    <div className="flex mt-2 gap-4 row max-[900px]:flex-wrap align-center">
                         <div className="flex mt-2 gap-4 row">
                             <button
                                 onClick={() => {
@@ -218,16 +256,26 @@ const ContainerPrincipal = () => {
                             }
 
                         </div>
-                        <button className="p-[1rem] rounded-md 
-                                            shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem]
-                                             hover:bg-indigo-500 flex justify-evenly gap-2 items-center text-sm">
-                            <IoFilter
-                                color="white"
-                                size={15}
-                            /> On sale</button>
+                        <div className='max-w-[200px]'>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="control-container-S mt-3 mb-1 shadow-lg" id='cPar'>
+                                    <IoSearch
+                                        color="white"
+                                        size={18}
+                                    />
+                                    <input
+                                        // value={search}
+                                        {...register("search")}
+                                        // onChange={(ev) => setSearch(ev.target.value)}
+                                        placeholder='Your search'
+                                        type="text"
+                                        className="control-input-S" />
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div className="flex gap-5 mt-10 align-center pb-10 flex-wrap">
+                <div className="flex gap-5 mt-10 align-center pb-10 max-[898px]:overflow-x-scroll min-[900px]:flex-wrap max-[898px]:max-w-[80vw]">
                     {
                         nftsData.results && <>
                             {

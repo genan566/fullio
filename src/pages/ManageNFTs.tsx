@@ -9,7 +9,7 @@ import CardNFT from '../components/CardNFT'
 import { RootCreatorContext, RootUserContext, RootUserTokenContext } from '../contexts'
 import { NftsAPI } from '../APIs/NftsAPI'
 import { PaginatedData } from './ContainerPrincipal'
-import { NftTypesValues } from "../contexts"
+import { NftTypesValues } from '../types/NFTTypes';
 
 
 const containerVariants = {
@@ -117,7 +117,7 @@ const ManageNFTs = () => {
                     </div> */}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
+                <div className="flex max-[500px]:overflow-x-scroll min-[505px]:flex-wrap max-[500px]:max-w-[80vw] py-[1rem] items-center gap-[2rem] mt-[3rem]">
                     {
                         nftsData.results && <>
                             {
@@ -140,6 +140,7 @@ const ManageNFTs = () => {
                                                 key={item.id}
                                                 image={item.image}
                                                 // link={true}
+                                                customLink={`/detailOwnNFT`}
                                                 categories_trending={item.categories_trending}
                                                 sales_history={item.sales_history}
                                             />

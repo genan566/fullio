@@ -16,6 +16,7 @@ import CreateNFt from '../pages/CreateNFt'
 import CollectionsPage from '../pages/CollectionsPage'
 import AboutPage from '../pages/AboutPage'
 
+
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
     { isOpen: boolean, isOpenUser: boolean, controlSearch: () => void }) => {
 
@@ -63,6 +64,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     <Route path="/faqs" element={<FAQ />} />
                     <Route path="*" element={<Page404 />} />
                     <Route path="/settings" element={<PageSettings />} />
+                    <Route path="/detailOwnNFT" element={<DetailNft />} />
                     <Route path="/detailNFT" element={<DetailNft />} />
                     <Route path="/manageNFTs" element={<ManageNFTs />} />
                     <Route path="/createNFt" element={<CreateNFt />} />

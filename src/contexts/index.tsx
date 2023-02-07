@@ -1,45 +1,7 @@
 import React from "react"
+import { NftTypesValues } from "../types/NFTTypes"
+import { UserTypesValues } from "../types/UserTypeValues"
 
-export type UserTypesValues = {
-    account_balance_btc: string,
-    account_balance_eth: string,
-    email: string,
-    id: number,
-    image: string | undefined,
-    is_staff: boolean,
-    is_superuser: boolean,
-    name: string,
-    pseudo: string,
-}
-
-export interface Owner {
-    id: number,
-    image: string,
-    email: string,
-}
-
-export interface SaleHistory {
-    title: string,
-    user_suscribed: Owner,
-    price: string,
-    created_at: string,
-    will_end_at: string,
-}
-
-export interface CategoriesTrending {
-    id: number,
-    name: string,
-}
-
-export type NftTypesValues = {
-    title: string,
-    description: string,
-    price: number | string,
-    owner_id: number,
-    image: string,
-    categories_trending: number[],
-    sales_history: SaleHistory[],
-}
 
 export type UserTokenTypesValues = {
     token: string,

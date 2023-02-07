@@ -5,7 +5,10 @@ import '../styles/NFTItem.scss';
 import CustomIMG from "../imgs/pexels-jonathan-borba.jpg"
 import CustomIMG2 from "../imgs/pexels-pixabay.jpg"
 import { Link } from 'react-router-dom';
-import { CategoriesTrending, NftTypesValues, RootNftContext, SaleHistory } from '../contexts';
+import { RootNftContext,  } from '../contexts';
+import { SaleHistory } from '../types/SaleHistoryType';
+import { CategoriesTrending } from '../types/CategorieTrendingType';
+import { NftTypesValues } from '../types/NFTTypes';
 
 const NFTItem = ({ image, categories_trending, creator, rebirth, data }: {
     image?: string, sales_history?: SaleHistory[],

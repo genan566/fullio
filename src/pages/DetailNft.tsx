@@ -1,61 +1,53 @@
 import React from 'react'
-import { IoArrowBack, IoArrowDown, IoBackspace, IoChevronBackCircleOutline, IoFilter, IoHandLeft } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
-import { CategoriesTrending, RootNftContext, RootUserContext, RootUserTokenContext } from '../contexts'
+import { IoArrowBack, } from 'react-icons/io5'
+import { Link, useLocation } from 'react-router-dom'
+import { RootNftContext, RootUserTokenContext, } from '../contexts'
 
 import NFT10 from "../imgs/10.png";
 import ISOTOP from "../imgs/istockphoto.jpg";
 
-import { motion } from "framer-motion"
 import { RiShoppingBasket2Line } from 'react-icons/ri';
 import { AiTwotoneFire } from 'react-icons/ai';
 import { AuthAPI } from '../APIs/AuthApi';
 import { routeAPIBaseImage } from '../APIs/APIRoutes';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
+import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
+import { UserRetrieveInterface } from '../types/UserRetrieveTypes';
+import { CategoriesTrending } from '../types/CategorieTrendingType';
+import { SaleHistory } from '../types/SaleHistoryType';
 
-
-const containerVariants = {
-
-
-    hidden: {
-        opacity: 0,
-        x: "-2.5vh",
-    },
-    visible: {
-        opacity: 1,
-        x: "0",
-        // transition: { duration: .5 }
-    },
-    exit: {
-        x: "0",
-        y: "-8.5vh",
-        opacity: 0,
-        transition: { ease: 'easeInOut' },
-    }
-};
-
-
-
-interface UserRetrieveInterface {
-    email: string,
-    pseudo: string,
-    name: string,
-    is_staff: boolean,
-    is_superuser: boolean,
-    image: string | null,
-}
 
 const DetailNft = () => {
-    const userContext = React.useContext(RootUserContext)
     const nftContext = React.useContext(RootNftContext)
-
 
     const [userRetrieveData, setuserRetrieveData] = React.useState<UserRetrieveInterface>({} as UserRetrieveInterface)
     const [categories, setCategories] = React.useState<CategoriesTrending[]>([])
+    const [categorie, setCategorie] = React.useState<CategoriesTrending | null>(null)
+    const [saleHistorie, setSaleHistory] = React.useState<SaleHistory | null>(null)
+    const [saleHistories, setSaleHistories] = React.useState<SaleHistory[]>([])
     const userTokenContext = React.useContext(RootUserTokenContext)
 
 
-    const nFTContext = React.useContext(RootNftContext)
+    React.useEffect(() => {
+
+        if (saleHistorie !== null) {
+            let checker = saleHistories.filter(it => it.title === saleHistorie.title)
+            if (checker.length === 0) {
+                setSaleHistories([...saleHistories, saleHistorie])
+            }
+        }
+    }, [saleHistorie])
+
+    React.useEffect(() => {
+
+        if (categorie !== null) {
+            let checker = categories.filter(it => it.id === categorie.id)
+            if (checker.length === 0) {
+                setCategories([...categories, categorie])
+            }
+        }
+    }, [categorie])
+
     React.useEffect(() => {
         if (nftContext?.nftData?.owner_id) {
             let respAuth = new AuthAPI()
@@ -82,26 +74,52 @@ const DetailNft = () => {
 
     const load_categories = async () => {
         if (nftContext?.nftData?.categories_trending.toString() !== "[]") {
-            let gettedDataPulled: CategoriesTrending[] = []
 
             nftContext?.nftData?.categories_trending.map(it => {
                 let idX = it
                 let categories_trendings = new CategoriesTrendingAPI()
-                categories_trendings.get_categorie(idX).then(data => gettedDataPulled.push({ id: data.id, name: data.name }))
+                categories_trendings
+                    .get_categorie(idX)
+                    .then(data => {
+                        let checker = { id: data.id, name: data.name }
+                        if ((categorie?.id !== checker.id) && categorie?.name !== checker.name) {
+                            setCategorie(data)
+                        }
+                    })
             })
 
-            setCategories(gettedDataPulled)
+        }
+    }
+
+    const load_sale_histories = async () => {
+        if (nftContext?.nftData?.sales_history.toString() !== "[]") {
+
+            nftContext?.nftData?.sales_history.map(it => {
+                let idX = it
+                let sales_historys = new SaleHistoriesAPI()
+                sales_historys
+                    .get_sales_by_ID(idX)
+                    .then(data => {
+                        let checker = data
+                        if ((saleHistorie?.title !== checker.title) && saleHistorie?.price !== checker.price) {
+                            setSaleHistory(data)
+                        }
+                    })
+            })
 
         }
     }
 
     React.useEffect(() => {
+        load_sale_histories()
+    }, [nftContext?.nftData?.sales_history])
+
+    React.useEffect(() => {
         load_categories()
     }, [nftContext?.nftData?.categories_trending])
 
-    React.useEffect(() => {
-        console.log("categories", categories)
-    }, [categories])
+
+    const location = useLocation();
 
 
 
@@ -110,7 +128,7 @@ const DetailNft = () => {
         >
             <div className="px-2">
                 <Link
-                    to={"/nftMarketPlace"}
+                    to={location.pathname === "/detailOwnNFT" ? "/manageNFTs" : "/nftMarketPlace"}
                     // onClick={handleLog}
                     className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                         hover:bg-white hover:text-black
@@ -141,48 +159,37 @@ const DetailNft = () => {
                     <div className="flex row gap-2 w-fit mt-4">
 
                         {
-                            nftContext?.nftData?.categories_trending.map(item => {
-                                let categories_trendings = new CategoriesTrendingAPI()
-                                let gettedDataPulled: CategoriesTrending[] = []
-                                categories_trendings.get_categorie(item).then(data => gettedDataPulled.push(data))
-
-                                console.log("ans", gettedDataPulled)
+                            categories.map(item => {
 
                                 return (
                                     <>
                                         <p
-                                            className="hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit 
-                                                    bg-transparent border border-violet-600 hover:text-white
-                                                        focus:outline-none
-                                                        text-xs font-MontSemiBold
-                                                        focus:ring-2
-                                                        focus:ring-gray-500
-                                                            py-2 text-white px-3
-                                                            rounded-full">
-                                            {
-                                                gettedDataPulled && <>
-                                                    {
-                                                        gettedDataPulled[0]?.name === "Best Sold" && <>
+                                            className={item.name === "Not Disponible" ?
+                                                "hover:bg-red-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-red-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-red-500 px-3 rounded-full"
+                                                :
+                                                "hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-violet-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-white px-3 rounded-full"}>
 
-                                                            <AiTwotoneFire
-                                                                // color="white"
-                                                                size={17} />
-                                                        </>
-                                                    }
-                                                    <p>{gettedDataPulled[0]?.name}</p>
+
+                                            {
+                                                item.name === "Best Sold" && <>
+
+                                                    <AiTwotoneFire
+                                                        // color="white"
+                                                        size={17} />
                                                 </>
                                             }
+                                            <p>{item.name}</p>
                                         </p>
                                     </>
                                 )
                             })
                         }
 
-                        {/* {
+                        {
                             categories.length === 0 && <div className="text-center w-full">
-                                <h1 className="text-white text-lg font-MontBold mt-10">Categories not Defined</h1>
+                                <h1 className="text-red-500 text-sm font-MontBold">Categories not Defined</h1>
                             </div>
-                        } */}
+                        }
                     </div>
                     <p className="text-xs text-slate-400 font-MontSemiBold mt-4 max-w-[550px]">
                         {nftContext?.nftData?.description || "Non défini"}</p>
@@ -218,25 +225,9 @@ const DetailNft = () => {
                             <RiShoppingBasket2Line
                                 // color="white"
                                 size={17}
-                            /> <p>Follow Now</p>
+                            /> <p>Buy Now</p>
                         </button>
 
-                        {/* <button
-                            // onClick={handleLog}
-                            className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
-                                        hover:bg-white hover:text-black
-                                        
-                                        focus:outline-none
-                                        text-sm font-MontSemiBold
-                                        focus:ring-2
-                                        focus:ring-gray-500
-                                            py-1 text-white px-3
-                                            rounded-lg">
-                            <IoArrowDown
-                                // color="white"
-                                size={17}
-                            /> <p>Discover More</p>
-                        </button> */}
                     </div>
                 </div>
             </div>
@@ -251,7 +242,7 @@ const DetailNft = () => {
                     maxHeight: "500px"
                 }}>
                     {
-                        nftContext?.nftData?.sales_history.map((item) => {
+                        saleHistories.map((item) => {
                             return (
                                 <>
                                     <div className="flex row justify-between items-center bottom-divider py-3  flex-wrap gap-2">
@@ -265,7 +256,7 @@ const DetailNft = () => {
                                             </div>
                                         </div>
                                         <p className="text-orange-500 text-sm font-MontSemiBold">{item?.price}ETH</p>
-                                        <p className="text-white text-sm font-MontSemiBold">{item.user_suscribed?.email}</p>
+                                        <p className="text-white text-sm font-MontSemiBold">{item.user_suscribed}</p>
                                         <p className="text-white text-sm font-MontSemiBold">{item.created_at}</p>
                                         <p className="text-white text-sm font-MontSemiBold">{item.will_end_at}</p>
                                         <button
@@ -287,7 +278,7 @@ const DetailNft = () => {
                         })
                     }
                     {
-                        nftContext?.nftData?.sales_history.length === 0 && <div className="text-center">
+                        saleHistories.length === 0 && <div className="text-center">
                             <h1 className="text-white text-xs font-MontBold mt-5">Historique NFT vide.</h1>
                             <h1 className="text-white text-xs font-MontBold mt-2">Veuillez bien vous souscrire au NFT pour avoir un suivi</h1>
                         </div>

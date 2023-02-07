@@ -6,13 +6,13 @@ import { GoogleOAuthProvider, } from '@react-oauth/google';
 import jwt_decode from "jwt-decode"
 import { RootUserContext, RootUserTokenContext, UserTokenTypesValues, ValuesSetUserTokenDataTypes, } from './contexts';
 
-import { UserTypesValues } from "./contexts"
 import RouterAppComponent from './components/RouterAppComponent';
 import RightNavBox from './components/RightNavBox';
 import RootModals from './components/RootModals';
 import { user_ID } from './components/constants/constants';
 import ImpUserLogin from './components/ImPUserLogin';
 import { AuthAPI } from './APIs/AuthApi';
+import { UserTypesValues } from './types/UserTypeValues';
 type toggleIsOpen = () => void;
 
 function App() {

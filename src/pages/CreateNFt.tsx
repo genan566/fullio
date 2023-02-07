@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import AnimatedMulti from '../components/CustomMultiSelect';
 import { RootUserContext, RootUserTokenContext } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
+import { FileInterface } from '../types/FileInterface';
 
 const containerVariants = {
 
@@ -34,11 +35,6 @@ type Inputs = {
     image: File
 };
 
-type FileInterface = {
-    asPreview: string,
-    file: File,
-};
-
 
 const CreateNFt = () => {
     const userContext = React.useContext(RootUserContext)
@@ -57,10 +53,6 @@ const CreateNFt = () => {
 
     const history = useNavigate()
 
-    React.useEffect(() => {
-        console.log("FileSSSSSSSSSSSSSSSS", file)
-    }, [file])
-
     const check_user_can_create = React.useCallback(() => {
         userContext?.user?.is_staff === false && history("/")
     }, [userContext?.user])
@@ -72,13 +64,9 @@ const CreateNFt = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data)
 
         if (file.file && userContext?.user?.id && (id !== 0)) {
-
             let respFaqs = new NftsAPI()
-
-
             respFaqs.create_nfts(
                 {
                     title: data.title,
@@ -140,9 +128,6 @@ const CreateNFt = () => {
                 </div>
             </div>
 
-
-            {/* <p className="text-[1.5rem] text-slate-50 font-MontBold text-center w-full mt-[2rem]">Creation Form
-                </p> */}
             <div className="flex gap-2 mt-[5rem] justify-center max-[800px]:flex-wrap">
 
                 <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden

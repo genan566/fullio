@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { IoCopy, IoHeart, IoEllipsisHorizontal, IoMenu, IoPerson, IoClose } from "react-icons/io5";
-import { RootUserContext, UserTypesValues } from '../contexts';
+import { RootUserContext, } from '../contexts';
 
 import CustomIMG2 from "../imgs/pexels-pixabay.jpg"
 
@@ -19,12 +19,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
             <button
                 onClick={handlShow}
                 className="navs-close-L">
-                {/* {
-                    isOpen ? <IoClose
-                        color="white"
-                        size={18}
-                    /> :
-                } */}
+                    
                 <IoClose
                     color="white"
                     size={18}

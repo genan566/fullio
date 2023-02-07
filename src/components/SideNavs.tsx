@@ -74,9 +74,9 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
 
                 <Link
                     to={"/nftMarketPlace"}
-                    onClick={() => setIsActive("/nftMarketPlace")} className={isActive === "/nftMarketPlace" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => setIsActive("/nftMarketPlace")} className={((isActive === "/nftMarketPlace") || (isActive === "/detailNFT")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <GiVirtualMarker
-                        color={isActive === "/nftMarketPlace" ? "black" : "white"}
+                        color={((isActive === "/nftMarketPlace") || (isActive === "/detailNFT")) ? "black" : "white"}
                         size={18}
                     />
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Market Place</span>
@@ -85,9 +85,11 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 {
                     userContext.user?.is_staff && <Link
                         to={"/manageNFTs"}
-                        onClick={() => setIsActive("/manageNFTs")} className={((isActive === "/manageNFTs") || (isActive === "/createNFt")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                        onClick={() => setIsActive("/manageNFTs")} 
+                        className={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ? 
+                        "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                         <MdOutlineDashboardCustomize
-                            color={((isActive === "/manageNFTs") || (isActive === "/createNFt")) ? "black" : "white"}
+                            color={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ? "black" : "white"}
                             size={18}
                         />
                         <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Manage NFTs</span>

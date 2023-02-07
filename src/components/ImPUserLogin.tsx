@@ -1,7 +1,8 @@
 import React from 'react'
 import { useGoogleOneTapLogin } from 'react-google-one-tap-login'
-import { UserTypesValues, ValuesTypes } from '../contexts'
+import { ValuesTypes } from '../contexts'
 import { ImpUserLoginTypes } from '../types/ImpUserLoginTypes'
+import { UserTypesValues } from '../types/UserTypeValues'
 import { user_ID } from './constants/constants'
 
 const ImpUserLogin = ({ userContext }: ImpUserLoginTypes) => {

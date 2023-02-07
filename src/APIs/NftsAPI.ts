@@ -63,6 +63,35 @@ export class NftsAPI {
 
     }
 
+    async get_filtered_by_search_nfts(title: string) {
+        return fetch(
+            api_url(`core_nfts/?search=${title}`),
+            {
+                method: "GET",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
+    async get_all_nfts_paginate_by_search(search: string, page = 1) {
+        return fetch(
+            api_url(`core_nfts/?page=${page}&search=${search}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
     async create_nfts(data: any, token: string) {
 
 
