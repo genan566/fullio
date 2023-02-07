@@ -145,8 +145,8 @@ const DetailNft = () => {
                     /> <p>Go Back</p>
                 </Link>
             </div>
-            <div className="flex gap-2 mt-[5rem] justify-center">
-                <figure className="w-[35vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
+            <div className="flex gap-2 mt-[5rem] max-[700px]:flex-wrap justify-center">
+                <figure className="w-[35vw]  max-[700px]:max-w-[100%] max-[700px]:w-[90%] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
                 rounded-lg min-w-[280px] bg-zinc-700 shadow-md flex items-center justify-center">
                     <img
                         className="h-full w-full absolute inset-0 z-[1] object-cover "
@@ -154,7 +154,7 @@ const DetailNft = () => {
                         alt="user Profile" />
                 </figure>
 
-                <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-w-[650px]">
+                <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px]">
                     <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
                     <div className="flex row gap-2 w-fit mt-4">
 

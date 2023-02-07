@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import { RootUserContext } from '../contexts';
 import { GiVirtualMarker } from 'react-icons/gi';
+import { useMediaQuery } from 'usehooks-ts';
 
 
 
@@ -25,11 +26,16 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
 
     const [isActive, setIsActive] = React.useState<string>(`${location?.pathname}`)
 
+
+    const matches = useMediaQuery('(min-width: 768px)')
+
     React.useEffect(() => {
         setIsActive(`${location?.pathname}`)
     }, [location])
 
-    // console.log('location', location.pathname.spl)
+    React.useEffect(() => {
+        console.log('matches', matches)
+    }, [matches])
 
     return (
 
@@ -85,9 +91,9 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                 {
                     userContext.user?.is_staff && <Link
                         to={"/manageNFTs"}
-                        onClick={() => setIsActive("/manageNFTs")} 
-                        className={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ? 
-                        "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                        onClick={() => setIsActive("/manageNFTs")}
+                        className={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ?
+                            "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                         <MdOutlineDashboardCustomize
                             color={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ? "black" : "white"}
                             size={18}
@@ -166,7 +172,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
             </div>
 
             {
-                userContext?.user ?
+                userContext?.user.id ?
                     <button
                         onClick={handleLogOut}
                         className="customButtonFilterD-S d p0 mt-5">
