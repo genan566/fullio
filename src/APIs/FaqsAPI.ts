@@ -16,4 +16,28 @@ export class FaqsAPI {
             .then((js) => js.json())
 
     }
+
+    async post_FAQ(data: { title: string, description: string }, token: string) {
+        if (token) {
+            return fetch(
+                api_url('faqs/'),
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: JSON.stringify(data)
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on retrieve", er))
+
+        }
+
+    }
 }

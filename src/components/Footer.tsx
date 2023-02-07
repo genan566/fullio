@@ -120,7 +120,7 @@ const Footer = () => {
                 <button
                     // onClick={handleLog}
                     className="bg-violet-600 flex row items-center justify-center gap-1 w-fit  mx-auto mt-[2rem]
-                        hover:bg-transparent hover: border hover: border-violet-600 hover:text-white animate-pulse
+                        hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                         focus:outline-none
                         text-sm font-MontSemiBold
                         focus:ring-2

@@ -20,10 +20,43 @@ import Partner5 from "../imgs/partner/partner-5.png";
 import Partner6 from "../imgs/partner/partner-6.png";
 
 
+import { motion } from "framer-motion"
 
 import "../styles/HomeView.scss"
 import { RootCreatorContext, RootUserContext } from '../contexts';
 import { useNavigate } from 'react-router-dom';
+
+
+
+const containerVariants = {
+
+
+    hidden: {
+        opacity: 0,
+        x: "-2.5vh",
+    },
+    visible: {
+        opacity: 1,
+        x: "0",
+        transition: { duration: .7, ease: "easeIn" }
+    },
+
+    inversevisible: {
+        opacity: 1,
+        y: "0",
+        transition: { duration: .7 }
+    },
+    inverseexit: {
+        opacity: 0,
+        y: "-2.5vh",
+        transition: { duration: .7 }
+    },
+    exit: {
+        x: "-2.5vh",
+        opacity: 0,
+        transition: { ease: 'easeInOut' },
+    }
+};
 
 const HomeView = () => {
     const userContext = React.useContext(RootUserContext)
@@ -35,7 +68,11 @@ const HomeView = () => {
         <div className="homeView ">
             <div className="animated_gradient_bg h-fit rounded-lg shadow-xl p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
                 <div className="flex gap-[1rem] justify-between w-full">
-                    <div className="flex flex-col gap-1 justify-center">
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={containerVariants}
+                        className="flex flex-col gap-1 justify-center">
                         <p className="text-dynamique font-MontBold mt-1 max-w-[500px]">Create/Manage <span>NFTs</span> for your digital products/clients.</p>
                         <p className='mt-2 text-sm inline-block max-w-[500px]'>Lorem ipsum dolor sit amet consectetur
                             adipisicing elit. Nobis error neque dicta quam numquam fuga
@@ -82,11 +119,13 @@ const HomeView = () => {
                                 /> <p>Discover More</p>
                             </button>
                         </div>
-                    </div>
-
-                    <img
+                    </motion.div>
+                    <motion.img
+                        initial="inverseexit"
+                        animate="inversevisible"
+                        variants={containerVariants}
                         className="min-h-[470px] max-h-[450px] min-w-[450px] max-w-[450px] object-center shadow-2xl rounded-lg bg-cover"
-                        src={ISOTOP} />
+                        src={ISOTOP}></motion.img>
                 </div>
             </div>
 
@@ -347,7 +386,7 @@ const HomeView = () => {
                         src={Partner6} />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

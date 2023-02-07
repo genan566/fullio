@@ -3,7 +3,7 @@ import { IoArrowDown, IoArrowUp, IoBusiness } from 'react-icons/io5'
 import Accordion from '../components/Accordion'
 import "../styles/FAQ.scss"
 
-import { RootUserContext } from '../contexts'
+import { RootUserContext, RootUserTokenContext } from '../contexts'
 import { FaqsAPI } from '../APIs/FaqsAPI'
 
 import { motion } from "framer-motion"
@@ -69,11 +69,15 @@ const FAQ = () => {
     const [dataFAQS, setDataFAQS] = React.useState<FAQs[]>([])
 
     const userContext = React.useContext(RootUserContext)
+    const userToken = React.useContext(RootUserTokenContext)
 
-    React.useEffect(() => {
-
+    const loadInitial = () => {
         let respFaqs = new FaqsAPI()
         respFaqs.get_all_faqs().then(data => setDataFAQS(data.results))
+    }
+
+    React.useEffect(() => {
+        loadInitial()
     }, [])
 
     return (
@@ -109,8 +113,16 @@ const FAQ = () => {
 
 
                     <button
-                        // to={"/"}
-                        // onClick={handleLog}
+
+                        onClick={() => {
+
+                            let resNFTs = new FaqsAPI()
+                            let parsedToken = userToken.token
+                            resNFTs.post_FAQ({
+                                title: "What the meaning of NFT?",
+                                description: "An NFT or non-fungible token is a valued data composed of a type of cryptographic token that represents an object, to which is attached a digital identity. This data is stored and authenticated thanks to a blockchain protocol, which gives it its first value."
+                            }, parsedToken).then(data => { loadInitial() })
+                        }}
                         className="bg-violet-500
                         hover:bg-violet-600
                         active:bg-violet-700 
