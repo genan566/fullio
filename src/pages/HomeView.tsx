@@ -65,29 +65,31 @@ const HomeView = () => {
     const history = useNavigate()
 
     return (
-        <div className="homeView ">
-            <div className="animated_gradient_bg h-fit rounded-lg shadow-xl p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
-                <div className="flex gap-[1rem] justify-between w-full">
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={containerVariants}
-                        className="flex flex-col gap-1 justify-center">
-                        <p className="text-dynamique font-MontBold mt-1 max-w-[500px]">Create/Manage <span>NFTs</span> for your digital products/clients.</p>
-                        <p className='mt-2 text-sm inline-block max-w-[500px]'>Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Nobis error neque dicta quam numquam fuga
-                            libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+        <div className="homeView">
+            <div className="w-full max-[500px]:pr-[1.5rem]">
+                <div className="animated_gradient_bg h-fit rounded-lg shadow-xl
+                     max-[800px]:p-[1.9rem] p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
+                    <div className="flex gap-[1rem] justify-between w-full">
+                        <motion.div
+                            initial="hidden"
+                            animate="visible"
+                            variants={containerVariants}
+                            className="flex flex-col gap-1 justify-center">
+                            <p className="text-dynamique font-MontBold mt-1 max-w-[500px] max-[500px]:w-full">Create/Manage <span>NFTs</span> for your digital products/clients.</p>
+                            <p className='mt-2 text-sm inline-block max-w-[500px] max-[500px]:w-full'>Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Nobis error neque dicta quam numquam fuga
+                                libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
 
-                        <div className="flex gap-4 mt-[2rem]">
-                            <button
-                                onClick={() => {
-                                    !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
-                                    userContext?.user?.is_staff && history("/createNFt")
+                            <div className="flex gap-4 mt-[2rem]">
+                                <button
+                                    onClick={() => {
+                                        !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                        userContext?.user?.is_staff && history("/createNFt")
 
-                                    // creatorContext?.setisCreator(true)
-                                }}
-                                // onClick={handleLog}
-                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                                        // creatorContext?.setisCreator(true)
+                                    }}
+                                    // onClick={handleLog}
+                                    className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
                                         text-sm font-MontSemiBold
@@ -95,16 +97,16 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                                <RiShoppingBasket2Line
-                                    // color="white"
-                                    size={17}
-                                /> <p>Start Now</p>
-                            </button>
+                                    <RiShoppingBasket2Line
+                                        // color="white"
+                                        size={17}
+                                    /> <p>Start Now</p>
+                                </button>
 
-                            <button
-                                onClick={() => history("/nftMarketPlace")}
-                                // onClick={handleLog}
-                                className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
+                                <button
+                                    onClick={() => history("/nftMarketPlace")}
+                                    // onClick={handleLog}
+                                    className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
                                         
                                         focus:outline-none
@@ -113,38 +115,40 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                                <IoArrowDown
-                                    // color="white"
-                                    size={17}
-                                /> <p>Discover More</p>
-                            </button>
+                                    <IoArrowDown
+                                        // color="white"
+                                        size={17}
+                                    /> <p>Discover More</p>
+                                </button>
+                            </div>
+                        </motion.div>
+                        <div className="max-[950px]:hidden">
+                            <motion.img
+                                initial="inverseexit"
+                                animate="inversevisible"
+                                variants={containerVariants}
+                                className="min-h-[470px] max-h-[450px] min-w-[450px] max-w-[450px] object-center shadow-2xl rounded-lg bg-cover"
+                                src={ISOTOP}></motion.img>
                         </div>
-                    </motion.div>
-                    <motion.img
-                        initial="inverseexit"
-                        animate="inversevisible"
-                        variants={containerVariants}
-                        className="min-h-[470px] max-h-[450px] min-w-[450px] max-w-[450px] object-center shadow-2xl rounded-lg bg-cover"
-                        src={ISOTOP}></motion.img>
+                    </div>
                 </div>
             </div>
 
-            <div className="homeView-products px-[4.2rem]">
+            <div className="homeView-products px-[1.5rem] min-[1400px]:px-[4.2rem]">
 
-
-                <div className="flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                <div className="flex flex-row justify-center gap-[1rem] items-center max-[500px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                    after:absolute after:top-0 after:left-0 after:bg-white relative text-[2rem] leading-[2.5rem] py-4 w-[50%]">
+                    after:absolute after:top-0 after:left-0 after:bg-white relative text-[2rem] leading-[2.5rem] py-4 w-1/2 max-[500px]:w-full">
                         Discover a unique <span className="block">collection artistic works</span>
                     </h2>
 
-                    <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit amet consectetur
+                    <p className='text-white text-sm w-1/2 max-[500px]:w-full'>Lorem ipsum dolor sit amet consectetur
                         adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                         libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
                 </div>
 
-                <div className="mt-[5rem] flex max-[800px]:flex-wrap gap-[3rem] gap-y-[3rem] justify-center">
-                    <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
+                <div className="mt-[5rem] flex max-[1400px]:flex-wrap gap-[2rem] gap-y-[3rem] min-[1000px]:justify-center">
+                    <div className="min-w-[300px] max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img
                                 className="w-[4rem] h-[4rem] object-cover shadow-lg bg-cover"
@@ -163,7 +167,7 @@ const HomeView = () => {
                         </div>
                     </div>
 
-                    <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
+                    <div className="min-w-[300px] max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img
                                 className="w-[4rem] h-[4rem] object-cover shadow-lg bg-cover"
@@ -201,7 +205,7 @@ const HomeView = () => {
                         </button>
                     </div>
 
-                    <div className="max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
+                    <div className="min-w-[300px] max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
                         <div className="p-[.8rem] rounded-full animated_gradient_bg text w-fit overflow-hidden absolute top-[-2rem] left-[1rem] shadow-lg">
                             {/* <img
                                 className="w-[4rem] h-[4rem] object-cover shadow-lg bg-cover"
@@ -258,7 +262,7 @@ const HomeView = () => {
                 </div>
 
                 <div className="px-[3vw] mt-[10rem]">
-                    <div className="mt-[5rem] flex justify-between mb-[2rem]">
+                    <div className="mt-[5rem] flex flex-wrap gap-[1rem] justify-between mb-[2rem]">
                         <div className="flex rows gap-[1rem] items-center">
                             <p className="text-xl font-MontSemiBold ">Featured Products</p>
                             <span className="rounded-lg bg-indigo-600 text-white text-[.8rem] py-1 px-4 shadow-md flex items-center gap-[.25rem]">
@@ -284,8 +288,8 @@ const HomeView = () => {
 
                     </div>
 
-                    <div className="flex justify-between items-center animated_gradient_bg shadow-md rounded-md overflow-hidden">
-                        <div className="w-[50%] h-full p-[1rem]">
+                    <div className="flex justify-between flex-wrap items-center animated_gradient_bg shadow-md rounded-md overflow-hidden">
+                        <div className="w-[50%] h-full max-[750px]:w-[100%] max-[750px]:order-2 p-[1rem]">
                             {/* <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
                                 <img
                                     className="h-10 w-10 rounded-full object-cover shadow-lg"
@@ -312,7 +316,7 @@ const HomeView = () => {
                                 <div className="text-[2rem] mb-1 text-white font-MontSemiBold">25.00 ETH</div>
                             </div>
 
-                            <div className="mt-[1rem] flex items-center gap-[2rem] justify-center">
+                            <div className="mt-[1rem] flex items-center gap-[2rem] justify-center flex-wrap">
 
                                 <button
                                     // onClick={handleLog}
@@ -349,7 +353,7 @@ const HomeView = () => {
                                 </button>
                             </div>
                         </div>
-                        <figure className='w-[50%] relative h-[500px]'>
+                        <figure className='w-[50%] max-[750px]:w-[100%] max-[750px]:order-0 relative h-[500px] max-[750px]:h-[350px]'>
                             <img
                                 className="absolute top-0 left-0 right-0 w-[100%] h-[100%] bottom-0 object-fill shadow-lg bg-cover"
                                 src={ISOTOP2} />

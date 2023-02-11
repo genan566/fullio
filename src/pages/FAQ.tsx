@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoArrowDown, IoArrowUp, IoBusiness } from 'react-icons/io5'
+
 import Accordion from '../components/Accordion'
 import "../styles/FAQ.scss"
 
@@ -27,36 +27,6 @@ const containerVariants = {
     }
 };
 
-const data = [
-    {
-        id: 1,
-        title: "I'm an influencer/content creator/partner-Who should I contact",
-        description: "@Jawad | Illuvium#0481 is our community growth manager. Send a DM with a link to the plateform(s) you operate on!"
-    },
-    {
-        id: 2,
-        title: "What is Illuvium Zero, and what is the Land Sale",
-        description: "Illuvium: Zero is a mobile mini-game that will interact with the main game. Illuvium: Zero will be a base building game which will be staged on a piece of land. The free version of land will not produce resources that can interact with the main game. Paid land will produce resources which can interact with the main game. There will be 100k plots of paid land in total, and the first land sale will offer 20k of these plots for sale in a dutch auction format. For more information, visit#🎮illuvium-zero."
-    },
-
-    {
-        id: 3,
-        title: "Is the game playable on mobile",
-        description: "The game won't be available on mobile to start. We have plans to build a modified mobile version as well as console versions."
-    },
-
-    {
-        id: 4,
-        title: "What are the play-to-earn aspects of the game",
-        description: "Illuvium’s play to earn features might be its most exciting. Players can earn in-game rewards in ILV through competitions and tournaments, or completing PVE quests. Additionally, players can capture Illuvials and collect resources to buy and sell on the Illuvidex, the in-game marketplace."
-    },
-
-    {
-        id: 5,
-        title: "Is the a free-to-play aspect of the game?",
-        description: "You begin our game with a free-to-play experience that immerses you in our richly-detailed world, lets you enjoy some action, and helps you understand how the game works. The free-to-play experience of the Tier 0 regions will familiarize you with Illuvium, and won’t feel like an “abridged” version of the game. It is a full-fledged gameplay experience! If you like it, you can then decide to opt in to the paid experience, start collecting NFTs from higher tiered regions, and delve into deeper adventures to explore the mysteries of the game where the NFTs you gather start to hold more value as well."
-    },
-]
 
 interface FAQs {
     title: string,

@@ -63,12 +63,11 @@ const ManageNFTs = () => {
             animate="visible"
             exit="exit" className='relative'>
 
-            <div className=''>
-
+            <div className='pr-[1rem]'>
 
                 <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
                     <div className="container-img-content">
-                        <p className="text-[2.7rem] text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Personnal Products
+                        <p className="text-[2.5rem] max-[450px]:text-[1.5rem] text-slate-50 font-MontBold leading-[3.5rem] max-[450px]:leading-[2rem] text-center w-full">Personnal Products
                             <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
                     </div>
                 </div>

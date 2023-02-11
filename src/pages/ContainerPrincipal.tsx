@@ -6,7 +6,7 @@ import { RiShoppingBasket2Line } from "react-icons/ri";
 
 
 import { motion } from "framer-motion"
-import {  RootCreatorContext, RootUserContext, } from '../contexts';
+import { RootCreatorContext, RootUserContext, } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { Link, useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
@@ -194,21 +194,23 @@ const ContainerPrincipal = () => {
             initial="hidden"
             animate="visible"
             exit="exit">
-            <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
-                {/* <img src={ImContainer} className="object-cover" alt="Imgs" /> */}
-                <div className="container-img-content">
-                    <p className="text-[3rem] text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Page Products
-                        <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
-                    <div className="mx-auto">
-                        {/* <Link to={"/createNFt"}> */}
-                        <button
-                            onClick={() => {
-                                !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
-                                userContext?.user?.is_staff && history("/createNFt")
+            <div className="pr-[1rem]">
 
-                                // creatorContext?.setisCreator(true)
-                            }}
-                            className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
+                    {/* <img src={ImContainer} className="object-cover" alt="Imgs" /> */}
+                    <div className="container-img-content">
+                        <p className="text-[2.2rem] max-[450px]:text-[1.5rem] max-[450px]:leading-[2rem]  text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Page Products
+                            <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
+                        <div className="mx-auto">
+                            {/* <Link to={"/createNFt"}> */}
+                            <button
+                                onClick={() => {
+                                    !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                    userContext?.user?.is_staff && history("/createNFt")
+
+                                    // creatorContext?.setisCreator(true)
+                                }}
+                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
                                         text-sm font-MontSemiBold
@@ -216,12 +218,13 @@ const ContainerPrincipal = () => {
                                         focus:ring-gray-500 mt-5
                                             py-1 text-white px-3
                                             rounded-lg">
-                            <RiShoppingBasket2Line
-                                // color="white"
-                                size={17}
-                            /> <p>Create your own one </p>
-                        </button>
-                        {/* </Link> */}
+                                <RiShoppingBasket2Line
+                                    // color="white"
+                                    size={17}
+                                /> <p>Create your own one </p>
+                            </button>
+                            {/* </Link> */}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,7 +233,7 @@ const ContainerPrincipal = () => {
                 <div className="mb-3">
                     <h2 className="text-[1.8rem] font-MontBold text-white">Trending Auctions</h2>
                     <div className="flex mt-2 gap-4 row max-[900px]:flex-wrap align-center">
-                        <div className="flex mt-2 gap-4 row">
+                        <div className="flex mt-2 gap-4 max-[900px]:gap-[1rem] flex-wrap row">
                             <button
                                 onClick={() => {
                                     setActiveCategoriesTrending(0);

@@ -121,16 +121,18 @@ const CreateNFt = () => {
                 </Link>
             </div>
 
-            <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
-                <div className="container-img-content">
-                    <p className="text-[2.7rem] text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Create Your Own
-                        <span className="block animated_gradient_bg textS">NFT</span></p>
+            <div className="pr-[1rem]">
+                <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
+                    <div className="container-img-content">
+                        <p className="text-[2.5rem] max-[450px]:text-[1.5rem] text-slate-50 font-MontBold leading-[3.5rem] max-[450px]:leading-[2rem] text-center w-full">Create Your Own
+                            <span className="block animated_gradient_bg textS">NFT</span></p>
+                    </div>
                 </div>
             </div>
 
-            <div className="flex gap-2 mt-[5rem] justify-center max-[800px]:flex-wrap">
+            <div className="flex gap-2 mt-[5rem] pr-[1rem] justify-center max-[1050px]:flex-wrap">
 
-                <figure className="w-[30vw] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
+                <figure className="w-[30vw] max-[1050px]:w-full min-h-[500px] max-h-[550px] relative overflow-hidden
                             rounded-lg min-w-[280px] bg-zinc-800 shadow-md flex items-center justify-center">
                     {
                         !file.asPreview && <h2 className="text-white text-[1.5rem] font-MontSemiBold">
@@ -178,18 +180,19 @@ const CreateNFt = () => {
                 </figure>
 
                 <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
-                    <div className="px-[1.5vw] max-w-[600px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+                    <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
                         <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                            after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.7rem] leading-[2.5rem] py-4 w-[50%]">
+                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.6rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
                             Create your NFT by entering these informations
                         </h2>
 
-                        <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit
-                            amet consectetur neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
+                        <p className='text-white text-[1rem] w-[50%] max-[800px]:w-full'>Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                             libero fugiat! Itaque.</p>
                     </div>
+
                     <form action="" className='' onSubmit={handleSubmit(onSubmit)}>
-                        <div className="px-[1.5vw] max-w-[600px] mx-auto">
+                        <div className="px-[1.5vw] w-full mx-auto">
 
 
                             <div className=" mt-[1rem] flex justify-center items-stretch gap-[1rem] max-[600px]:flex-wrap">

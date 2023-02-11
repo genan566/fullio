@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <>
             <div className="mt-[10rem] px-[1rem]">
-                <div className="animated_gradient_bg animFalse w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative">
+                <div className="animated_gradient_bg animFalse max-[800px]:w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative">
                     <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
                                 overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
 
@@ -15,9 +15,9 @@ const Footer = () => {
                             src={ISOTOP}
                             alt="user Profile" />
                     </div>
-                    <div className="px-[4rem] flex flex-row justify-between gap-[1rem] items-center flex-wrap">
-                        <h2 className="text-white after:content-[''] after:w-[25%] after:h-[1px] after:shadow-md font-MontBold
-                            after:absolute after:top-0 after:left-0 after:bg-white relative text-[1.8rem] leading-[2.5rem] py-4 ">
+                    <div className="px-[4rem] flex flex-row max-[600px]:justify-center justify-between gap-[1rem] items-center flex-wrap">
+                        <h2 className="text-white after:content-[''] after:w-[25%] after:h-[1px] after:shadow-md font-MontBold max-[600px]:w-full max-[600px]:text-center
+                            after:absolute after:top-0 after:left-0 max-[600px]:after:left-[50%] max-[600px]:my-[1.5rem] max-[600px]:after:translate-x-[-50%] after:bg-white relative text-[1.8rem] leading-[2.5rem] py-4 ">
                             Discover a unique <span className="block">collection artistic works</span>
                         </h2>
 
@@ -43,14 +43,15 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className=" mt-[7rem] bg-slate-800 w-fit mx-auto p-[3rem] rounded-xl shadow-2xl">
-                <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
+            
+            <div className=" mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] p-[3rem] rounded-xl shadow-2xl">
+                <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%]">
+                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
                         Send us a mail
                     </h2>
 
-                    <p className='text-white text-sm flex-grow w-[30%]'>Lorem ipsum dolor sit amet consectetur
+                    <p className='text-white text-sm w-[50%] max-[800px]:w-full'>Lorem ipsum dolor sit amet consectetur
                         adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                         libero fugiat! Itaque.</p>
                 </div>

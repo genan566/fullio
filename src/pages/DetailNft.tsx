@@ -154,67 +154,68 @@ const DetailNft = () => {
                         alt="user Profile" />
                 </figure>
 
-                <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px]">
-                    <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
-                    <div className="flex row gap-2 w-fit mt-4">
+                <div className="pr-[1rem]">
+                    <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px]">
+                        <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
+                        <div className="flex row gap-2 w-fit mt-4">
 
-                        {
-                            categories.map(item => {
+                            {
+                                categories.map(item => {
 
-                                return (
-                                    <>
-                                        <p
-                                            className={item.name === "Not Disponible" ?
-                                                "hover:bg-red-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-red-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-red-500 px-3 rounded-full"
-                                                :
-                                                "hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-violet-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-white px-3 rounded-full"}>
+                                    return (
+                                        <>
+                                            <p
+                                                className={item.name === "Not Disponible" ?
+                                                    "hover:bg-red-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-red-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-red-500 px-3 rounded-full"
+                                                    :
+                                                    "hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-violet-600 hover:text-white focus:outline-none text-xs font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-2 text-white px-3 rounded-full"}>
 
 
-                                            {
-                                                item.name === "Best Sold" && <>
+                                                {
+                                                    item.name === "Best Sold" && <>
 
-                                                    <AiTwotoneFire
-                                                        // color="white"
-                                                        size={17} />
-                                                </>
-                                            }
-                                            <p>{item.name}</p>
-                                        </p>
-                                    </>
-                                )
-                            })
-                        }
+                                                        <AiTwotoneFire
+                                                            // color="white"
+                                                            size={17} />
+                                                    </>
+                                                }
+                                                <p>{item.name}</p>
+                                            </p>
+                                        </>
+                                    )
+                                })
+                            }
 
-                        {
-                            categories.length === 0 && <div className="text-center w-full">
-                                <h1 className="text-red-500 text-sm font-MontBold">Categories not Defined</h1>
-                            </div>
-                        }
-                    </div>
-                    <p className="text-xs text-slate-400 font-MontSemiBold mt-4 max-w-[550px]">
-                        {nftContext?.nftData?.description || "Non défini"}</p>
-
-                    <div className='mt-5 bottom-divider py-4 mb-5'>
-                        <p className="text-xs text-slate-400 font-MontSemiBold">Owned by</p>
-                        <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
-                            <img
-                                className="h-12 w-12 rounded-full object-cover shadow-lg"
-                                src={userRetrieveData.image || NFT10}
-                                alt="user Profile" />
-                            <p className="text-xs text-white font-MontBold">{userRetrieveData.name || "Non défini"}</p>
+                            {
+                                categories.length === 0 && <div className="text-center w-full">
+                                    <h1 className="text-red-500 text-sm font-MontBold">Categories not Defined</h1>
+                                </div>
+                            }
                         </div>
-                    </div>
-                    <div className="">
-                        <p className="text-xs text-slate-400 font-MontSemiBold mb-1">Current Price</p>
-                        <h1 className="text-xl text-white font-MontSemiBold">ETH {nftContext?.nftData?.price || 0.00}</h1>
-                    </div>
+                        <p className="text-xs text-slate-400 font-MontSemiBold mt-4 max-w-[550px]">
+                            {nftContext?.nftData?.description || "Non défini"}</p>
+
+                        <div className='mt-5 bottom-divider py-4 mb-5'>
+                            <p className="text-xs text-slate-400 font-MontSemiBold">Owned by</p>
+                            <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
+                                <img
+                                    className="h-12 w-12 rounded-full object-cover shadow-lg"
+                                    src={userRetrieveData.image || NFT10}
+                                    alt="user Profile" />
+                                <p className="text-xs text-white font-MontBold">{userRetrieveData.name || "Non défini"}</p>
+                            </div>
+                        </div>
+                        <div className="">
+                            <p className="text-xs text-slate-400 font-MontSemiBold mb-1">Current Price</p>
+                            <h1 className="text-xl text-white font-MontSemiBold">ETH {nftContext?.nftData?.price || 0.00}</h1>
+                        </div>
 
 
 
-                    <div className="flex row gap-5 justify-start items-center w-fit mt-6">
-                        <button
-                            // onClick={handleLog}
-                            className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                        <div className="flex row gap-5 justify-start items-center w-fit mt-6">
+                            <button
+                                // onClick={handleLog}
+                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
                                         text-sm font-MontSemiBold
@@ -222,12 +223,13 @@ const DetailNft = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-[1rem]
                                             rounded-lg">
-                            <RiShoppingBasket2Line
-                                // color="white"
-                                size={17}
-                            /> <p>Buy Now</p>
-                        </button>
+                                <RiShoppingBasket2Line
+                                    // color="white"
+                                    size={17}
+                                /> <p>Buy Now</p>
+                            </button>
 
+                        </div>
                     </div>
                 </div>
             </div>

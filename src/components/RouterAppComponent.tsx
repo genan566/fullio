@@ -15,6 +15,7 @@ import ManageNFTs from '../pages/ManageNFTs'
 import CreateNFt from '../pages/CreateNFt'
 import CollectionsPage from '../pages/CollectionsPage'
 import AboutPage from '../pages/AboutPage'
+import { useMediaQuery } from 'usehooks-ts'
 
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
@@ -29,7 +30,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
             id='principalContent'>
 
 
-            <div className="flex row align-center mb-8">
+            <div className="flex row align-center mb-8 flex-wrap gap-[1rem]">
                 <div
                     onClick={controlSearch}
                     className="control-container cursor-text" id='cPar'>

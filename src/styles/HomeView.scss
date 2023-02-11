@@ -9,8 +9,25 @@
     & .text-dynamique {
         width: fit-content;
         display: inline-block;
-        line-height: 3.5vw;
-        font-size: clamp(2.5vw, 2vw, 32px) !important;
+        line-height: 2.5rem;
+        font-size: 1.9rem;
+
+        @media only screen and (min-width:1000px) {
+            line-height: 2.8rem;
+            font-size: 2rem;
+        }
+
+        @media only screen and (min-width:1200px) {
+            line-height: 2.9rem;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        @media only screen and (min-width:1500px) {
+            line-height: 2.9rem;
+            font-size: 2.4rem;
+        }
+
 
 
         & span {

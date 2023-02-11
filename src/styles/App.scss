@@ -306,22 +306,32 @@
 }
 
 .custom-w-3 {
-    flex-grow: 1;
+    // flex-grow: 1;
     // margin-left: 1rem;
     margin-left: 9rem;
     margin-right: 4.5rem;
     // transition: all .1s ease-out;
 
+    @media only screen and (max-width:1300px) {
+        margin-top: 4.2rem;
+        margin-left: .5rem;
+        margin-right: 2rem !important;
+    }
+
     &.isho {
         margin-left: 13rem;
+
+        @media only screen and (max-width:1300px) {
+            margin-left: .5rem;
+        }
     }
 
 
     &.ishowUs {
         margin-right: 19rem;
 
-        @media only screen and (max-width:900px) {
-            margin-right: 4.5rem;
+        @media only screen and (max-width:1300px) {
+            margin-right: 1rem;
         }
     }
 }
@@ -336,6 +346,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media only screen and (max-width:1300px) {
+        width: fit-content;
+        background-color: rgba(12, 11, 11, 0.788);
+    }
 
     overflow-y: scroll;
 
@@ -362,6 +377,11 @@
     overflow: hidden;
     overflow-y: scroll;
     position: relative;
+
+
+    @media only screen and (max-width:1300px) {
+        background-color: rgba(12, 11, 11, 0.788);
+    }
 
     &::-webkit-scrollbar {
         display: none;
@@ -408,6 +428,11 @@
         position: fixed;
         top: 1.2rem;
         // background: linear-gradient(180deg, rgb(15, 7, 29) 0%, rgb(124, 58, 237) 70%);
+
+
+        @media only screen and (max-width:1300px) {
+            right: .25rem;
+        }
 
         & img {
             width: 40px !important;
@@ -477,13 +502,32 @@
     display: flex;
     align-items: flex-start;
 
+    & .custom-w-m_sabs {
+        position: fixed;
+        top: .25rem;
+        width: 15px;
+        background-color: #fff;
+        // height: 50%;
+        left: 1rem;
+        z-index: 999;
+    }
+
     & .custom-w-m {
         position: fixed;
         top: 1rem;
         bottom: 1rem;
         width: 5.5rem;
-        height: 97vh;
+        height: 96%;
         left: 1rem;
+        z-index: 999;
+
+        @media only screen and (max-width:1300px) {
+            left: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            border-radius: 1rem;
+        }
 
         &.showing {
             width: 11rem;
@@ -500,9 +544,18 @@
         top: 1rem;
         bottom: 1rem;
         width: 17.5rem;
-        height: 97vh;
+        height: 96%;
         right: 1rem;
         padding-top: 5rem;
+        z-index: 999;
+
+        @media only screen and (max-width:1300px) {
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            border-radius: 1rem;
+        }
 
         // overflow-y: scroll;
     }
@@ -567,13 +620,13 @@
 
 .cModals {
     position: fixed;
-    z-index: 10;
+    z-index: 10000;
     top: 0;
     left: 0;
     padding: 4rem 0;
     right: 0;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.589);
     display: flex;
@@ -594,6 +647,7 @@
         display: flex;
         align-items: flex-start;
         justify-content: center;
+
         &-container {
             border-radius: 1rem;
             min-width: 30vw;
