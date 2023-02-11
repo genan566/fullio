@@ -388,7 +388,7 @@
     top: 0;
     bottom: 0;
     height: 100%;
-    border-radius: 1rem; } }
+    border-radius: 0; } }
 
 .mParent .custom-w-m.showing {
   width: 11rem; }
@@ -409,7 +409,7 @@
     top: 0;
     bottom: 0;
     height: 100%;
-    border-radius: 1rem; } }
+    border-radius: 0; } }
 
 .custom-userStatus {
   width: 100%;

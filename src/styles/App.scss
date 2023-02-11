@@ -526,7 +526,8 @@
             top: 0;
             bottom: 0;
             height: 100%;
-            border-radius: 1rem;
+            border-radius: 0;
+            
         }
 
         &.showing {
@@ -554,7 +555,7 @@
             top: 0;
             bottom: 0;
             height: 100%;
-            border-radius: 1rem;
+            border-radius: 0;
         }
 
         // overflow-y: scroll;
