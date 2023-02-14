@@ -15,28 +15,27 @@ import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
 import { UserRetrieveInterface } from '../types/UserRetrieveTypes';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { SaleHistory } from '../types/SaleHistoryType';
+import { useDispatch, useSelector } from 'react-redux';
 
-
+import { RootState } from '../redux/store';
+import { actionShowModalForSuscription } from '../redux/actions/ModalsActions';
+import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks';
+import { TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 const DetailNft = () => {
     const nftContext = React.useContext(RootNftContext)
 
     const [userRetrieveData, setuserRetrieveData] = React.useState<UserRetrieveInterface>({} as UserRetrieveInterface)
+    const [userRetrieveDataListForSales, setuserRetrieveDataListForSales] = React.useState<UserRetrieveInterface[]>([])
     const [categories, setCategories] = React.useState<CategoriesTrending[]>([])
     const [categorie, setCategorie] = React.useState<CategoriesTrending | null>(null)
-    const [saleHistorie, setSaleHistory] = React.useState<SaleHistory | null>(null)
     const [saleHistories, setSaleHistories] = React.useState<SaleHistory[]>([])
     const userTokenContext = React.useContext(RootUserTokenContext)
 
+    const location = useLocation();
+    const { showModalSuscription } = useAppSelector((state: RootState) => state.modalsReducer)
 
-    React.useEffect(() => {
+    const dispatch = useAppDispatch();
 
-        if (saleHistorie !== null) {
-            let checker = saleHistories.filter(it => it.title === saleHistorie.title)
-            if (checker.length === 0) {
-                setSaleHistories([...saleHistories, saleHistorie])
-            }
-        }
-    }, [saleHistorie])
 
     React.useEffect(() => {
 
@@ -53,7 +52,6 @@ const DetailNft = () => {
             let respAuth = new AuthAPI()
             if (userTokenContext.token !== "") {
                 let token = userTokenContext.token
-
                 respAuth
                     .retrive_account(token, nftContext?.nftData?.owner_id)
                     .then(res => {
@@ -73,80 +71,102 @@ const DetailNft = () => {
 
 
     const load_categories = async () => {
-        if (nftContext?.nftData?.categories_trending.toString() !== "[]") {
+        let categories_getted = nftContext?.nftData?.categories_trending
+        if (Boolean(categories_getted?.length)) {
+            let categories_trendings = new CategoriesTrendingAPI()
+            categories_trendings
+                .get_multi_categorie(categories_getted)
+                .then(data => {
+                    if (data.results.length > 0) {
+                        setCategories([...data.results])
+                    }
+                })
 
-            nftContext?.nftData?.categories_trending.map(it => {
-                let idX = it
-                let categories_trendings = new CategoriesTrendingAPI()
-                categories_trendings
-                    .get_categorie(idX)
-                    .then(data => {
-                        let checker = { id: data.id, name: data.name }
-                        if ((categorie?.id !== checker.id) && categorie?.name !== checker.name) {
-                            setCategorie(data)
-                        }
-                    })
-            })
 
         }
     }
 
     const load_sale_histories = async () => {
-        if (nftContext?.nftData?.sales_history.toString() !== "[]") {
+        let sales_getted = nftContext?.nftData?.id
+        if (Boolean(sales_getted)) {
+            let salesHistories_trendings = new SaleHistoriesAPI()
+            salesHistories_trendings
+                .get_multi_sales_by_nftID(sales_getted)
+                .then(data => {
+                    if (data.results.length > 0) {
+                        setSaleHistories([...data.results])
+                        data.results.map((item: any) => {
+                            let respAuth = new AuthAPI()
+                            if (userTokenContext.token !== "") {
+                                let token = userTokenContext.token
+                                respAuth
+                                    .retrive_account(token, item.user_suscribed)
+                                    .then(res => {
+                                        let formatedData = {
+                                            email: res.email,
+                                            id: res.id,
+                                            name: res.name,
+                                            pseudo: res.pseudo,
+                                            is_superuser: res.is_superuser,
+                                            is_staff: res.is_staff,
+                                            image: routeAPIBaseImage + res.image.toString(),
+                                        }
 
-            nftContext?.nftData?.sales_history.map(it => {
-                let idX = it
-                let sales_historys = new SaleHistoriesAPI()
-                sales_historys
-                    .get_sales_by_ID(idX)
-                    .then(data => {
-                        let checker = data
-                        if ((saleHistorie?.title !== checker.title) && saleHistorie?.price !== checker.price) {
-                            setSaleHistory(data)
-                        }
-                    })
-            })
+                                        setuserRetrieveDataListForSales([...userRetrieveDataListForSales, formatedData])
 
+                                    })
+                            }
+                        })
+                    }
+                })
         }
+    }
+
+    const handleSuscribeToSale = () => {
+        let token = userTokenContext.token
+        // dispatch(actionShowModalForSuscription(true))
+
+        dispatch({ type: TOGGLE_MODAL_SUSCRIPTION, payload: true })
+
+
     }
 
     React.useEffect(() => {
         load_sale_histories()
-    }, [nftContext?.nftData?.sales_history])
+        console.log("idiot")
+    }, [nftContext?.nftData?.sales_history, showModalSuscription])
 
     React.useEffect(() => {
         load_categories()
     }, [nftContext?.nftData?.categories_trending])
 
 
-    const location = useLocation();
-
-
 
     return (
         <div
         >
-            <div className="px-2">
-                <Link
-                    to={location.pathname === "/detailOwnNFT" ? "/manageNFTs" : "/nftMarketPlace"}
+            <div className="">
+                <button
+                    // to={location.pathname === "/detailOwnNFT" ? "/manageNFTs" : "/nftMarketPlace"}
+                    onClick={() => window.history.back()}
                     // onClick={handleLog}
                     className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                         hover:bg-white hover:text-black
-                        
+
                         focus:outline-none mt-9
                         text-xs font-MontSemiBold
                         focus:ring-2
                         focus:ring-gray-500
-                            py-1 text-white px-3
+                        py-1 text-white px-3
                             rounded-lg">
                     <IoArrowBack
                         // color="white"
                         size={17}
                     /> <p>Go Back</p>
-                </Link>
+                </button>
             </div>
-            <div className="flex gap-2 mt-[5rem] max-[700px]:flex-wrap justify-center">
-                <figure className="w-[35vw]  max-[700px]:max-w-[100%] max-[700px]:w-[90%] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
+            <div className="flex gap-2 mt-[5rem] max-[700px]:flex-wrap justify-center items-center">
+                <figure className="w-[35vw]  max-[700px]:max-w-[100%] max-[700px]:w-[100%] max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
                 rounded-lg min-w-[280px] bg-zinc-700 shadow-md flex items-center justify-center">
                     <img
                         className="h-full w-full absolute inset-0 z-[1] object-cover "
@@ -154,7 +174,7 @@ const DetailNft = () => {
                         alt="user Profile" />
                 </figure>
 
-                <div className="pr-[1rem]">
+                <div className="w-full max-w-[650px]">
                     <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px]">
                         <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
                         <div className="flex row gap-2 w-fit mt-4">
@@ -212,9 +232,10 @@ const DetailNft = () => {
 
 
 
-                        <div className="flex row gap-5 justify-start items-center w-fit mt-6">
+                        <div className="flex gap-5 justify-start items-center w-full mt-6">
                             <button
-                                // onClick={handleLog}
+                                disabled={!Boolean(userTokenContext.token.length)}
+                                onClick={handleSuscribeToSale}
                                 className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
@@ -226,9 +247,11 @@ const DetailNft = () => {
                                 <RiShoppingBasket2Line
                                     // color="white"
                                     size={17}
-                                /> <p>Buy Now</p>
+                                /> <p>Suscribe Now</p>
                             </button>
-
+                            {
+                                !Boolean(userTokenContext.token.length) && <p className="text-sm text-red-400">Please login to subscribe</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -245,6 +268,8 @@ const DetailNft = () => {
                 }}>
                     {
                         saleHistories.map((item) => {
+                            let retrievingUser = userRetrieveDataListForSales.find((it => it.id === item.user_suscribed))
+
                             return (
                                 <>
                                     <div className="flex row justify-between items-center bottom-divider py-3  flex-wrap gap-2">
@@ -252,13 +277,13 @@ const DetailNft = () => {
                                             <div className="flex gap-2 row items-center justify-start w-fit" >
                                                 <img
                                                     className="h-10 w-10 rounded-full object-cover bg-cover shadow-lg"
-                                                    src={ISOTOP}
+                                                    src={retrievingUser?.image || ISOTOP}
                                                     alt="user Profile" />
                                                 <p className="text-sm text-white font-MontSemiBold">{item.title}</p>
                                             </div>
                                         </div>
+                                        <p className="text-white text-sm font-MontSemiBold">{retrievingUser?.email || "Anonyme"}</p>
                                         <p className="text-orange-500 text-sm font-MontSemiBold">{item?.price}ETH</p>
-                                        <p className="text-white text-sm font-MontSemiBold">{item.user_suscribed}</p>
                                         <p className="text-white text-sm font-MontSemiBold">{item.created_at}</p>
                                         <p className="text-white text-sm font-MontSemiBold">{item.will_end_at}</p>
                                         <button
@@ -287,7 +312,7 @@ const DetailNft = () => {
                     }
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

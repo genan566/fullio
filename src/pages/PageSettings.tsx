@@ -55,8 +55,8 @@ const PageSettings = () => {
 
                         <div className="flex items-center gap-3 justify-center py-1">
                             {/* <img className="h-20 w-20 object-cover rounded-full shadow-lg"
-            src={CustomIMG2}
-            alt="{user.handle}" /> */}
+                            src={CustomIMG2}
+                            alt="{user.handle}" /> */}
 
                             {
                                 userContext?.user.id ? <>
@@ -83,14 +83,14 @@ const PageSettings = () => {
                             // to={"/"}
                             // onClick={handleLog}
                             className="bg-violet-500
-            hover:bg-violet-600
-            active:bg-violet-700 
-            focus:outline-none h-10
-            text-sm
-            focus:ring-2
-            focus:ring-violet-300
-                py-2 text-white px-5
-                ">
+                            hover:bg-violet-600
+                            active:bg-violet-700 
+                            focus:outline-none h-10
+                            text-sm
+                            focus:ring-2
+                            focus:ring-violet-300
+                                py-2 text-white px-5
+                            ">
                             Modifier mon profil
                         </button>
                     </div>

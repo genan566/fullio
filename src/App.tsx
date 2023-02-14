@@ -4,13 +4,13 @@ import SideNavs from './components/SideNavs';
 import { GoogleOAuthProvider, } from '@react-oauth/google';
 
 import jwt_decode from "jwt-decode"
-import { RootUserContext, RootUserTokenContext, UserTokenTypesValues, ValuesSetUserTokenDataTypes, } from './contexts';
+import { RootUserContext, RootUserTokenContext, } from './contexts';
 
 import RouterAppComponent from './components/RouterAppComponent';
 import RightNavBox from './components/RightNavBox';
 import RootModals from './components/RootModals';
 import { user_ID } from './components/constants/constants';
-import ImpUserLogin from './components/ImPUserLogin';
+
 import { AuthAPI } from './APIs/AuthApi';
 import { UserTypesValues } from './types/UserTypeValues';
 type toggleIsOpen = () => void;
@@ -38,22 +38,15 @@ function App() {
   }
 
   const loadOrNotToken = () => {
-    let getted_Token = userTokenContext.token
-    // if (getted_Token) {
-    //   console.log("toki", getted_Token.token)
-    // }
     let respAuth = new AuthAPI()
     if (userTokenContext.token !== "") {
       let token = userTokenContext.token
-
-      console.log("token retrieved", token)
       respAuth
         .retrive_me__account(token)
         .then(res => {
           if (res.id) {
             userContext?.setUser(res)
             localStorage.setItem('userToken', userTokenContext.token);
-            // localStorage.setItem('dataUser', JSON.stringify(res));
             setIsShownModalsSignIn(false)
           }
         })
@@ -81,23 +74,12 @@ function App() {
       }
 
       userContext?.setUser(dataStructured)
-      // localStorage.setItem('dataUser', JSON.stringify(dataStructured));
+
     }
 
     setIsShownModalsSignIn(false)
 
   }
-
-  // React.useEffect(() => {
-  //   let items = localStorage.getItem('dataUser') || "";
-  //   if (items) {
-  //     let decoder = JSON.parse(items);
-  //     console.log("allo", decoder)
-  //     userContext?.setUser(decoder)
-  //   }
-
-  //   // localStorage.setItem('dataKey', JSON.stringify(dataStructured));
-  // }, [])
 
   React.useEffect(() => {
     let checker = userContext?.user === null
@@ -126,68 +108,71 @@ function App() {
       } */}
 
 
-      <div className="App">
-        <div className='holdUp'>
-          <RootModals
-            isShownModalsFirstSignIn={isShownModalsFirstSignIn}
-            navLogin={() => {
-              setIsShownModalsFirstSignIn(false)
-              setIsShownModalsSignIn(true)
-            }}
-            navSignin={() => {
-              setIsShownModalsFirstSignIn(true)
-              setIsShownModalsSignIn(false)
-            }}
-            toggleModalsOnLogout={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
-            responseGoogle={responseGoogle}
-            errorFuncOnLogIn={() => {
-              setIsShownModalsSignIn(false)
-              console.log("dfigvbfg")
-            }}
-            toggleOnResearch={
-              () => setIsOpenResearch(false)}
-            handlerLogoutFunc={() => {
-              userContext?.setUser({} as any)
-              userTokenContext.setToken("")
-              localStorage.setItem('dataUser', JSON.stringify(null));
-              localStorage.setItem('userToken', JSON.stringify(null));
-              setIsShownModalsLogOut(false)
-            }}
-            toggleShowSignUpModal={() =>
-              setIsShownModalsFirstSignIn(false)}
-            isOpenResearch={isOpenResearch}
-            isShownModalsLogOut={isShownModalsLogOut}
-            isShownModalsSignIn={isShownModalsSignIn}
-            toggleShowSigninModal={() => setIsShownModalsSignIn(false)}
+      {/* <div className="App"> */}
+      <div className='holdUp'>
+        <RootModals
+          isShownModalsFirstSignIn={isShownModalsFirstSignIn}
+          navLogin={() => {
+            setIsShownModalsFirstSignIn(false)
+            setIsShownModalsSignIn(true)
+          }}
+          navSignin={() => {
+            setIsShownModalsFirstSignIn(true)
+            setIsShownModalsSignIn(false)
+          }}
+          toggleModalsOnLogout={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
+          responseGoogle={responseGoogle}
+          errorFuncOnLogIn={() => {
+            setIsShownModalsSignIn(false)
+            console.log("dfigvbfg")
+          }}
+          toggleOnResearch={
+            () => setIsOpenResearch(false)}
+          handlerLogoutFunc={() => {
+            userContext?.setUser({} as any)
+            userTokenContext.setToken("")
+            localStorage.setItem('dataUser', JSON.stringify(null));
+            localStorage.setItem('userToken', JSON.stringify(null));
+            setIsShownModalsLogOut(false)
+            // setTimeout(() => {
+            //   document.location.reload()
+            // }, 1000)
+          }}
+          toggleShowSignUpModal={() =>
+            setIsShownModalsFirstSignIn(false)}
+          isOpenResearch={isOpenResearch}
+          isShownModalsLogOut={isShownModalsLogOut}
+          isShownModalsSignIn={isShownModalsSignIn}
+          toggleShowSigninModal={() => setIsShownModalsSignIn(false)}
+        />
+
+        <div className="flex mParent">
+
+          <SideNavs
+            handleLogOut={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
+            handleLog={() => setIsShownModalsSignIn(!isShownModalsSignIn)}
+            isOpen={isOpen}
+            toggleIsOpen={toggleIsOpen} />
+
+
+          <RouterAppComponent
+            isOpen={isOpen}
+            isOpenUser={isOpenUser}
+            controlSearch={() => setIsOpenResearch(true)}
           />
 
-          <div className="flex gap-7 mParent">
+          <RightNavBox
+            isOpenUser={isOpenUser}
+            userContext={userContext}
+            toggleIsOpenUser={toggleIsOpenUser}
+            handleLogOut={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
+            handleLog={() => setIsShownModalsSignIn(!isShownModalsSignIn)}
+            handleShow={() => setIsOpenUser(!isOpenUser)}
+          />
 
-            <SideNavs
-              handleLogOut={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
-              handleLog={() => setIsShownModalsSignIn(!isShownModalsSignIn)}
-              isOpen={isOpen}
-              toggleIsOpen={toggleIsOpen} />
-
-
-            <RouterAppComponent
-              isOpen={isOpen}
-              isOpenUser={isOpenUser}
-              controlSearch={() => setIsOpenResearch(true)}
-            />
-
-            <RightNavBox
-              isOpenUser={isOpenUser}
-              userContext={userContext}
-              toggleIsOpenUser={toggleIsOpenUser}
-              handleLogOut={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
-              handleLog={() => setIsShownModalsSignIn(!isShownModalsSignIn)}
-              handleShow={() => setIsOpenUser(!isOpenUser)}
-            />
-
-          </div >
         </div >
       </div >
+      {/* </div > */}
 
     </GoogleOAuthProvider>
   );

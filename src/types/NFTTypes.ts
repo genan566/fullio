@@ -1,4 +1,5 @@
 export type NftTypesValues = {
+    id: number,
     title: string,
     description: string,
     price: number | string,

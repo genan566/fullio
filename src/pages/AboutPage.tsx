@@ -8,13 +8,29 @@ import CardNFT from '../components/CardNFT';
 import NFT8 from "../imgs/5.png";
 import NFT9 from "../imgs/6.png";
 import NFT12 from "../imgs/istockphoto-1367699775-612x612.jpg";
+import { NftsAPI } from '../APIs/NftsAPI';
+import { PaginatedData } from './ContainerPrincipal';
+import { NftTypesValues } from '../types/NFTTypes';
+import RenderingNFTs from '../components/RenderingNFTs';
 
 
 const AboutPage = () => {
+    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+
+
+    React.useEffect(() => {
+        let resNFTs = new NftsAPI()
+        resNFTs
+            .get_filtered_by_trendingIDs_nfts(1)
+            .then(data => {
+                setnftsData(data)
+            })
+    }, [])
+
     return (
         <div className="">
-            <div className="w-full pr-[1rem]">
-                <div className='px-[1rem] max-[500px]:px-2'>
+            <div className="w-full">
+                <div className='px-[1rem] max-[700px]:px-0'>
                     <span className="rounded-lg bg-indigo-600 text-white text-[.8rem] py-1 px-4 shadow-md w-fit flex items-center gap-[.25rem]">
                         <div className='point'></div> The Best Choice</span>
                     <div className="flex justify-between items-center mt-[1.8rem] max-[500px]:flex-wrap">
@@ -27,14 +43,16 @@ const AboutPage = () => {
                         </div>
                     </div>
 
-                    <figure className="w-full bg-white rounded-md p-4 mt-[3rem] relative h-[300px] overflow-hidden ">
-                        <img
-                            className="h-full w-full absolute inset-0 z-[1] object-cover"
-                            src={NFT11}
-                            alt="user Profile" />
-                    </figure>
+                    <div className="">
+                        <figure className="w-full bg-zinc-700 rounded-md mt-[3rem] max-w-[100%] relative h-[300px] overflow-hidden ">
+                            <img
+                                className="h-full w-full absolute inset-0 z-[1] object-cover"
+                                src={NFT11}
+                                alt="user Profile" />
+                        </figure>
+                    </div>
 
-                    <div className="min-[1000px]:px-[4.5rem] px-[1.8rem] mt-[4rem]">
+                    <div className="min-[1000px]:px-[4.5rem] px-[.5rem] mt-[5rem]">
                         {/* <div className="w-full mt-[5rem] mx-auto flex flex-row justify-center gap-[1rem] items-center flex-wrap">
                             <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontBold
                             after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.6rem] leading-[2rem] py-4 w-[50%]">
@@ -45,9 +63,9 @@ const AboutPage = () => {
                                 libero fugiat! Itaque.</p>
                         </div> */}
 
-                        <div className=" max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
+                        <div className="mx-auto flex flex-row justify-between gap-[1rem] items-center max-[800px]:flex-wrap">
                             <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.6rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
+                                after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.6rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
                                 Your business is significant <span className="block">numbers</span>
                             </h2>
 
@@ -110,7 +128,7 @@ const AboutPage = () => {
                                 <div className="mt-5">
                                     <button
                                         // onClick={handleLog}
-                                                className="bg-indigo-600 flex items-center justify-center gap-1 w-fit
+                                        className="bg-indigo-600 flex items-center justify-center gap-1 w-fit
                                             hover:bg-transparent hover:text-indigo-600 hover:border border-violet-600
                                             focus:outline-none
                                             text-sm font-MontSemiBold
@@ -132,11 +150,9 @@ const AboutPage = () => {
                         <p className="text-sm mt-[15px] font-MontSemiBold text-center text-slate-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
                         <div className="mt-[50px] flex gap-[25px] items-center w-full flex-wrap justify-center">
-                            <CardNFT image={NFT11} />
-                            <CardNFT image={NFT10} />
-                            <CardNFT image={NFT8} />
-                            <CardNFT image={NFT9} />
-                            <CardNFT image={NFT12} />
+
+                            <RenderingNFTs nftsData={nftsData} />
+
                         </div>
 
                         {/* <div className="w-full mt-[5rem] mx-auto">

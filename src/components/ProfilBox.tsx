@@ -14,7 +14,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
     }, [])
 
     return (
-        <div className="custom-w-d px-1">
+        <div className="custom-w-d">
 
             <button
                 onClick={handlShow}
@@ -45,7 +45,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
 
             </figure>
 
-            <div className="mt-3" style={{ textAlign: 'center' }}>
+            <div className="mt-3 w-full" style={{ textAlign: 'center' }}>
 
                 {
                     !userContext?.user.id && <>

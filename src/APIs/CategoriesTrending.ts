@@ -30,4 +30,17 @@ export class CategoriesTrendingAPI {
             .then((js) => js.json())
 
     }
+    async get_multi_categorie(idx: number[] | undefined) {
+        return fetch(
+            api_url(`categories_trending/?search=${idx?.toString()}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
 }

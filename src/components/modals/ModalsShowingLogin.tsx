@@ -31,6 +31,9 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                         console.log("res", res.token)
                         userTokenContext?.setToken(JSON.stringify(res.token))
                         localStorage.setItem('userToken', JSON.stringify(res.token));
+                        setTimeout(() => {
+                            document.location.reload()
+                        }, 1000)
                         setMail("")
                         setPassword("")
                         // setErrorOnLogin("")
@@ -57,7 +60,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                                 </button>
                                 <img src={LOGOPNG} className="" alt="Imgs" />
                                 <h2 className="text-lg font-MontSemiBold text-white mt-5 mb-3">Sign In</h2>
-                                <h2 className="text-sm font-Regular text-slate-200 mt-1">Please login to your account</h2>
+                                <h2 className="text-sm font-Regular text-center text-slate-200 mt-1">Please login to your account</h2>
 
                                 <div className="mt-5" style={{ textAlign: "center", width: "90%" }}>
                                     <p className="text-sxl font-MontBold text-white underline underline-offset-1">Enter your mail</p>
@@ -110,7 +113,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                                     </button>
                                 </div>
 
-                                <h2 className="text-sm font-Regular text-slate-200 mt-3">You have not an account yet /
+                                <h2 className="text-sm text-center font-Regular text-slate-200 mt-3">You have not an account yet /
                                     <button
                                         onClick={navSignin}
                                         className="font-MontSemiBold"

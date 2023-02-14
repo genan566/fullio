@@ -1,11 +1,16 @@
 import React from 'react'
 import { IoArrowDown, IoArrowForward, IoMail, IoPerson, IoSearch, IoSend } from 'react-icons/io5'
+import { Link, useLocation } from 'react-router-dom';
+import { RootUserContext } from '../contexts';
 
 import ISOTOP from "../imgs/vadim-bogulov-lG4A4GmcYYg-unsplash.jpg";
 const Footer = () => {
+
+    const location = useLocation();
+    const userContext = React.useContext(RootUserContext)
     return (
         <>
-            <div className="mt-[10rem] px-[1rem]">
+            <div className="mt-[10rem]">
                 <div className="animated_gradient_bg animFalse max-[800px]:w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative">
                     <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
                                 overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
@@ -43,9 +48,11 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            
-            <div className=" mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] p-[3rem] rounded-xl shadow-2xl">
-                <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
+
+            <div
+                id='mailing'
+                className="mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] min-[1000px]:p-[3rem] rounded-xl shadow-2xl">
+                <div className="min-[1000px]:px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
                         after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
                         Send us a mail
@@ -55,7 +62,7 @@ const Footer = () => {
                         adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
                         libero fugiat! Itaque.</p>
                 </div>
-                <div className="px-[1.5vw] max-w-[900px] mx-auto">
+                <div className="min-[1000px]:px-[1.5vw] max-w-[900px] mx-auto">
 
                     <div className=" mt-[1rem] flex justify-center items-center gap-[1rem] max-[600px]:flex-wrap">
                         <div className='w-full'>
@@ -145,9 +152,34 @@ const Footer = () => {
 
                 <div className="gap-[1rem]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Navigation</p>
-                    <p className="text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae
-                        obcaecati provident. Deserunt, sequi. Nulla, odio ea.</p>
+                    <div className="flex flex-wrap gap-4 min-w-[250px]">
+                        <Link to={"/"}>
+                            <p className={location.pathname === "/" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>Acceuil</p>
+                        </Link>
+
+                        <Link to={"/nftMarketPlace"}>
+                            <p className={location.pathname === "/nftMarketPlace" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>MarketPlace</p>
+                        </Link>
+
+                        {
+                            userContext.user?.is_staff && <Link to={"/manageNFTs"}>
+                                <p className={location.pathname === "/manageNFTs" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>Manage NFTs</p>
+                            </Link>
+                        }
+
+
+                        <Link to={"/faqs"}>
+                            <p className={location.pathname === "/faqs" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>FAQs</p>
+                        </Link>
+
+                        <Link to={"/settings"}>
+                            <p className={location.pathname === "/settings" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>Paramètres</p>
+                        </Link>
+
+                        <Link to={"/aboutPage"}>
+                            <p className={location.pathname === "/aboutPage" ? "text-indigo-500 font-MontSemiBold text-sm " : "text-white font-MontSemiRegular text-sm "}>About Us</p>
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="gap-[1rem]">
@@ -163,8 +195,8 @@ const Footer = () => {
                         Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae
                         obcaecati provident. Deserunt, sequi. Nulla, odio ea.</p>
 
-                    <button
-                        // onClick={handleLog}
+                    <a href="#mailing"
+
                         className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                         hover:bg-white hover:text-black mt-4
                         
@@ -173,12 +205,12 @@ const Footer = () => {
                         focus:ring-2
                         focus:ring-gray-500
                             py-1 text-white px-3
-                            rounded-lg"> <p>Contact Nuw</p>
+                            rounded-lg"> <p>Contact Us</p>
                         <IoArrowForward
                             // color="white"
                             size={17}
                         />
-                    </button>
+                    </a>
                 </div>
             </div>
             <div className="flex justify-center">

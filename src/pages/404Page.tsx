@@ -2,8 +2,6 @@ import React from 'react'
 
 import "../styles/Page404.scss"
 
-import CustomIMG2 from "../imgs/draw404.png"
-
 import { Link } from 'react-router-dom';
 
 import { motion } from "framer-motion"

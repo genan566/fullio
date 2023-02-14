@@ -19,7 +19,7 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                                         size={25}
                                     />
                                 </div>
-                                <h2 className="text-md text-white font-MontBold">Etes-vous sûr de vouloir vous déconnecter?</h2>
+                                <h2 className="text-md text-center text-white font-MontBold">Etes-vous sûr de vouloir vous déconnecter?</h2>
                                 <div className="flex row gap-4 justify-between flex-wrap px-2 w-full mt-5">
                                     <div style={{ flexGrow: 1 }}>
                                         <button

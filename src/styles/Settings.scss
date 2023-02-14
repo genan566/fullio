@@ -1,4 +1,7 @@
 .settings {
-    margin-top: .8rem;
     padding: 1rem;
+
+    @media only screen and (max-width:600px) {
+        padding: 0;
+    }
 }

@@ -25,6 +25,10 @@ import { motion } from "framer-motion"
 import "../styles/HomeView.scss"
 import { RootCreatorContext, RootUserContext } from '../contexts';
 import { useNavigate } from 'react-router-dom';
+import { NftsAPI } from '../APIs/NftsAPI';
+import { PaginatedData } from './ContainerPrincipal';
+import { NftTypesValues } from '../types/NFTTypes';
+import RenderingNFTs from '../components/RenderingNFTs';
 
 
 
@@ -61,12 +65,22 @@ const containerVariants = {
 const HomeView = () => {
     const userContext = React.useContext(RootUserContext)
     const creatorContext = React.useContext(RootCreatorContext)
+    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
 
     const history = useNavigate()
 
+    React.useEffect(() => {
+        let resNFTs = new NftsAPI()
+        resNFTs
+            .get_filtered_by_trendingIDs_nfts(2)
+            .then(data => {
+                setnftsData(data)
+            })
+    }, [])
+
     return (
         <div className="homeView">
-            <div className="w-full max-[500px]:pr-[1.5rem]">
+            <div className="w-full">
                 <div className="animated_gradient_bg h-fit rounded-lg shadow-xl
                      max-[800px]:p-[1.9rem] p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
                     <div className="flex gap-[1rem] justify-between w-full">
@@ -80,7 +94,7 @@ const HomeView = () => {
                                 adipisicing elit. Nobis error neque dicta quam numquam fuga
                                 libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
 
-                            <div className="flex gap-4 mt-[2rem]">
+                            <div className="flex gap-4 mt-[2rem] flex-wrap">
                                 <button
                                     onClick={() => {
                                         !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
@@ -134,7 +148,7 @@ const HomeView = () => {
                 </div>
             </div>
 
-            <div className="homeView-products px-[1.5rem] min-[1400px]:px-[4.2rem]">
+            <div className="homeView-products px-[.25rem] min-[1400px]:px-[4.2rem]">
 
                 <div className="flex flex-row justify-center gap-[1rem] items-center max-[500px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
@@ -232,11 +246,7 @@ const HomeView = () => {
 
 
                 <div className="mt-[50px] flex gap-[25px] items-center w-full flex-wrap justify-center">
-                    <CardNFT image={NFT11} />
-                    <CardNFT image={NFT10} />
-                    <CardNFT image={NFT8} />
-                    <CardNFT image={NFT9} />
-                    <CardNFT image={NFT12} />
+                    <RenderingNFTs nftsData={nftsData} />
                 </div>
 
                 <div className="mt-[5rem]">
@@ -261,7 +271,7 @@ const HomeView = () => {
                     </button>
                 </div>
 
-                <div className="px-[3vw] mt-[10rem]">
+                <div className="px-[1.5vw] mt-[10rem]">
                     <div className="mt-[5rem] flex flex-wrap gap-[1rem] justify-between mb-[2rem]">
                         <div className="flex rows gap-[1rem] items-center">
                             <p className="text-xl font-MontSemiBold ">Featured Products</p>

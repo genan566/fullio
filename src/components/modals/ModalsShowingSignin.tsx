@@ -100,7 +100,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
                                     </button>
                                 </div>
 
-                                <h2 className="text-sm font-Regular text-slate-200 mt-3">You have an account
+                                <h2 className="text-sm text-center font-Regular text-slate-200 mt-3">You have an account
                                     <button
                                         onClick={navLogin}
                                         className="font-MontSemiBold"

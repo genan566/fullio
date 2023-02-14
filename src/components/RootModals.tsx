@@ -5,13 +5,16 @@ import ModalsLogOut from './modals/ModalsLogOut';
 import ModalsOnSearch from './modals/ModalsOnSearch';
 import ModalsShowingLogin from './modals/ModalsShowingLogin';
 import ModalsShowingSignin from './modals/ModalsShowingSignin';
+import ModalSubscription from './modals/ModalsSubscription';
 
 const RootModals = ({ isShownModalsSignIn, isShownModalsFirstSignIn, toggleShowSignUpModal, isOpenResearch, isShownModalsLogOut, toggleShowSigninModal, navLogin, navSignin,
     toggleModalsOnLogout, toggleOnResearch, errorFuncOnLogIn, responseGoogle, handlerLogoutFunc }:
     RootModalsTypes
 ) => {
+
     return (
         <>
+            <ModalSubscription />
             <ModalsShowingLogin
                 navSignin={navSignin}
                 errorFuncOnLogIn={errorFuncOnLogIn}

@@ -7,27 +7,34 @@ import { BrowserRouter } from "react-router-dom";
 import { RootCreatorProvider, RootNFTContextProvider, RootUserContextProvider } from './contexts';
 import ScrollToTop from './components/ScrollToTop';
 import Initializer from './Initializer';
-import ScrollToTopBtn from './components/ScrollToTopBtn';
+
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Initializer>
-        <RootCreatorProvider>
-          <RootUserContextProvider>
-            <RootNFTContextProvider>
-              <ScrollToTop />
-              {/* <ScrollToTopBtn /> */}
-              <App />
-            </RootNFTContextProvider>
-          </RootUserContextProvider>
-        </RootCreatorProvider>
-      </Initializer>
-    </BrowserRouter>
-  </React.StrictMode>
+
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Initializer>
+          <RootCreatorProvider>
+            <RootUserContextProvider>
+              <RootNFTContextProvider>
+                <ScrollToTop />
+                {/* <ScrollToTopBtn /> */}
+                <App />
+              </RootNFTContextProvider>
+            </RootUserContextProvider>
+          </RootCreatorProvider>
+        </Initializer>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

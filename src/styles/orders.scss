@@ -1,13 +1,16 @@
 .orders {
     margin-top: 1rem;
     padding: 1rem;
-    padding-top: 0;
+
+    @media only screen and (max-width:600px) {
+        padding: 0;
+    }
 }
 
 .box-scrollContent {
     margin-top: 1.5rem;
     width: 100%;
-    overflow-x: scroll;
+    // overflow-x: scroll;
     padding-bottom: 1rem;
     padding: 0 1rem;
     padding-left: 0;
@@ -49,7 +52,10 @@
         margin-bottom: 1rem;
         background: transparent;
         padding: .5rem 1rem;
-        width: calc(fit-content - (7rem + 20rem));
+        width: 100%;
+        flex-wrap: wrap;
+        overflow: hidden;
+        // width: calc(fit-content - (7rem + 20rem));
         display: flex;
         border: 1px solid white;
         border-radius: .6rem;
@@ -111,7 +117,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: max-content;
+    // width: max-content;
     align-items: stretch;
     gap: .5rem;
     flex-wrap: wrap;

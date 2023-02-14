@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IoFilter, IoArrowBack, IoArrowForward, IoSearch } from "react-icons/io5";
+import { IoArrowBack, IoArrowForward, IoSearch } from "react-icons/io5";
 
 import { RiShoppingBasket2Line } from "react-icons/ri";
 
@@ -8,13 +8,14 @@ import { RiShoppingBasket2Line } from "react-icons/ri";
 import { motion } from "framer-motion"
 import { RootCreatorContext, RootUserContext, } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NftsInterface } from '../types/NFTsInterface';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { NftTypesValues } from '../types/NFTTypes';
+import RenderingNFTs from '../components/RenderingNFTs';
 
 
 const containerVariants = {
@@ -194,21 +195,20 @@ const ContainerPrincipal = () => {
             initial="hidden"
             animate="visible"
             exit="exit">
-            <div className="pr-[1rem]">
+            <div className="">
 
                 <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
-                    {/* <img src={ImContainer} className="object-cover" alt="Imgs" /> */}
+
                     <div className="container-img-content">
                         <p className="text-[2.2rem] max-[450px]:text-[1.5rem] max-[450px]:leading-[2rem]  text-slate-50 font-MontBold leading-[3.5rem] text-center w-full">Page Products
                             <span className="block animated_gradient_bg textS">NFTs marketplace</span></p>
                         <div className="mx-auto">
-                            {/* <Link to={"/createNFt"}> */}
+
                             <button
                                 onClick={() => {
                                     !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
                                     userContext?.user?.is_staff && history("/createNFt")
 
-                                    // creatorContext?.setisCreator(true)
                                 }}
                                 className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
@@ -223,7 +223,7 @@ const ContainerPrincipal = () => {
                                     size={17}
                                 /> <p>Create your own one </p>
                             </button>
-                            {/* </Link> */}
+
                         </div>
                     </div>
                 </div>
@@ -279,54 +279,8 @@ const ContainerPrincipal = () => {
                     </div>
                 </div>
                 <div className="flex gap-5 mt-10 align-center pb-10 max-[898px]:overflow-x-scroll min-[900px]:flex-wrap max-[898px]:max-w-[80vw]">
-                    {
-                        nftsData.results && <>
-                            {
-                                nftsData.results.map(item => {
-                                    let sendedData: NftTypesValues = {
-                                        title: item.title,
-                                        description: item.description,
-                                        owner_id: item.owner,
-                                        image: item.image,
-                                        price: item.price,
-                                        categories_trending: item.categories_trending,
-                                        sales_history: item.sales_history,
-                                    }
-                                    return (
-                                        <>
-                                            <CardNFT
-                                                data={sendedData}
-                                                rebirth={item.title}
-                                                owner={item.owner}
-                                                key={item.id}
-                                                image={item.image}
-                                                link={true}
-                                                categories_trending={item.categories_trending}
-                                                sales_history={item.sales_history}
-                                            />
-                                        </>
-                                    )
-                                })
-                            }
-                        </>
-                    }
+                    <RenderingNFTs nftsData={nftsData} />
 
-                    {
-                        ((!nftsData.results)) && <div className="text-center w-full">
-                            <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
-                        </div>
-                    }
-
-
-                    {/* <NFTItem image={NFT6} creator={User2} />
-                    <NFTItem image={NFT7} creator={User3} />
-                    <NFTItem image={NFT8} creator={User4} />
-                    <NFTItem image={NFT9} creator={User5} />
-                    <NFTItem image={NFT} creator={User6} />
-                    <NFTItem image={NFT2} creator={User7} />
-                    <NFTItem image={NFT3} creator={User8} />
-                    <NFTItem image={NFT4} creator={User9} />
-                    <NFTItem image={NFT10} creator={User10} /> */}
                 </div>
 
 

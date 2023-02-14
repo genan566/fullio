@@ -2,6 +2,23 @@
   min-height: 100vh;
   padding: 1rem; }
 
+select {
+  appearance: none;
+  background-color: transparent;
+  padding: 0 1em 0 0;
+  color: white;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  cursor: inherit;
+  position: relative;
+  line-height: inherit; }
+
+select option {
+  color: black; }
+
 .container-img {
   height: 20rem;
   width: 100%;
@@ -175,7 +192,7 @@
   width: 100%;
   background-color: rgba(97, 96, 96, 0.151);
   border-radius: 2rem;
-  padding: .2rem 1rem;
+  padding: .1rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,17 +230,27 @@
   transition: all .2s ease-in-out; }
 
 .custom-w-3 {
+  flex-grow: 1;
   margin-left: 9rem;
   margin-right: 4.5rem; }
+
+@media only screen and (max-width: 800px) {
+  .custom-w-3 {
+    margin-left: 0 !important;
+    margin-right: 0 !important; } }
 
 @media only screen and (max-width: 1300px) {
   .custom-w-3 {
     margin-top: 4.2rem;
     margin-left: .5rem;
-    margin-right: 2rem !important; } }
+    margin-right: 1rem; } }
 
 .custom-w-3.isho {
   margin-left: 13rem; }
+
+@media only screen and (max-width: 800px) {
+  .custom-w-3.isho {
+    margin-left: 0; } }
 
 @media only screen and (max-width: 1300px) {
   .custom-w-3.isho {
@@ -231,6 +258,10 @@
 
 .custom-w-3.ishowUs {
   margin-right: 19rem; }
+
+@media only screen and (max-width: 800px) {
+  .custom-w-3.ishowUs {
+    margin-right: 1rem; } }
 
 @media only screen and (max-width: 1300px) {
   .custom-w-3.ishowUs {
@@ -246,6 +277,11 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll; }
+
+@media only screen and (max-width: 500px) {
+  .custom-w-d {
+    width: 100% !important;
+    padding: 2rem 1rem; } }
 
 @media only screen and (max-width: 1300px) {
   .custom-w-d {
@@ -268,7 +304,12 @@
   flex-direction: column;
   overflow: hidden;
   overflow-y: scroll;
+  transition: all .5s ease-in-out;
   position: relative; }
+
+@media only screen and (max-width: 500px) {
+  .custom-w-m {
+    width: 100% !important; } }
 
 @media only screen and (max-width: 1300px) {
   .custom-w-m {
@@ -306,11 +347,12 @@
   border-radius: 5rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
   position: fixed;
-  top: 1.2rem; }
+  top: 1rem;
+  z-index: 999; }
 
 @media only screen and (max-width: 1300px) {
   .navs-close-D {
-    right: .25rem; } }
+    right: .5rem; } }
 
 .navs-close-D img {
   width: 40px !important;
@@ -370,17 +412,17 @@
   top: .25rem;
   width: 15px;
   background-color: #fff;
-  left: 1rem;
+  left: 1.5rem;
   z-index: 999; }
 
 .mParent .custom-w-m {
   position: fixed;
   top: 1rem;
   bottom: 1rem;
-  width: 5.5rem;
   height: 96%;
   left: 1rem;
-  z-index: 999; }
+  z-index: 999;
+  transition: all .5s ease-in-out; }
 
 @media only screen and (max-width: 1300px) {
   .mParent .custom-w-m {
@@ -391,7 +433,8 @@
     border-radius: 0; } }
 
 .mParent .custom-w-m.showing {
-  width: 11rem; }
+  width: 11rem;
+  z-index: 10000; }
 
 .mParent .custom-w-d {
   position: fixed;
@@ -520,16 +563,28 @@
 
 .cModals-container {
   border-radius: 1rem;
-  min-width: 30vw;
+  width: 45%;
+  min-width: fit-content;
+  max-width: 400px;
+  max-height: 98%;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
   background-color: #0f071d;
-  padding: 3rem 5rem;
+  padding: 1rem;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
   animation: fadeInTop ease-in-out .2s;
   position: relative; }
+
+@media only screen and (min-width: 800px) {
+  .cModals-container {
+    padding: 2rem; } }
+
+@media only screen and (max-width: 780px) {
+  .cModals-container {
+    width: 90%;
+    padding: 2rem; } }
 
 .cModals-container.p0 {
   padding: 1rem 0;

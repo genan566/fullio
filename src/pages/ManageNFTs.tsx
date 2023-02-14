@@ -63,7 +63,7 @@ const ManageNFTs = () => {
             animate="visible"
             exit="exit" className='relative'>
 
-            <div className='pr-[1rem]'>
+            <div className=''>
 
                 <div className="container-img rounded-xl drop-shadow-md bg-cover w-full">
                     <div className="container-img-content">
@@ -122,6 +122,7 @@ const ManageNFTs = () => {
                             {
                                 nftsData.results.map(item => {
                                     let sendedData: NftTypesValues = {
+                                        id: item.id,
                                         title: item.title,
                                         description: item.description,
                                         owner_id: item.owner,

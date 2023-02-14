@@ -8,6 +8,11 @@ import AnimatedMulti from '../components/CustomMultiSelect';
 import { RootUserContext, RootUserTokenContext } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { FileInterface } from '../types/FileInterface';
+import { Listbox } from '@headlessui/react';
+import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
+import { CategoriesTrending } from '../types/CategorieTrendingType';
+import ErrorText from '../components/ErrorText';
+import CustomSelects from '../components/CustomSelects';
 
 const containerVariants = {
 
@@ -41,6 +46,7 @@ const CreateNFt = () => {
     const userTokenContext = React.useContext(RootUserTokenContext)
     const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
     const [id, setId] = React.useState(0);
+    const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
 
     function handleChange(e: any) {
         console.log(e.target.files[0]);
@@ -60,6 +66,13 @@ const CreateNFt = () => {
     React.useEffect(() => {
         check_user_can_create()
     }, [check_user_can_create])
+
+    React.useEffect(() => {
+        let categories_trendings = new CategoriesTrendingAPI()
+        categories_trendings.get_all_categories().then(data => {
+            setCategoriesTrending(data.results)
+        })
+    }, [])
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
 
@@ -92,8 +105,6 @@ const CreateNFt = () => {
         if (userContext?.user?.id) setId(userContext?.user?.id)
     }, [userContext])
 
-
-
     return (
         <motion.div
             variants={containerVariants}
@@ -102,8 +113,9 @@ const CreateNFt = () => {
             exit="exit" className='relative'>
 
             <div className="mb-[2rem]">
-                <Link
-                    to={"/manageNFTs"}
+                <button
+
+                    onClick={() => window.history.back()}
                     // onClick={handleLog}
                     className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                         hover:bg-white hover:text-black
@@ -118,7 +130,7 @@ const CreateNFt = () => {
                         // color="white"
                         size={17}
                     /> <p>Go Back</p>
-                </Link>
+                </button>
             </div>
 
             <div className="pr-[1rem]">
@@ -209,7 +221,7 @@ const CreateNFt = () => {
                                             type="text"
                                             className="control-input-S" {...register("title", { required: true })} />
                                     </div>
-                                    {errors.title && <span>This field is required</span>}
+                                    {errors.title && <ErrorText />}
                                 </div>
 
                                 <div className='w-full'>
@@ -225,7 +237,7 @@ const CreateNFt = () => {
                                             type="number"
                                             className="control-input-S" {...register("price", { required: true })} />
                                     </div>
-                                    {errors.price && <span>This field is required</span>}
+                                    {errors.price && <ErrorText />}
                                 </div>
                             </div>
 
@@ -238,11 +250,16 @@ const CreateNFt = () => {
                                         rows={8}
                                         className="control-input-S" {...register("description", { required: true })} />
                                 </div>
-                                {errors.description && <span>This field is required</span>}
+                                {errors.description && <ErrorText />}
+                            </div>
+
+                            {/* <AnimatedMulti /> */}
+                            <div className="w-full mt-[2rem]">
+                                <p className="text-xs font-MontBold text-white mb-1">Select any categorie to your NFT</p>
+                                <CustomSelects
+                                    categoriesTrending={categoriesTrending} />
                             </div>
                         </div>
-
-                        {/* <AnimatedMulti /> */}
 
                         <button
                             type='submit'

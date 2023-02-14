@@ -34,4 +34,55 @@ export class SaleHistoriesAPI {
             .then((js) => js.json())
 
     }
+
+
+    async get_multi_sales(idx: number[] | undefined) {
+        return fetch(
+            api_url(`sale_histories/?search=${idx?.toString()}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+    }
+
+    async get_multi_sales_by_nftID(idx: number | undefined) {
+        return fetch(
+            api_url(`sale_histories/?search_by_nftID=${idx}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+    }
+
+    async post__create_sale(token: string, data: { title: string, price: number, nfts_id: number | undefined }) {
+        if (token) {
+            return fetch(
+                api_url('sale_histories/'),
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: JSON.stringify(data)
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on create sale", er))
+
+        }
+
+    }
 }

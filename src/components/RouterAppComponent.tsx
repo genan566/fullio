@@ -61,7 +61,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                 <Routes location={location} key={location.key}>
                     <Route path="/" element={<HomeView />} />
                     <Route path="/nftMarketPlace" element={<ContainerPrincipal />} />
-                    <Route path="/orders" element={<Orders />} />
+                    {/* <Route path="/orders" element={<Orders />} /> */}
                     <Route path="/faqs" element={<FAQ />} />
                     <Route path="*" element={<Page404 />} />
                     <Route path="/settings" element={<PageSettings />} />

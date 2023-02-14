@@ -6,6 +6,33 @@
     // position: relative;
 }
 
+select {
+    // A reset of styles, including removing the default dropdown arrow
+    appearance: none;
+    // Additional resets for further consistency
+    background-color: transparent;
+    // border: none;
+    padding: 0 1em 0 0;
+    color: white;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    cursor: inherit;
+    position: relative;
+    line-height: inherit;
+
+    & option {
+        color: black
+    }
+
+    // &:ch // & option:checked {
+    //     color:white
+    // }
+
+}
+
 .container-img {
     height: 20rem;
     width: 100%;
@@ -256,7 +283,7 @@
         width: 100%;
         background-color: rgba(97, 96, 96, 0.151);
         border-radius: 2rem;
-        padding: .2rem 1rem;
+        padding: .1rem 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -306,29 +333,46 @@
 }
 
 .custom-w-3 {
-    // flex-grow: 1;
+    flex-grow: 1;
     // margin-left: 1rem;
     margin-left: 9rem;
     margin-right: 4.5rem;
     // transition: all .1s ease-out;
 
+    @media only screen and (max-width:800px) {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
     @media only screen and (max-width:1300px) {
         margin-top: 4.2rem;
         margin-left: .5rem;
-        margin-right: 2rem !important;
+        margin-right: 1rem;
     }
+
 
     &.isho {
         margin-left: 13rem;
 
+
+        @media only screen and (max-width:800px) {
+            margin-left: 0;
+        }
+
         @media only screen and (max-width:1300px) {
             margin-left: .5rem;
         }
+
     }
 
 
     &.ishowUs {
         margin-right: 19rem;
+
+
+        @media only screen and (max-width:800px) {
+            margin-right: 1rem;
+        }
 
         @media only screen and (max-width:1300px) {
             margin-right: 1rem;
@@ -346,6 +390,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media only screen and (max-width:500px) {
+        width: 100% !important;
+        padding: 2rem 1rem;
+    }
 
     @media only screen and (max-width:1300px) {
         width: fit-content;
@@ -376,12 +425,20 @@
     flex-direction: column;
     overflow: hidden;
     overflow-y: scroll;
+    transition: all .5s ease-in-out;
     position: relative;
 
+
+    @media only screen and (max-width:500px) {
+        width: 100% !important;
+    }
 
     @media only screen and (max-width:1300px) {
         background-color: rgba(12, 11, 11, 0.788);
     }
+
+
+
 
     &::-webkit-scrollbar {
         display: none;
@@ -426,12 +483,13 @@
         box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
         // padding: .7rem;
         position: fixed;
-        top: 1.2rem;
+        top: 1rem;
+        z-index: 999;
         // background: linear-gradient(180deg, rgb(15, 7, 29) 0%, rgb(124, 58, 237) 70%);
 
 
         @media only screen and (max-width:1300px) {
-            right: .25rem;
+            right: .5rem;
         }
 
         & img {
@@ -508,18 +566,19 @@
         width: 15px;
         background-color: #fff;
         // height: 50%;
-        left: 1rem;
+        left: 1.5rem;
         z-index: 999;
+
     }
 
     & .custom-w-m {
         position: fixed;
         top: 1rem;
         bottom: 1rem;
-        width: 5.5rem;
         height: 96%;
         left: 1rem;
         z-index: 999;
+        transition: all .5s ease-in-out;
 
         @media only screen and (max-width:1300px) {
             left: 0;
@@ -527,11 +586,12 @@
             bottom: 0;
             height: 100%;
             border-radius: 0;
-            
+
         }
 
         &.showing {
             width: 11rem;
+            z-index: 10000;
         }
 
 
@@ -695,17 +755,31 @@
 
     &-container {
         border-radius: 1rem;
-        min-width: 30vw;
+        width: 45%;
+        // min-height: 500px;
+        min-width: fit-content;
+        max-width: 400px;
+        max-height: 98%;
+        // overflow-y: scroll;
         justify-content: center;
         align-items: center;
         display: flex;
         flex-direction: column;
         // background-color: white;
         background-color: rgb(15, 7, 29);
-        padding: 3rem 5rem;
+        padding: 1rem;
         box-shadow: 0 0 1.5rem rgba(0, 0, 0, .5);
         animation: fadeInTop ease-in-out .2s;
         position: relative;
+
+        @media only screen and (min-width:800px) {
+            padding: 2rem;
+        }
+
+        @media only screen and (max-width:780px) {
+            width: 90%;
+            padding: 2rem;
+        }
 
 
         &.p0 {

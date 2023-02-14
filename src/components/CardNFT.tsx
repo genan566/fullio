@@ -41,7 +41,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                             email: res.email,
                             name: res.name,
                             pseudo: res.pseudo,
-                            image: routeAPIBaseImage + (res.image.toString() || ""),
+                            image: ((res.image === null ? "" : routeAPIBaseImage + res.image.toString())),
                         }
                         setuserRetrieveData(formatedData)
                     })
@@ -50,22 +50,30 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
     }, [owner])
 
     const load_categories = async () => {
-        if (categories_trending !== undefined) {
+        if (Boolean(categories_trending?.length)) {
             {
 
-                categories_trending.map(it => {
-                    let idX = it
-                    let categories_trendings = new CategoriesTrendingAPI()
-                    categories_trendings
-                        .get_categorie(idX)
-                        .then(data => {
-                            let checker = { id: data.id, name: data.name }
-                            if ((categorie?.id !== checker.id) && categorie?.name !== checker.name) {
-                                setCategorie(data)
-                            }
-                        })
-                })
+                // categories_trending.map(it => {
+                //     let idX = it
+                //     let categories_trendings = new CategoriesTrendingAPI()
+                //     categories_trendings
+                //         .get_categorie(idX)
+                //         .then(data => {
+                //             let checker = { id: data.id, name: data.name }
+                //             if ((categorie?.id !== checker.id) && categorie?.name !== checker.name) {
+                //                 setCategorie(data)
+                //             }
+                //         })
+                // })
 
+                let categories_trendings = new CategoriesTrendingAPI()
+                categories_trendings
+                    .get_multi_categorie(categories_trending)
+                    .then(data => {
+                        if (data.results.length > 0) {
+                            setCategories([...data.results])
+                        }
+                    })
             }
         }
     }
@@ -74,15 +82,15 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
         load_categories()
     }, [categories_trending])
 
-    React.useEffect(() => {
+    // React.useEffect(() => {
 
-        if (categorie !== null) {
-            let checker = categories.filter(it => it.id === categorie.id)
-            if (checker.length === 0) {
-                setCategories([...categories, categorie])
-            }
-        }
-    }, [categorie])
+    //     if (categorie !== null) {
+    //         let checker = categories.filter(it => it.id === categorie.id)
+    //         if (checker.length === 0) {
+    //             setCategories([...categories, categorie])
+    //         }
+    //     }
+    // }, [categorie])
 
     return (
 
@@ -201,7 +209,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
 
 
 
-                        <div className="flex mt-3 gap-[1rem]">
+                        <div className="flex mt-3 gap-[1rem] flex-wrap">
                             {
                                 categories.map(item => {
 
@@ -245,7 +253,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                         </div>
 
                         <p className="text-[1.2rem] mb-1 mt-2 text-indigo-500 font-MontSemiBold">ETH {data?.price}</p>
-                        <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
+                        {/* <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
                             <p className="text-white font-MontSemiBold text-xs">Nbr Follows</p>
                             <div className='flex gap-[.5rem]'>
                                 <IoPeople
@@ -256,7 +264,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                                     className={data?.sales_history.length !== 0 ? 'text-[.8rem] text-indigo-500 font-MontSemiBold' :
                                         'text-[.8rem] text-red-500 font-MontSemiBold'}>{data?.sales_history.length}</h2>
                             </div>
-                        </div>
+                        </div> */}
 
                         <Link
                             to={customLink || "/detailNFT"}
