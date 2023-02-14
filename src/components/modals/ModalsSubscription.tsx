@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks'
 import { TOGGLE_MODAL_SUSCRIPTION } from '../../redux/constants/ModalsConstants'
 import { RootState } from '../../redux/store'
 
+import LOGOPNG from "../../imgs/nft.png";
 const ModalSubscription = () => {
     const nftContext = React.useContext(RootNftContext)
     const userTokenContext = React.useContext(RootUserTokenContext)
@@ -34,7 +35,10 @@ const ModalSubscription = () => {
 
                             <div className="cModals-container p0">
 
-                                <h2 className="text-white mt-[1.8rem] font-MontRegular text-[1.2rem] mb-[1rem] text-center">Subscribtion Form</h2>
+
+                                <img src={LOGOPNG} className="" alt="Imgs" />
+                                <h2 className="text-lg font-MontSemiBold text-white mt-5 mb-2">Subscription Form</h2>
+                                <h2 className="text-sm font-Regular text-center text-slate-200">Please follow this step to subscribe.</h2>
 
                                 <button
                                     onClick={customDispatcher} className="cModals-container-close">
@@ -44,7 +48,7 @@ const ModalSubscription = () => {
                                     />
                                 </button>
 
-                                <div className='mt-[.8rem] w-3/4 mx-auto'>
+                                <div className='mt-[1.5rem] w-3/4 mx-auto'>
                                     <p className="text-xs text-center font-MontSemiBold text-white mb-4">Enter any title to your subscription</p>
 
                                     <div className="control-container-S mt-3 mb-1" id='cPar'>

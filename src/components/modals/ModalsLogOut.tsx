@@ -2,6 +2,7 @@ import React from 'react'
 import { IoLogOut } from 'react-icons/io5';
 import { ModalsLogOutTypes } from '../../types/ModalsLogOutTypes';
 
+import LOGOPNG from "../../imgs/nft.png";
 const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogoutFunc }:
     ModalsLogOutTypes) => {
     return (
@@ -12,13 +13,8 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                         <div className="cModals">
 
                             <div className="cModals-container">
-
-                                <div className="mb-4 shadow-sm" style={{ marginTop: "-1rem" }}>
-                                    <IoLogOut
-                                        color="white"
-                                        size={25}
-                                    />
-                                </div>
+                                
+                                <img src={LOGOPNG} className="mb-[1rem]" alt="Imgs" />
                                 <h2 className="text-md text-center text-white font-MontBold">Etes-vous sûr de vouloir vous déconnecter?</h2>
                                 <div className="flex row gap-4 justify-between flex-wrap px-2 w-full mt-5">
                                     <div style={{ flexGrow: 1 }}>
@@ -30,8 +26,8 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                                             focus:outline-none w-full
                                             focus:ring-2 text-xs
                                             focus:ring-violet-300 font-MontSemiBold
-                                                py-2 text-white px-5
-                                                rounded-2xl">
+                                                py-[.5rem] text-white px-5
+                                                rounded-lg">
                                             Annuler
                                         </button>
                                     </div>
@@ -45,8 +41,8 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                     focus:outline-none w-full
                     focus:ring-2 text-xs
                     // focus:ring-red-300 font-MontSemiBold
-                        py-2 text-white px-5
-                        rounded-2xl">
+                        py-[.5rem] text-white px-5
+                        rounded-lg">
                                             Valider
                                         </button>
                                     </div>

@@ -3,13 +3,14 @@ import { PaginatedData } from '../pages/ContainerPrincipal'
 import { NftTypesValues } from '../types/NFTTypes'
 import CardNFT from './CardNFT'
 
-const RenderingNFTs = ({ nftsData }: { nftsData: PaginatedData }) => {
+const RenderingNFTs = ({ nftsData, with_slice }: { nftsData: PaginatedData, with_slice: boolean }) => {
+    let data_renderring_likes = Boolean(nftsData.results) ? !Boolean(with_slice) ? nftsData.results : nftsData.results.slice(0, 5) : nftsData.results
     return (
         <>
             {
                 nftsData.results && <>
                     {
-                        nftsData.results.slice(0, 5).map(item => {
+                        data_renderring_likes.map(item => {
                             let sendedData: NftTypesValues = {
                                 id: item.id,
                                 title: item.title,

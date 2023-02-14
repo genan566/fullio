@@ -246,7 +246,9 @@ const HomeView = () => {
 
 
                 <div className="mt-[50px] flex gap-[25px] items-center w-full flex-wrap justify-center">
-                    <RenderingNFTs nftsData={nftsData} />
+                    <RenderingNFTs
+                        with_slice={true}
+                        nftsData={nftsData} />
                 </div>
 
                 <div className="mt-[5rem]">
