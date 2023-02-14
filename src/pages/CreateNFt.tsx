@@ -4,15 +4,14 @@ import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion"
-import AnimatedMulti from '../components/CustomMultiSelect';
+
 import { RootUserContext, RootUserTokenContext } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { FileInterface } from '../types/FileInterface';
-import { Listbox } from '@headlessui/react';
+
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import ErrorText from '../components/ErrorText';
-import CustomSelects from '../components/CustomSelects';
 
 const containerVariants = {
 
@@ -46,6 +45,7 @@ const CreateNFt = () => {
     const userTokenContext = React.useContext(RootUserTokenContext)
     const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
     const [id, setId] = React.useState(0);
+    const [selectedCategorie, setSelectedCategorie] = React.useState<number>();
     const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
 
     function handleChange(e: any) {
@@ -55,7 +55,6 @@ const CreateNFt = () => {
             file: e.target.files[0],
         });
     }
-
 
     const history = useNavigate()
 
@@ -68,13 +67,17 @@ const CreateNFt = () => {
     }, [check_user_can_create])
 
     React.useEffect(() => {
+        Boolean(categoriesTrending.length) && setSelectedCategorie(categoriesTrending[0].id)
+    }, [categoriesTrending])
+
+    React.useEffect(() => {
         let categories_trendings = new CategoriesTrendingAPI()
         categories_trendings.get_all_categories().then(data => {
             setCategoriesTrending(data.results)
         })
     }, [])
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = data => {
 
@@ -84,8 +87,7 @@ const CreateNFt = () => {
                 {
                     title: data.title,
                     owner: id,
-                    sales_history: [1],
-                    categories_trending: [1],
+                    categories_trending: [selectedCategorie],
                     price: data.price,
                     description: data.description,
                 }
@@ -94,16 +96,34 @@ const CreateNFt = () => {
                     if (data.id) {
                         respFaqs.upload_image_to_nft(data.id, { image: file.file, }, userTokenContext.token)
                             .then((re) => history("/manageNFTs"))
-                            .catch(err => console.log("error2", err))
                     }
                 })
-                .catch(err => console.log("error", err))
         }
     };
 
     React.useEffect(() => {
         if (userContext?.user?.id) setId(userContext?.user?.id)
     }, [userContext])
+
+    const CustomSelects = ({ categoriesTrending }: { categoriesTrending: CategoriesTrending[] }) => {
+        return (
+            <select
+                // onChange={(e) => console.log(e.target)}
+                onChange={(e) => setSelectedCategorie(parseInt(e.target.value))}
+                name=""
+                id=""
+                className='px-2 mt-5 border border-white rounded-lg shadow-md'>
+                {
+                    categoriesTrending.map(person => {
+                        return <option value={person.id}
+                        // disabled={userContext.user.is_superuser}
+                        >{person.name}</option>
+                    })
+                }
+            </select>
+        )
+    }
+
 
     return (
         <motion.div

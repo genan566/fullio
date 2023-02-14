@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { routeAPIBaseImage } from '../APIs/APIRoutes';
 import { AuthAPI } from '../APIs/AuthApi';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
+import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
 import { RootNftContext, RootUserTokenContext, } from '../contexts';
 
 import ISOTOP from "../imgs/istockphoto.jpg";
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { NftTypesValues } from '../types/NFTTypes';
+import { SaleHistory } from '../types/SaleHistoryType';
 import { UserRetrieveInterface2 } from '../types/UserRetrieveTypes';
 
 
@@ -23,7 +25,8 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
     const [userRetrieveData, setuserRetrieveData] = React.useState<UserRetrieveInterface2>({} as UserRetrieveInterface2)
     const userTokenContext = React.useContext(RootUserTokenContext)
     const [categories, setCategories] = React.useState<CategoriesTrending[]>([])
-    const [categorie, setCategorie] = React.useState<CategoriesTrending | null>(null)
+
+    const [saleHistories, setSaleHistories] = React.useState<SaleHistory[]>([])
 
 
     const nFTContext = React.useContext(RootNftContext)
@@ -81,6 +84,35 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
     React.useEffect(() => {
         load_categories()
     }, [categories_trending])
+
+    React.useEffect(() => {
+        load_sale_histories()
+        console.log("idiot")
+    }, [data?.id])
+
+    const load_sale_histories = async () => {
+        let sales_getted = data?.id
+        if (Boolean(sales_getted)) {
+            let salesHistories_trendings = new SaleHistoriesAPI()
+            salesHistories_trendings
+                .get_multi_sales_by_nftID(sales_getted)
+                .then(datas => {
+                    if (datas.results.length > 0) {
+                        console.log('je suiss la', datas.results)
+                        setSaleHistories([...datas.results])
+                    }
+                })
+        }
+    }
+
+    const calculatedSalesAdded = React.useMemo(() => {
+        if (saleHistories.length > 0) {
+            return saleHistories.length > 1000 ? `${saleHistories.length / 1000}K`
+                : saleHistories.length > 1000000 ? `${saleHistories.length / 1000000}M` : saleHistories.length
+        } else {
+            return 0
+        }
+    }, [saleHistories])
 
     // React.useEffect(() => {
 
@@ -253,18 +285,18 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                         </div>
 
                         <p className="text-[1.2rem] mb-1 mt-2 text-indigo-500 font-MontSemiBold">ETH {data?.price}</p>
-                        {/* <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
-                            <p className="text-white font-MontSemiBold text-xs">Nbr Follows</p>
+
+                        <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
+                            <p className="text-white font-MontSemiBold text-xs">Nbr Subscription</p>
                             <div className='flex gap-[.5rem]'>
                                 <IoPeople
                                     color="white"
                                     size={15}
                                 />
                                 <h2
-                                    className={data?.sales_history.length !== 0 ? 'text-[.8rem] text-indigo-500 font-MontSemiBold' :
-                                        'text-[.8rem] text-red-500 font-MontSemiBold'}>{data?.sales_history.length}</h2>
+                                    className={'text-[.8rem] text-white font-MontSemiBold'}>{calculatedSalesAdded || 0}</h2>
                             </div>
-                        </div> */}
+                        </div>
 
                         <Link
                             to={customLink || "/detailNFT"}

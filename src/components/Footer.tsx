@@ -51,7 +51,7 @@ const Footer = () => {
 
             <div
                 id='mailing'
-                className="mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] min-[1000px]:p-[3rem] rounded-xl shadow-2xl">
+                className="mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] min-[510px]:p-[1.5rem] min-[1000px]:p-[3rem] rounded-xl shadow-2xl">
                 <div className="min-[1000px]:px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
                         after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.9rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">

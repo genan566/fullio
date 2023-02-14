@@ -259,8 +259,9 @@ const DetailNft = () => {
 
             <div className="px-4 mt-[5rem]">
                 <h1 className="text-lg text-white font-MontSemiBold">
-                    Sales History
+                    Sales History 
                 </h1>
+                <p className='text-sm mt-1 mb-[2rem]'>We counts <span className="font-MontSemiBold">{saleHistories.length}</span> sales subscription.</p>
 
                 <div className="bg-slate-800 shadow-lg rounded-md py-1 px-4 mt-4 overflow-y-scroll" style={{
                     minHeight: "80px",
