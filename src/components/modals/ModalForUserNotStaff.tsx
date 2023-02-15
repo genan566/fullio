@@ -15,19 +15,20 @@ const ModalForUserNotStaff = () => {
         respFaqs
             .retrive_account_update(token, userContext?.user.id, { is_staff: true })
             .then(data => {
-                userContext.setUser({
-                    id: data.id,
-                    email: data.email,
-                    name: data.name,
-                    is_staff: data.is_staff,
-                    is_superuser: data.is_superuser,
-                    image: routeAPIBaseImage + data.image.toString(),
-                    account_balance_eth: data.account_balance_eth,
-                    account_balance_btc: data.account_balance_btc,
-                    pseudo: data.pseudo,
-                })
-                creatorContext?.setisCreator(!creatorContext.isCreator)
-
+                if (Boolean(data)) {
+                    userContext.setUser({
+                        id: data?.id,
+                        email: data?.email,
+                        name: data?.name,
+                        is_staff: data?.is_staff,
+                        is_superuser: data?.is_superuser,
+                        image: routeAPIBaseImage + data?.image.toString(),
+                        account_balance_eth: data?.account_balance_eth,
+                        account_balance_btc: data?.account_balance_btc,
+                        pseudo: data.pseudo,
+                    })
+                    creatorContext?.setisCreator(!creatorContext.isCreator)
+                }
             });
     }
 

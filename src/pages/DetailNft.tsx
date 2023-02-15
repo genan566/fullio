@@ -259,7 +259,7 @@ const DetailNft = () => {
 
             <div className="px-4 mt-[5rem]">
                 <h1 className="text-lg text-white font-MontSemiBold">
-                    Sales History 
+                    Sales History
                 </h1>
                 <p className='text-sm mt-1 mb-[2rem]'>We counts <span className="font-MontSemiBold">{saleHistories.length}</span> sales subscription.</p>
 

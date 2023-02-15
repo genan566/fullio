@@ -7,6 +7,10 @@ import { RootUserContext, RootUserTokenContext } from '../contexts'
 import { FaqsAPI } from '../APIs/FaqsAPI'
 
 import { motion } from "framer-motion"
+import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
+import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
+import { RootState } from '../redux/store'
+import { TOGGLE_MODAL_ADDING_FAQS } from '../redux/constants/ModalsConstants'
 
 const containerVariants = {
 
@@ -35,20 +39,30 @@ interface FAQs {
 
 const FAQ = () => {
 
-    const [isActive, setIsActive] = React.useState<boolean>(false)
     const [dataFAQS, setDataFAQS] = React.useState<FAQs[]>([])
 
     const userContext = React.useContext(RootUserContext)
     const userToken = React.useContext(RootUserTokenContext)
+    const dispatch = useAppDispatch();
+    const { stateFAQs } = useAppSelector((state: RootState) => state.faqsReducer)
+
 
     const loadInitial = () => {
+        dispatch({ type: TOGGLE_LOADING, payload: true })
         let respFaqs = new FaqsAPI()
-        respFaqs.get_all_faqs().then(data => setDataFAQS(data.results))
+        respFaqs.get_all_faqs().then(data => {
+            setDataFAQS(data.results)
+            dispatch({ type: SET_FAQS, payload: data.results })
+        })
     }
 
     React.useEffect(() => {
         loadInitial()
     }, [])
+
+    React.useEffect(() => {
+        setDataFAQS(stateFAQs)
+    }, [stateFAQs])
 
     return (
         <motion.div
@@ -59,7 +73,6 @@ const FAQ = () => {
             <h1 className="text-4xl font-MontBold">
                 FAQs
             </h1>
-
 
             {
                 userContext?.user && <>
@@ -85,13 +98,7 @@ const FAQ = () => {
                     <button
 
                         onClick={() => {
-
-                            let resNFTs = new FaqsAPI()
-                            let parsedToken = userToken.token
-                            resNFTs.post_FAQ({
-                                title: "What the meaning of NFT?",
-                                description: "An NFT or non-fungible token is a valued data composed of a type of cryptographic token that represents an object, to which is attached a digital identity. This data is stored and authenticated thanks to a blockchain protocol, which gives it its first value."
-                            }, parsedToken).then(data => { loadInitial() })
+                            dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
                         }}
                         className="bg-violet-500
                         hover:bg-violet-600

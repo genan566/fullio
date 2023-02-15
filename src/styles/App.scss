@@ -335,7 +335,7 @@ select {
 .custom-w-3 {
     flex-grow: 1;
     // margin-left: 1rem;
-    margin-left: 9rem;
+    margin-left: 6rem;
     margin-right: 4.5rem;
     // transition: all .1s ease-out;
 
@@ -368,7 +368,6 @@ select {
 
     &.ishowUs {
         margin-right: 19rem;
-
 
         @media only screen and (max-width:800px) {
             margin-right: 1rem;
@@ -414,7 +413,7 @@ select {
     width: fit-content;
     // min-width: 3rem;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 2rem .8rem;
     background-color: rgba(104, 96, 96, 0.199);
     box-shadow: 0 0 1rem rgba(0, 0, 0, .5);
     transition: all .2s ease-in-out;

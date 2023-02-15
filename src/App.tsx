@@ -44,7 +44,7 @@ function App() {
       respAuth
         .retrive_me__account(token)
         .then(res => {
-          if (res.id) {
+          if (Boolean(res?.id)) {
             userContext?.setUser(res)
             localStorage.setItem('userToken', userTokenContext.token);
             setIsShownModalsSignIn(false)

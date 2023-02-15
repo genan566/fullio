@@ -16,10 +16,12 @@ import CreateNFt from '../pages/CreateNFt'
 import CollectionsPage from '../pages/CollectionsPage'
 import AboutPage from '../pages/AboutPage'
 import { useMediaQuery } from 'usehooks-ts'
+import { RootUserContext } from '../contexts'
 
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
     { isOpen: boolean, isOpenUser: boolean, controlSearch: () => void }) => {
+    const userContext = React.useContext(RootUserContext)
 
     const location = useLocation();
     return (
@@ -47,7 +49,8 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                         <IoFilter
                             color="white"
                             size={15}
-                        /> 2.486572ETH</button>
+                        /> {userContext.user.account_balance_eth || 0} ETH</button>
+                        
                     <button className="customButtonFilterD p0">
                         <RiNotificationBadgeFill
                             color="white"
