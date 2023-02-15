@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
 import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
 import { RootState } from '../redux/store'
 import { TOGGLE_MODAL_ADDING_FAQS } from '../redux/constants/ModalsConstants'
+import { useToast } from '@chakra-ui/react'
 
 const containerVariants = {
 
@@ -45,9 +46,11 @@ const FAQ = () => {
     const userToken = React.useContext(RootUserTokenContext)
     const dispatch = useAppDispatch();
     const { stateFAQs } = useAppSelector((state: RootState) => state.faqsReducer)
+    const toast = useToast()
 
 
     const loadInitial = () => {
+
         dispatch({ type: TOGGLE_LOADING, payload: true })
         let respFaqs = new FaqsAPI()
         respFaqs.get_all_faqs().then(data => {
@@ -98,6 +101,14 @@ const FAQ = () => {
                     <button
 
                         onClick={() => {
+                            (!Boolean(userContext.user.id)) && toast({
+                                title: "You can't do this action.",
+                                description: "You are not connected.",
+                                status: 'success',
+                                duration: 2000,
+                                isClosable: true,
+                            })
+                            
                             dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
                         }}
                         className="bg-violet-500

@@ -98,4 +98,28 @@ export class AuthAPI {
         }
 
     }
+
+    async retrive_mee_update(token: string, data: any) {
+        if (token && data) {
+            return fetch(
+                api_url('user/mee/'),
+                {
+                    method: "PATCH",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: JSON.stringify(data)
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on retrieve", er))
+
+        }
+
+    }
 }

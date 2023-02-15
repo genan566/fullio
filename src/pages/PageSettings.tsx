@@ -66,7 +66,7 @@ const PageSettings = () => {
 
                                     <img
                                         className="h-20 w-20 rounded-full object-cover shadow-lg"
-                                        src={userContext?.user.image}
+                                        src={userContext?.user.image || CustomIMG2}
                                         alt="user Profile" />
                                 </> : <>
                                     <img

@@ -1,4 +1,3 @@
-import { GoogleLogin } from '@react-oauth/google'
 import React from 'react'
 import { IoClose, IoPerson } from 'react-icons/io5'
 import { RiLockPasswordLine } from 'react-icons/ri'

@@ -59,7 +59,7 @@ const CreateNFt = () => {
     const history = useNavigate()
 
     const check_user_can_create = React.useCallback(() => {
-        userContext?.user?.is_staff === false && history("/")
+        ((!Boolean(userContext.user.id)) || (Boolean(userContext?.user?.is_staff === false))) && history("/")
     }, [userContext?.user])
 
     React.useEffect(() => {

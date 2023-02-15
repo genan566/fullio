@@ -6,7 +6,7 @@ import { RiShoppingBasket2Line } from 'react-icons/ri'
 import CustomIMG2 from "../../imgs/pexels-pixabay.jpg"
 import { RootNftContext, RootUserContext, RootUserTokenContext } from '../../contexts'
 import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks'
-import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_SUSCRIPTION } from '../../redux/constants/ModalsConstants'
+import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_SUSCRIPTION, TOGGLE_MODAL_UPDATE_USER_INFO } from '../../redux/constants/ModalsConstants'
 import { RootState } from '../../redux/store'
 
 import LOGOPNG from "../../imgs/nft.png";
@@ -15,6 +15,7 @@ import ErrorText from '../ErrorText'
 import { FaqsAPI } from '../../APIs/FaqsAPI'
 import { SET_FAQS } from '../../redux/constants/FAQsConstants'
 import { UserTypesValues } from '../../types/UserTypeValues'
+import { AuthAPI } from '../../APIs/AuthApi'
 
 const ModalsUpdateUserInfo = () => {
 
@@ -24,10 +25,12 @@ const ModalsUpdateUserInfo = () => {
     const userContext = React.useContext(RootUserContext)
     const customDispatcher = () => dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
 
-    const loadInitial = () => {
-        let respFaqs = new FaqsAPI()
-        respFaqs.get_all_faqs().then(data => {
-            dispatch({ type: SET_FAQS, payload: data.results })
+    const updateUserInfo = (dataSended: any) => {
+        let authMee = new AuthAPI()
+        let token = userTokenContext.token
+        authMee.retrive_mee_update(token, dataSended).then(data => {
+            userContext.setUser(data)
+            dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
         })
     }
 
@@ -35,7 +38,7 @@ const ModalsUpdateUserInfo = () => {
         resetField, formState: { errors } } = useForm<UserTypesValues>();
 
     const handleSuscribeToSale = (gettedData: UserTypesValues) => {
-        console.log('data', gettedData)
+        updateUserInfo(gettedData)
     }
 
     const onSubmit: SubmitHandler<UserTypesValues> = data => {

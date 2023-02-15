@@ -10,6 +10,7 @@ import Initializer from './Initializer';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,23 +18,27 @@ const root = ReactDOM.createRoot(
 
 root.render(
 
+  // 
   <Provider store={store}>
     <React.StrictMode>
-      <BrowserRouter>
-        <Initializer>
-          <RootCreatorProvider>
-            <RootUserContextProvider>
-              <RootNFTContextProvider>
-                <ScrollToTop />
-                {/* <ScrollToTopBtn /> */}
-                <App />
-              </RootNFTContextProvider>
-            </RootUserContextProvider>
-          </RootCreatorProvider>
-        </Initializer>
-      </BrowserRouter>
+      {/* <ChakraProvider> */}
+        <BrowserRouter>
+          <Initializer>
+            <RootCreatorProvider>
+              <RootUserContextProvider>
+                <RootNFTContextProvider>
+                  <ScrollToTop />
+                  {/* <ScrollToTopBtn /> */}
+                  <App />
+                </RootNFTContextProvider>
+              </RootUserContextProvider>
+            </RootCreatorProvider>
+          </Initializer>
+        </BrowserRouter>
+      {/* </ChakraProvider> */}
     </React.StrictMode>
   </Provider>
+  // 
 
 );
 

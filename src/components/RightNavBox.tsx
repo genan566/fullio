@@ -21,11 +21,11 @@ const RightNavBox = ({ userContext, isOpenUser, toggleIsOpenUser, handleLog, han
                     } */}
 
                     {
-                        userContext?.user.id ? <>
+                        (userContext?.user.id) ? <>
 
                             <img
                                 className="rounded-full object-cover"
-                                src={userContext?.user.image}
+                                src={userContext?.user.image || CustomIMG2}
                                 alt="user Profile" />
                         </> : <>
                             <img

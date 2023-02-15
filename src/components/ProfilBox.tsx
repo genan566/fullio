@@ -33,7 +33,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
 
                         <img
                             className="rounded-full object-cover"
-                            src={userContext?.user.image}
+                            src={userContext?.user.image || CustomIMG2}
                             alt="user Profile" />
                     </> : <>
                         <img

@@ -39,7 +39,7 @@ const ManageNFTs = () => {
     const history = useNavigate()
 
     const check_user_can_create = React.useCallback(() => {
-        userContext?.user?.is_staff === false && history("/")
+        ((!Boolean(userContext.user.id)) || (Boolean(userContext?.user?.is_staff === false))) && history("/")
         let resNFTs = new NftsAPI()
         let parsedToken = userToken.token
         resNFTs.get_all_nfts_by_user(parsedToken).then(data => { setnftsData(data) })

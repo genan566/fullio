@@ -276,13 +276,16 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                             }
                         </div>
 
-                        <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
-                            <img
-                                className="h-10 w-10 rounded-full object-cover shadow-lg"
-                                src={userRetrieveData.image || ISOTOP}
-                                alt="user Profile" />
-                            <p className="text-sm text-white font-MontBold max-h-[2rem] truncate w-3/4">{userRetrieveData.name || "Non défini"}</p>
-                        </div>
+                        {
+                            (Boolean(userRetrieveData.id)) &&
+                            <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
+                                <img
+                                    className="h-10 w-10 rounded-full object-cover shadow-lg"
+                                    src={userRetrieveData.image || ISOTOP}
+                                    alt="user Profile" />
+                                <p className="text-sm text-white font-MontBold max-h-[2rem] truncate w-3/4">{userRetrieveData.name || "Non défini"}</p>
+                            </div>
+                        }
 
                         <p className="text-[1.2rem] mb-1 mt-2 text-indigo-500 font-MontSemiBold">ETH {data?.price}</p>
 

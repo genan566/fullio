@@ -22,7 +22,7 @@ const ModalForUserNotStaff = () => {
                         name: data?.name,
                         is_staff: data?.is_staff,
                         is_superuser: data?.is_superuser,
-                        image: routeAPIBaseImage + data?.image.toString(),
+                        image: Boolean(data.image) ? routeAPIBaseImage + data?.image.toString() : "",
                         account_balance_eth: data?.account_balance_eth,
                         account_balance_btc: data?.account_balance_btc,
                         pseudo: data.pseudo,
