@@ -70,7 +70,10 @@ const ModalsUpdateUserInfo = () => {
                                     />
                                 </button>
 
-                                <form className='text-center w-full flex flex-col items-center max-h-[300px] overflow-y-scroll pt-[2rem] border-b pb-[1.5rem] border-slate-700' onSubmit={handleSubmit(onSubmit)}>
+                                <form
+
+                                    className='text-center w-full flex flex-col items-center max-h-[300px] overflow-y-scroll mt-[1rem]
+                                 pt-[.5rem] border-b pb-[1.5rem] border-slate-700' onSubmit={handleSubmit(onSubmit)}>
                                     {/* {
                                         userContext?.user.id ? <>
 

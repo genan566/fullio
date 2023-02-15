@@ -152,7 +152,7 @@ const ManageNFTs = () => {
                     }
 
                     {
-                        ((!nftsData.results)) && <div className="text-center w-full">
+                        (Boolean(nftsData.results)) && <div className="text-center w-full">
                             <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
                         </div>
                     }

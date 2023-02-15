@@ -277,7 +277,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                         </div>
 
                         {
-                            (Boolean(userRetrieveData.id)) &&
+                            (Boolean(userRetrieveData)) &&
                             <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
                                 <img
                                     className="h-10 w-10 rounded-full object-cover shadow-lg"
