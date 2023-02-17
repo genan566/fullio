@@ -125,7 +125,6 @@ const DetailNft = () => {
     const handleSuscribeToSale = () => {
         let token = userTokenContext.token
         // dispatch(actionShowModalForSuscription(true))
-
         dispatch({ type: TOGGLE_MODAL_SUSCRIPTION, payload: true })
 
 
@@ -233,10 +232,11 @@ const DetailNft = () => {
 
 
                         <div className="flex gap-5 justify-start items-center w-full mt-6">
-                            <button
-                                disabled={!Boolean(userTokenContext.token.length)}
-                                onClick={handleSuscribeToSale}
-                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                            {
+                                Boolean(userTokenContext.token.length) && <button
+                                    disabled={!Boolean(userTokenContext.token.length)}
+                                    onClick={handleSuscribeToSale}
+                                    className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
                                         text-sm font-MontSemiBold
@@ -244,11 +244,13 @@ const DetailNft = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-[1rem]
                                             rounded-lg">
-                                <RiShoppingBasket2Line
-                                    // color="white"
-                                    size={17}
-                                /> <p>Suscribe Now</p>
-                            </button>
+                                    <RiShoppingBasket2Line
+                                        // color="white"
+                                        size={17}
+                                    /> <p>Suscribe Now</p>
+                                </button>
+                            }
+                            
                             {
                                 !Boolean(userTokenContext.token.length) && <p className="text-sm text-red-400">Please login to subscribe</p>
                             }

@@ -1,20 +1,25 @@
 import React from 'react'
 import { IoClose, IoPerson } from 'react-icons/io5'
 import { RiLockPasswordLine } from 'react-icons/ri'
+import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks';
 import LOGOPNG from "../../imgs/nft.png";
+import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
+import { RootState } from '../../redux/store';
 import { ModalsShowingSigninTypes } from '../../types/ModalsShowingLoginTYpes copy';
 const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, responseGoogle, errorFuncOnLogIn, navLogin }:
     ModalsShowingSigninTypes) => {
+    const dispatch = useAppDispatch();
+    const { showModalForSignUp } = useAppSelector((state: RootState) => state.modalsReducer)
     return (
         <>
             {
-                isShownModalsFirstSignIn && (
+                showModalForSignUp && (
                     <>
                         <div className="cModals">
 
                             <div className="cModals-container">
                                 <button
-                                    onClick={toggleShowSignUpModal} className="cModals-container-close">
+                                    onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_SIGNUP, payload: false })} className="cModals-container-close">
                                     <IoClose
                                         color="white"
                                         size={18}
@@ -101,7 +106,9 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
 
                                 <h2 className="text-sm text-center font-Regular text-slate-200 mt-3">You have an account
                                     <button
-                                        onClick={navLogin}
+                                        onClick={() => {
+                                            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                                        }}
                                         className="font-MontSemiBold"
 
                                         style={{ textDecoration: "underline", marginLeft: ".5rem" }}>Sign In</button></h2>

@@ -18,8 +18,8 @@ import RenderingSideNavs from './RenderingSideNavs';
 
 
 
-const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
-    { isOpen: boolean, toggleIsOpen: () => void, handleLog: () => void, handleLogOut: () => void }) => {
+const SideNavs = ({ isOpen, toggleIsOpen, closeIsOpen, handleLog, handleLogOut }:
+    { isOpen: boolean, toggleIsOpen: () => void, closeIsOpen: () => void, handleLog: () => void, handleLogOut: () => void }) => {
 
 
     const location = useLocation();
@@ -46,6 +46,7 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                     <div className={!isOpen ? "custom-w-m" : "custom-w-m showing"}>
                         <RenderingSideNavs
                             isActive={isActive}
+                            closeIsOpen={closeIsOpen}
                             handleLog={handleLog}
                             handleLogOut={handleLogOut}
                             setIsActive={setIsActive}
@@ -77,7 +78,9 @@ const SideNavs = ({ isOpen, toggleIsOpen, handleLog, handleLogOut }:
                                 handleLog={handleLog}
                                 handleLogOut={handleLogOut}
                                 setIsActive={setIsActive}
-                                isOpen={isOpen} toggleIsOpen={toggleIsOpen} />
+                                isOpen={isOpen} toggleIsOpen={toggleIsOpen}
+                                closeIsOpen={closeIsOpen}
+                            />
                         </div >
                     }
                 </>

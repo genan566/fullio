@@ -24,6 +24,7 @@ function App() {
   const [isOpenResearch, setIsOpenResearch] = React.useState<boolean>(false)
   const toggleIsOpenUser: toggleIsOpen = () => setIsOpenUser(!isOpenUser)
   const toggleIsOpen: toggleIsOpen = () => setIsOpen(!isOpen)
+  const closeIsOpen: toggleIsOpen = () => setIsOpen(false)
   const [isShownModalsSignIn, setIsShownModalsSignIn] = React.useState<boolean>(false)
   const [isShownModalsFirstSignIn, setIsShownModalsFirstSignIn] = React.useState<boolean>(false)
   const [userIsNull, setUserIsNull] = React.useState<boolean>(false)
@@ -152,7 +153,9 @@ function App() {
             handleLogOut={() => setIsShownModalsLogOut(!isShownModalsLogOut)}
             handleLog={() => setIsShownModalsSignIn(!isShownModalsSignIn)}
             isOpen={isOpen}
-            toggleIsOpen={toggleIsOpen} />
+            toggleIsOpen={toggleIsOpen}
+            closeIsOpen={closeIsOpen}
+          />
 
 
           <RouterAppComponent

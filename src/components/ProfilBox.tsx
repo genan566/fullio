@@ -2,12 +2,15 @@ import React from 'react'
 
 import { IoCopy, IoHeart, IoEllipsisHorizontal, IoMenu, IoPerson, IoClose } from "react-icons/io5";
 import { RootUserContext, } from '../contexts';
+import { useAppDispatch } from '../hooks/modalsHooks';
 
 import CustomIMG2 from "../imgs/pexels-pixabay.jpg"
+import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
 
 const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => void, handlShow: () => void, handleLogOut: () => void }) => {
 
     const userContext = React.useContext(RootUserContext)
+    const dispatch = useAppDispatch();
 
     React.useEffect(() => {
         console.log("userContext", userContext)
@@ -19,7 +22,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
             <button
                 onClick={handlShow}
                 className="navs-close-L">
-                    
+
                 <IoClose
                     color="white"
                     size={18}
@@ -57,7 +60,9 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                 {
                     !userContext?.user.id &&
                     <button
-                        onClick={handleLog}
+                        onClick={() => {
+                            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                        }}
                         className="bg-violet-500
                             hover:bg-violet-600
                             active:bg-violet-700 

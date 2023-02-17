@@ -10,7 +10,7 @@ import { motion } from "framer-motion"
 import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
 import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
 import { RootState } from '../redux/store'
-import { TOGGLE_MODAL_ADDING_FAQS } from '../redux/constants/ModalsConstants'
+import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 
 const containerVariants = {
@@ -101,15 +101,16 @@ const FAQ = () => {
                     <button
 
                         onClick={() => {
-                            (!Boolean(userContext.user.id)) && toast({
-                                title: "You can't do this action.",
-                                description: "You are not connected.",
-                                status: 'success',
-                                duration: 2000,
-                                isClosable: true,
-                            })
+
+                            if (!Boolean(userContext.user.id)) {
+                                dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
+                                dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                            }
+                            else {
+                                dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
+                            }
                             
-                            dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
+                            
                         }}
                         className="bg-violet-500
                         hover:bg-violet-600

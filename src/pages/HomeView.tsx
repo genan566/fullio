@@ -29,6 +29,8 @@ import { NftsAPI } from '../APIs/NftsAPI';
 import { PaginatedData } from './ContainerPrincipal';
 import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
+import { useAppDispatch } from '../hooks/modalsHooks';
+import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
 
 
 
@@ -68,6 +70,8 @@ const HomeView = () => {
     const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
 
     const history = useNavigate()
+    const dispatch = useAppDispatch();
+
 
     React.useEffect(() => {
         let resNFTs = new NftsAPI()
@@ -97,8 +101,13 @@ const HomeView = () => {
                             <div className="flex gap-4 mt-[2rem] flex-wrap">
                                 <button
                                     onClick={() => {
-                                        !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
-                                        userContext?.user?.is_staff && history("/createNFt")
+                                        if (!Boolean(userContext.user.id)) {
+                                            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                                        }
+                                        else {
+                                            !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                            userContext?.user?.is_staff && history("/createNFt")
+                                        }
 
                                         // creatorContext?.setisCreator(true)
                                     }}

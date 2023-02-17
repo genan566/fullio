@@ -1,8 +1,12 @@
-import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_SUSCRIPTION, TOGGLE_MODAL_UPDATE_USER_INFO } from "../constants/ModalsConstants";
+import {
+    TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC, TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, TOGGLE_MODAL_FOR_LOGIN,
+    TOGGLE_MODAL_FOR_SIGNUP, TOGGLE_MODAL_SUSCRIPTION, TOGGLE_MODAL_UPDATE_USER_INFO
+} from "../constants/ModalsConstants";
 
 export const modalsReducer = (state = {
     showModalSuscription: false,
-    showModalAddingFAQs: false, showModalUpdateUserInfo: false,
+    showModalAddingFAQs: false, showModalUpdateUserInfo: false, showModalForLogin: false,
+    showModalForSignUp: false, showModalForLoadingMoreWalletETH: false, showModalForLoadingMoreWalletBTC: false,
 }, action: { type: string, payload: any }) => {
     switch (action.type) {
 
@@ -14,6 +18,18 @@ export const modalsReducer = (state = {
 
         case TOGGLE_MODAL_UPDATE_USER_INFO:
             return { showModalUpdateUserInfo: action.payload, }
+
+        case TOGGLE_MODAL_FOR_LOGIN:
+            return { showModalForLogin: action.payload, }
+
+        case TOGGLE_MODAL_FOR_SIGNUP:
+            return { showModalForSignUp: action.payload, }
+
+        case TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH:
+            return { showModalForLoadingMoreWalletETH: action.payload, }
+
+        case TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC:
+            return { showModalForLoadingMoreWalletBTC: action.payload, }
 
         default:
             return state;

@@ -8,6 +8,10 @@ import LOGOPNG from "../../imgs/nft.png";
 import { isEmail } from '../../utilities';
 import { RootUserTokenContext } from '../../contexts';
 import { AuthAPI } from '../../APIs/AuthApi';
+import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks';
+import { RootState } from '../../redux/store';
+import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
+import { useReadLocalStorage } from 'usehooks-ts';
 const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, responseGoogle, errorFuncOnLogIn, navSignin }:
     ModalsShowingLoginTypes) => {
 
@@ -16,6 +20,13 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
     const [mail, setMail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [errorOnLogin, setErrorOnLogin] = useState<string>("")
+    const dispatch = useAppDispatch();
+    const gettingToken = useReadLocalStorage('userToken')
+
+    React.useEffect(() => {
+        gettingToken && dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: false })
+        !gettingToken && console.log("Ekpan",showModalForLogin)
+    }, [gettingToken])
 
     const submitForLogin = () => {
         if (isEmail(mail)) {
@@ -29,6 +40,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                     }
                     else {
                         console.log("res", res.token)
+                        dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: false })
                         userTokenContext?.setToken(JSON.stringify(res.token))
                         localStorage.setItem('userToken', JSON.stringify(res.token));
                         setTimeout(() => {
@@ -43,16 +55,19 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
         }
 
     }
+
+    const { showModalForLogin } = useAppSelector((state: RootState) => state.modalsReducer)
+
     return (
         <>
             {
-                isShownModalsSignIn && (
+                showModalForLogin && (
                     <>
                         <div className="cModals">
 
                             <div className="cModals-container">
                                 <button
-                                    onClick={toggleShowSigninModal} className="cModals-container-close">
+                                    onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: false })} className="cModals-container-close">
                                     <IoClose
                                         color="white"
                                         size={18}
@@ -115,7 +130,8 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
 
                                 <h2 className="text-sm text-center font-Regular text-slate-200 mt-3">You have not an account yet /
                                     <button
-                                        onClick={navSignin}
+                                        onClick={() =>
+                                            dispatch({ type: TOGGLE_MODAL_FOR_SIGNUP, payload: true })}
                                         className="font-MontSemiBold"
                                         style={{ textDecoration: "underline", marginLeft: ".5rem" }}>Sign Up</button></h2>
 

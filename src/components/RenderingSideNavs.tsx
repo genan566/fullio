@@ -12,12 +12,18 @@ import { FaQuinscape } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { RootUserContext } from '../contexts';
 import { GiVirtualMarker } from 'react-icons/gi';
+import { useAppDispatch } from '../hooks/modalsHooks';
+import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
 
 
 
-const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handleLogOut, handleLog }:
-    { isOpen: boolean, toggleIsOpen: () => void, handleLog: () => void, handleLogOut: () => void, isActive: string, setIsActive: React.Dispatch<React.SetStateAction<string>> }) => {
+const RenderingSideNavs = ({ toggleIsOpen, closeIsOpen, isOpen, isActive, setIsActive, handleLogOut, handleLog }:
+    {
+        isOpen: boolean, closeIsOpen: () => void, toggleIsOpen: () => void, handleLog: () => void, handleLogOut: () => void,
+        isActive: string, setIsActive: React.Dispatch<React.SetStateAction<string>>
+    }) => {
     const userContext = React.useContext(RootUserContext)
+    const dispatch = useAppDispatch();
     return (
         <>
             <button
@@ -48,7 +54,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
 
                 <Link
                     to={"/"}
-                    onClick={() => setIsActive("/")}
+                    onClick={() => {
+                        closeIsOpen()
+                        setIsActive("/")
+                    }}
                     className={isActive === "/" ? "customButtonFilterD-S p0 mt-4 active" : "customButtonFilterD-S p0 mt-4"}>
                     <IoHome
                         color={isActive === "/" ? "black" : "white"}
@@ -59,7 +68,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
 
                 <Link
                     to={"/nftMarketPlace"}
-                    onClick={() => setIsActive("/nftMarketPlace")} className={((isActive === "/nftMarketPlace") || (isActive === "/detailNFT")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => {
+                        closeIsOpen()
+                        setIsActive("/nftMarketPlace")
+                    }} className={((isActive === "/nftMarketPlace") || (isActive === "/detailNFT")) ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <GiVirtualMarker
                         color={((isActive === "/nftMarketPlace") || (isActive === "/detailNFT")) ? "black" : "white"}
                         size={18}
@@ -70,7 +82,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
                 {
                     userContext.user?.is_staff && <Link
                         to={"/manageNFTs"}
-                        onClick={() => setIsActive("/manageNFTs")}
+                        onClick={() => {
+                            closeIsOpen()
+                            setIsActive("/manageNFTs")
+                        }}
                         className={((isActive === "/manageNFTs") || (isActive === "/createNFt") || (isActive === "/detailOwnNFT")) ?
                             "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                         <MdOutlineDashboardCustomize
@@ -103,7 +118,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
 
                 <Link
                     to={"/faqs"}
-                    onClick={() => setIsActive("/faqs")} className={isActive === "/faqs" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => {
+                        closeIsOpen()
+                        setIsActive("/faqs")
+                    }} className={isActive === "/faqs" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <FaQuinscape
                         color={isActive === "/faqs" ? "black" : "white"}
                         size={18}
@@ -117,7 +135,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
 
                 <Link
                     to={"/settings"}
-                    onClick={() => setIsActive("Paramètres")} className={isActive === "/settings" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => {
+                        closeIsOpen()
+                        setIsActive("Paramètres")
+                    }} className={isActive === "/settings" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <IoSettings
                         color={isActive === "/settings" ? "black" : "white"}
                         size={18}
@@ -140,7 +161,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
 
                 <Link
                     to={"/aboutPage"}
-                    onClick={() => setIsActive("/aboutPage")} className={isActive === "/aboutPage" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    onClick={() => {
+                        closeIsOpen()
+                        setIsActive("/aboutPage")
+                    }} className={isActive === "/aboutPage" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <IoAtCircleOutline
                         color={isActive === "/aboutPage" ? "black" : "white"}
                         size={18}
@@ -153,7 +177,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
             {
                 userContext?.user.id ?
                     <button
-                        onClick={handleLogOut}
+                        onClick={() => {
+                            handleLogOut()
+                            closeIsOpen()
+                        }}
                         className="customButtonFilterD-S d p0 mt-5">
                         <IoLogOut
                             color="white"
@@ -162,7 +189,10 @@ const RenderingSideNavs = ({ toggleIsOpen, isOpen, isActive, setIsActive, handle
                         <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.75rem' }}>Log Out</span>
                     </button >
                     : <button
-                        onClick={handleLog}
+                        onClick={() => {
+                            closeIsOpen()
+                            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                        }}
                         className="customButtonFilterD-S danger p0 mt-5">
                         <IoLogIn
                             color="white"

@@ -722,7 +722,6 @@ select {
             animation: fadeInTop ease-in-out .2s;
             position: relative;
 
-
             &.p0 {
                 padding: 1rem 0;
                 justify-content: flex-start;
@@ -771,6 +770,12 @@ select {
         animation: fadeInTop ease-in-out .2s;
         position: relative;
 
+        & #form-scrollable {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
         @media only screen and (min-width:800px) {
             padding: 2rem;
         }
@@ -778,6 +783,12 @@ select {
         @media only screen and (max-width:780px) {
             width: 90%;
             padding: 2rem;
+        }
+
+        @media only screen and (max-width:650px) {
+            min-width: 80%;
+            max-height: fit-content;
+            // width: 50% !important;
         }
 
 

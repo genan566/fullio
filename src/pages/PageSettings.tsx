@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 import { FaIcons, FaUncharted, FaUsers } from 'react-icons/fa';
 import { RootUserContext } from '../contexts';
 import { useAppDispatch } from '../hooks/modalsHooks';
-import { TOGGLE_MODAL_UPDATE_USER_INFO } from '../redux/constants/ModalsConstants';
+import { TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC, TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, TOGGLE_MODAL_UPDATE_USER_INFO } from '../redux/constants/ModalsConstants';
 
 
 const containerVariants = {
@@ -104,8 +104,12 @@ const PageSettings = () => {
                         }
                     </div>
 
-                    <div className="grid lg:grid-cols-3 gap-2 mt-5 md:grid-cols-2 sm:grid-cols-1">
-                        <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+                    <div
+                        className="grid lg:grid-cols-3 gap-2 mt-5 md:grid-cols-2 sm:grid-cols-1">
+                        <button
+                            disabled={!Boolean(userContext.user.id)}
+                            onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC, payload: true })}
+                            className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
 
                             <div className="flex items-center justify-start gap-5">
                                 <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
@@ -114,19 +118,22 @@ const PageSettings = () => {
                                         size={20}
                                     />
                                 </div>
-                                <div className="columns gap-1">
+                                <div className="columns gap-1 text-left">
                                     <h3 className="text-md font-MontBold">${userContext.user.account_balance_btc || 0}</h3>
                                     <p className="text-sm">Account balance BTC</p>
                                 </div>
                             </div>
 
-                            <div className="columns mt-4 gap-2">
+                            <div className="columns mt-4 gap-2 text-left">
                                 <p className="text-sm">Top up balance</p>
                                 <p className="text-sm">Transactions & receipts</p>
                             </div>
-                        </div>
+                        </button>
 
-                        <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+                        <button
+                            disabled={!Boolean(userContext.user.id)}
+                            onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, payload: true })}
+                            className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
 
                             <div className="flex items-center justify-start gap-5">
                                 <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
@@ -135,17 +142,17 @@ const PageSettings = () => {
                                         size={20}
                                     />
                                 </div>
-                                <div className="columns gap-1">
+                                <div className="columns gap-1 text-left">
                                     <h3 className="text-md font-MontBold">${userContext.user.account_balance_eth || 0}</h3>
                                     <p className="text-sm">Account balance ETH</p>
                                 </div>
                             </div>
 
-                            <div className="columns mt-4 gap-2">
+                            <div className="columns mt-4 gap-2 text-left">
                                 <p className="text-sm">Top up balance</p>
                                 <p className="text-sm">Transactions & receipts</p>
                             </div>
-                        </div>
+                        </button>
 
                         <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
 
@@ -169,7 +176,7 @@ const PageSettings = () => {
                         </div>
 
 
-                        <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+                        {/* <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
 
                             <div className="flex items-center justify-start gap-5">
                                 <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
@@ -187,8 +194,8 @@ const PageSettings = () => {
                             <div className="columns mt-4 gap-3">
                                 <p className="text-sm">Upgrade to Pro</p>
                             </div>
-                        </div>
-                        
+                        </div> */}
+
                     </div>
                 </>
             }

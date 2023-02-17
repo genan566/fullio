@@ -1,5 +1,5 @@
 import React from 'react'
-import { ValuesTypes } from '../contexts'
+
 import ProfilBox from './ProfilBox'
 import CustomIMG2 from "../imgs/pexels-pixabay.jpg"
 import { RightNavBoxTypes } from '../types/RightNavBoxTypes'

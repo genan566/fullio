@@ -1,26 +1,24 @@
 import React from 'react'
 import { IoClose, } from 'react-icons/io5'
-import { MdMail, MdOutlinePriceChange, MdPerson, MdTitle } from 'react-icons/md'
+import { MdMail } from 'react-icons/md'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 
-import CustomIMG2 from "../../imgs/pexels-pixabay.jpg"
 import { RootNftContext, RootUserContext, RootUserTokenContext } from '../../contexts'
 import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks'
-import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_SUSCRIPTION, TOGGLE_MODAL_UPDATE_USER_INFO } from '../../redux/constants/ModalsConstants'
+import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_UPDATE_USER_INFO } from '../../redux/constants/ModalsConstants'
 import { RootState } from '../../redux/store'
 
 import LOGOPNG from "../../imgs/nft.png";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorText from '../ErrorText'
-import { FaqsAPI } from '../../APIs/FaqsAPI'
-import { SET_FAQS } from '../../redux/constants/FAQsConstants'
+
 import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
 
-const ModalsUpdateUserInfo = () => {
+const ModalsLoadingMoreAccountDataWalletETH = () => {
 
     const userTokenContext = React.useContext(RootUserTokenContext)
-    const { showModalUpdateUserInfo } = useAppSelector((state: RootState) => state.modalsReducer)
+    const { showModalForLoadingMoreWalletETH } = useAppSelector((state: RootState) => state.modalsReducer)
     const dispatch = useAppDispatch();
     const userContext = React.useContext(RootUserContext)
     const customDispatcher = () => dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
@@ -38,17 +36,29 @@ const ModalsUpdateUserInfo = () => {
         resetField, formState: { errors } } = useForm<UserTypesValues>();
 
     const handleSuscribeToSale = (gettedData: UserTypesValues) => {
-        updateUserInfo(gettedData)
+
+        if (!Boolean(userContext.user.id)) {
+            dispatch({ type: TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, payload: false })
+            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+            resetField("account_balance_eth")
+        }
+        else {
+            updateUserInfo(gettedData)
+        }
     }
 
     const onSubmit: SubmitHandler<UserTypesValues> = data => {
         handleSuscribeToSale(data)
     };
 
+    // React.useEffect(() => {
+    //     !Boolean(userContext.user.id) && dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+    // }, [showModalForLoadingMoreWalletETH])
+
     return (
         <>
             {
-                showModalUpdateUserInfo && (
+                showModalForLoadingMoreWalletETH && (
                     <>
                         <div className="cModals">
 
@@ -58,9 +68,9 @@ const ModalsUpdateUserInfo = () => {
                                 <img src={LOGOPNG} className="" alt="Imgs" />
                                 <div className="min-[800px]:px-[2rem] px-[1rem] w-full mb-[1rem]">
                                     <h2 className="text-lg font-MontSemiBold text-white mt-5 
-                                    mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Update Profile</h2>
+                                    mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Loading More ETH balance</h2>
                                 </div>
-                                <h2 className="text-sm font-Regular text-center mx-auto w-3/4 text-slate-200">Please follow this step to update your account please.</h2>
+                                <h2 className="text-sm font-Regular text-center mx-auto w-3/4 text-slate-200">Please follow this step to load more your wallet.</h2>
 
                                 <button
                                     onClick={customDispatcher} className="cModals-container-close">
@@ -72,8 +82,8 @@ const ModalsUpdateUserInfo = () => {
 
                                 <form id="form-scrollable"
                                     className='text-center w-full flex flex-col 
-                                    items-center max-h-[300px] overflow-y-scroll mt-[1rem]
-                                 pt-[.5rem] border-b pb-[1.5rem] border-slate-700' onSubmit={handleSubmit(onSubmit)}>
+                                    items-center max-h-[300px] overflow-y-scroll
+                                 border-b pb-[1.5rem] border-slate-700' onSubmit={handleSubmit(onSubmit)}>
                                     {/* {
                                         userContext?.user.id ? <>
 
@@ -88,76 +98,6 @@ const ModalsUpdateUserInfo = () => {
                                                 alt="user Profile" />
                                         </>
                                     } */}
-
-                                    <div className='mt-[1.5rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your email</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdMail
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("email", { required: true })}
-                                                placeholder='Email'
-                                                type="text"
-                                                defaultValue={userContext.user.email}
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.email && <ErrorText />}
-                                    </div>
-
-
-                                    <div className='mt-[1.5rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your pseudo</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdMail
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("pseudo",)}
-                                                placeholder='Pseudo'
-                                                type="text"
-                                                defaultValue={userContext.user.pseudo}
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.pseudo && <ErrorText />}
-                                    </div>
-
-
-                                    <div className='mt-[1.2rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your name</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdPerson
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("name", { required: true })}
-                                                placeholder='Name'
-                                                defaultValue={userContext.user.name}
-                                                type="text"
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.name && <ErrorText />}
-                                    </div>
-
-                                    <div className='mt-[1.5rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your account_balance_btc</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdMail
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("account_balance_btc", { required: true })}
-                                                placeholder='Account BTC balance'
-                                                type="number"
-                                                defaultValue={userContext.user.account_balance_btc}
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.account_balance_btc && <ErrorText />}
-                                    </div>
 
                                     <div className='mt-[1.5rem] w-3/4 mx-auto'>
                                         <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your account_balance_eth</p>
@@ -191,7 +131,7 @@ const ModalsUpdateUserInfo = () => {
                                             <RiShoppingBasket2Line
                                                 // color="white"
                                                 size={17}
-                                            /> <p>Update</p>
+                                            /> <p>Update Wallet</p>
                                         </button>
                                     </div>
                                 </form>
@@ -206,4 +146,4 @@ const ModalsUpdateUserInfo = () => {
     )
 }
 
-export default ModalsUpdateUserInfo
+export default ModalsLoadingMoreAccountDataWalletETH

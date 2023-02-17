@@ -16,6 +16,8 @@ import { NftsInterface } from '../types/NFTsInterface';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
+import { useAppDispatch } from '../hooks/modalsHooks';
+import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
 
 
 const containerVariants = {
@@ -62,6 +64,7 @@ const ContainerPrincipal = () => {
 
     const history = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const dispatch = useAppDispatch();
 
     const callingTheNestedData = (index: number) => {
         if (activeCategoriesTrending) {
@@ -206,8 +209,13 @@ const ContainerPrincipal = () => {
 
                             <button
                                 onClick={() => {
-                                    !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
-                                    userContext?.user?.is_staff && history("/createNFt")
+                                    if (!Boolean(userContext.user.id)) {
+                                        dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                                    }
+                                    else {
+                                        !userContext?.user?.is_staff && creatorContext?.setisCreator(true)
+                                        userContext?.user?.is_staff && history("/createNFt")
+                                    }
 
                                 }}
                                 className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 

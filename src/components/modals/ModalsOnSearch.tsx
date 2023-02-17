@@ -20,7 +20,7 @@ const ModalsOnSearch = ({ isOpenResearch, toggleOnResearch }:
                                 </button>
 
 
-                                <div style={{ width: "90%", marginTop: "2rem" }}>
+                                <div className='w-[90%] mt-[.8rem]'>
                                     <p className="text-xs font-MontBold text-white mb-4">Enter your research</p>
 
                                     <div className="control-container-S mt-3 mb-1" id='cPar'>

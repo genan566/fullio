@@ -2,6 +2,8 @@ import React from 'react'
 import { RootModalsTypes } from '../types/RootModalsTypes';
 import ModalForUserNotStaff from './modals/ModalForUserNotStaff';
 import ModalAddingFAQs from './modals/ModalsAddingFAQs';
+import ModalsLoadingMoreAccountDataWalletBTC from './modals/ModalsLoadingMoreAccountDataBTC';
+import ModalsLoadingMoreAccountDataWalletETH from './modals/ModalsLoadingMoreAccountDataETH';
 import ModalsLogOut from './modals/ModalsLogOut';
 import ModalsOnSearch from './modals/ModalsOnSearch';
 import ModalsShowingLogin from './modals/ModalsShowingLogin';
@@ -17,6 +19,8 @@ const RootModals = ({ isShownModalsSignIn, isShownModalsFirstSignIn, toggleShowS
     return (
         <>
             <ModalsUpdateUserInfo />
+            <ModalsLoadingMoreAccountDataWalletETH />
+            <ModalsLoadingMoreAccountDataWalletBTC />
             <ModalSubscription />
             <ModalAddingFAQs />
             <ModalsShowingLogin

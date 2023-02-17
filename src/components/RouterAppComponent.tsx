@@ -17,6 +17,8 @@ import CollectionsPage from '../pages/CollectionsPage'
 import AboutPage from '../pages/AboutPage'
 import { useMediaQuery } from 'usehooks-ts'
 import { RootUserContext } from '../contexts'
+import { useAppDispatch } from '../hooks/modalsHooks'
+import { TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH } from '../redux/constants/ModalsConstants'
 
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
@@ -24,6 +26,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
     const userContext = React.useContext(RootUserContext)
 
     const location = useLocation();
+    const dispatch = useAppDispatch();
     return (
         <div className={((isOpen) && (isOpenUser)) ? "custom-w-3 ishowUs isho mt-1" :
             (isOpen) ? "custom-w-3 isho mt-1" :
@@ -45,17 +48,19 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                 </div>
 
                 <div className="flex row align-center gap-2">
-                    <button className="customButtonFilterD">
+                    <button
+                        onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, payload: true })}
+                        className="customButtonFilterD">
                         <IoFilter
                             color="white"
                             size={15}
                         /> {userContext.user.account_balance_eth || 0} ETH</button>
-                        
-                    <button className="customButtonFilterD p0">
+
+                    {/* <button className="customButtonFilterD p0">
                         <RiNotificationBadgeFill
                             color="white"
                             size={15}
-                        /></button>
+                        /></button> */}
                 </div>
             </div>
 
