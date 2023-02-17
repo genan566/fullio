@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoArrowBack, } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
-import { RootNftContext, RootUserTokenContext, } from '../contexts'
+import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts'
 
 import NFT10 from "../imgs/10.png";
 import ISOTOP from "../imgs/istockphoto.jpg";
@@ -23,6 +23,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 const DetailNft = () => {
     const nftContext = React.useContext(RootNftContext)
+    const userContext = React.useContext(RootUserContext)
 
     const [userRetrieveData, setuserRetrieveData] = React.useState<UserRetrieveInterface>({} as UserRetrieveInterface)
     const [userRetrieveDataListForSales, setuserRetrieveDataListForSales] = React.useState<UserRetrieveInterface[]>([])
@@ -126,8 +127,6 @@ const DetailNft = () => {
         let token = userTokenContext.token
         // dispatch(actionShowModalForSuscription(true))
         dispatch({ type: TOGGLE_MODAL_SUSCRIPTION, payload: true })
-
-
     }
 
     React.useEffect(() => {
@@ -233,8 +232,8 @@ const DetailNft = () => {
 
                         <div className="flex gap-5 justify-start items-center w-full mt-6">
                             {
-                                Boolean(userTokenContext.token.length) && <button
-                                    disabled={!Boolean(userTokenContext.token.length)}
+                                Boolean(userContext.user.id) && <button
+                                    disabled={!Boolean(userContext.user.id)}
                                     onClick={handleSuscribeToSale}
                                     className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
@@ -252,7 +251,7 @@ const DetailNft = () => {
                             }
                             
                             {
-                                !Boolean(userTokenContext.token.length) && <p className="text-sm text-red-400">Please login to subscribe</p>
+                                !Boolean(userContext.user.id) && <p className="text-sm text-red-400">Please login to subscribe</p>
                             }
                         </div>
                     </div>
