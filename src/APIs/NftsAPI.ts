@@ -18,6 +18,24 @@ export class NftsAPI {
 
     }
 
+    async delete_nft(token: string, id_nft: number | undefined,) {
+        if (token && id_nft) {
+            return fetch(
+                api_url(`core_nfts/${id_nft}/`),
+                {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': "application/json;charset=utf-8",
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                }
+            )
+                .then((js) => js.ok && { title: "OK" })
+            // .then()
+        }
+
+    }
+
     async get_all_nfts_paginate_by_categories(id_category: number, page = 1) {
         return fetch(
             api_url(`core_nfts/?categories=${id_category}&page=${page}`),

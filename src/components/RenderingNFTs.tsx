@@ -2,9 +2,12 @@ import React from 'react'
 import { PaginatedData } from '../pages/ContainerPrincipal'
 import { NftTypesValues } from '../types/NFTTypes'
 import CardNFT from './CardNFT'
+import FlatedNFT from './FlatedNFT'
 
-const RenderingNFTs = ({ nftsData, with_slice }: { nftsData: PaginatedData, with_slice: boolean }) => {
-    let data_renderring_likes = Boolean(nftsData.results) ? !Boolean(with_slice) ? nftsData.results : nftsData.results.slice(0, 5) : nftsData.results
+const RenderingNFTs = ({ nftsData, with_slice, render_type = "default", custom_func }:
+    { nftsData: PaginatedData, with_slice: boolean, render_type?: "default" | "flated", custom_func?: () => void }) => {
+    let data_renderring_likes = Boolean(nftsData.results) ?
+        !Boolean(with_slice) ? nftsData.results : nftsData.results.slice(0, 5) : nftsData.results
     return (
         <>
             {
@@ -23,16 +26,35 @@ const RenderingNFTs = ({ nftsData, with_slice }: { nftsData: PaginatedData, with
                             }
                             return (
                                 <>
-                                    <CardNFT
-                                        data={sendedData}
-                                        rebirth={item.title}
-                                        owner={item.owner}
-                                        key={item.id}
-                                        image={item.image}
-                                        link={true}
-                                        categories_trending={item.categories_trending}
-                                        sales_history={item.sales_history}
-                                    />
+                                    {
+                                        render_type === "default" &&
+                                        <CardNFT
+                                            data={sendedData}
+                                            rebirth={item.title}
+                                            owner={item.owner}
+                                            key={item.id}
+                                            image={item.image}
+                                            link={true}
+                                            categories_trending={item.categories_trending}
+                                            sales_history={item.sales_history}
+                                        />
+                                    }
+
+
+                                    {
+                                        render_type === "flated" &&
+                                        <FlatedNFT
+                                            custom_call={custom_func}
+                                            data={sendedData}
+                                            rebirth={item.title}
+                                            owner={item.owner}
+                                            key={item.id}
+                                            image={item.image}
+                                            link={true}
+                                            categories_trending={item.categories_trending}
+                                            sales_history={item.sales_history}
+                                        />
+                                    }
                                 </>
                             )
                         })

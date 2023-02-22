@@ -17,7 +17,9 @@ import ISOTOP from "../imgs/istockphoto.jpg";
 import { UsersAPI } from '../APIs/UsersAPi'
 import { UserTypesValues } from '../types/UserTypeValues'
 import { useNavigate } from 'react-router-dom'
-import { IoArrowBack } from 'react-icons/io5'
+import { IoArrowBack, IoTrash } from 'react-icons/io5'
+import { MdEdit } from 'react-icons/md'
+import { AuthAPI } from '../APIs/AuthApi'
 const containerVariants = {
 
 
@@ -36,12 +38,6 @@ const containerVariants = {
         transition: { ease: 'easeInOut' },
     }
 };
-
-
-interface FAQs {
-    title: string,
-    description: string
-}
 
 const UsersList = () => {
 
@@ -74,6 +70,16 @@ const UsersList = () => {
     const check_user_can_create = React.useCallback(() => {
         ((!Boolean(userContext.user.id)) || (Boolean(userContext?.user?.is_superuser === false))) && history("/")
     }, [userContext?.user])
+
+    const delete_account = (id: number) => {
+        let resNFTs = new AuthAPI()
+        resNFTs
+            .delete_account(userToken.token, id)
+            .then(data => {
+                loadInitial()
+                // setnftsData(data)
+            })
+    }
 
     React.useEffect(() => {
         loadInitial()
@@ -144,7 +150,26 @@ const UsersList = () => {
                                             focus:ring-gray-500
                                                 text-white px-3
                                                 rounded-lg">
-                                        Edit User
+                                        <MdEdit
+                                            // color="white"
+                                            size={17}
+                                        />
+                                        Modifier
+                                    </button>
+                                    <button
+                                        onClick={() => delete_account(it.id)}
+                                        className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
+                                            hover:bg-transparent hover: border hover: border-red-600 hover:text-white
+                                            focus:outline-none
+                                            text-sm font-MontSemiBold
+                                            focus:ring-2 mx-auto
+                                            focus:ring-gray-500
+                                                py-1 text-white px-[1rem]
+                                                rounded-lg">
+                                        <IoTrash
+                                            // color="white"
+                                            size={17}
+                                        /> <p>Supprimer</p>
                                     </button>
                                 </div>
                             </>

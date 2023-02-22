@@ -20,6 +20,7 @@ import { RootUserContext } from '../contexts'
 import { useAppDispatch } from '../hooks/modalsHooks'
 import { TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH } from '../redux/constants/ModalsConstants'
 import UsersList from '../pages/UsersList'
+import AdminViewNFTs from '../pages/AdminViewNFTs'
 
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
@@ -81,6 +82,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     <Route path="/collectionsPage" element={<CollectionsPage />} />
                     <Route path="/aboutPage" element={<AboutPage />} />
                     <Route path="/userList" element={<UsersList />} />
+                    <Route path="/adminViewNFTs" element={<AdminViewNFTs />} />
                     {/* <Route path="/virtualVisit" element={<VirtualVisit />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />

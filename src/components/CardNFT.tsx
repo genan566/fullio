@@ -125,7 +125,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                 className='customNFTT'
             >
                 <div className='w-[330px] bg-slate-900 shadow-md rounded-md overflow-hidden relative'>
-                    {
+                    {/* {
                         userContext.user.is_superuser && <button
                             className="absolute top-[.58rem] right-[.58rem] p-2 rounded-full bg-red-500 text-white 
                             shadow-md active:text-red-500 active:bg-transparent border border-transparent active:border-red-500">
@@ -134,7 +134,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                                 size={17}
                             />
                         </button>
-                    }
+                    } */}
                     <img
                         className="h-[300px] w-full rounded-sm object-cover bg-cover shadow-lg"
                         src={image || ISOTOP}

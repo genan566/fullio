@@ -205,6 +205,32 @@ const PageSettings = () => {
                             </Link>
                         }
 
+                        {
+                            userContext.user.is_superuser && <Link to={"/adminViewNFTs"}>
+                                <div
+                                    className="bg-slate-700 h-48 hover:bg-gradient-to-r 
+                                    from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+
+                                    <div className="flex items-center justify-start gap-5">
+                                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                                            <FaUsers
+                                                color="black"
+                                                size={20}
+                                            />
+                                        </div>
+                                        <div className="columns gap-1">
+                                            <h3 className="text-md font-MontBold">Products edit</h3>
+                                            <p className="text-sm">20 products counted</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="columns mt-4 gap-3">
+                                        <p className="text-sm">Manage NFTs</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        }
+
                         {/* <Link to={"/userList"}> */}
                         {
                             userContext.user.is_superuser && <div

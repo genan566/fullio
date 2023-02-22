@@ -135,7 +135,7 @@ const AboutPage = () => {
                                             focus:ring-2
                                             focus:ring-gray-500
                                                 py-1 text-white px-3
-                                rounded-lg"><p>Follow Now</p>
+                                        rounded-lg"><p>Follow Now</p>
                                         <RiShoppingBasket2Line
                                             // color="white"
                                             size={17}

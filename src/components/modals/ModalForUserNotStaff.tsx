@@ -13,7 +13,7 @@ const ModalForUserNotStaff = () => {
         let respFaqs = new AuthAPI()
         let token = userTokenContext.token
         respFaqs
-            .retrive_account_update(token, userContext?.user.id, { is_staff: true })
+            .retrive_mee_update(token, { is_staff: true })
             .then(data => {
                 if (Boolean(data)) {
                     userContext.setUser({

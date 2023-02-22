@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoArrowBack, IoCheckmark, IoFileTray, } from 'react-icons/io5'
+import { IoArrowBack, IoCheckmark, IoFileTray, IoTrash, } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
 import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts'
 
@@ -22,6 +22,7 @@ import { actionShowModalForSuscription } from '../redux/actions/ModalsActions';
 import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 import { MdEdit } from 'react-icons/md';
+import { NftsAPI } from '../APIs/NftsAPI';
 const DetailNft = () => {
     const nftContext = React.useContext(RootNftContext)
     const userContext = React.useContext(RootUserContext)
@@ -40,6 +41,16 @@ const DetailNft = () => {
     const [selectedCategorie, setSelectedCategorie] = React.useState<number>();
 
     const dispatch = useAppDispatch();
+
+    const delete_nft = () => {
+        let resNFTs = new NftsAPI()
+        resNFTs
+            .delete_nft(userTokenContext.token, nftContext?.nftData?.id)
+            .then(data => {
+                window.history.back()
+                // setnftsData(data)
+            })
+    }
 
     const load_categories = async () => {
         let categories_getted = nftContext?.nftData?.categories_trending
@@ -164,6 +175,26 @@ const DetailNft = () => {
                     /> <p>Go Back</p>
                 </button>
             </div>
+            {
+                ((userContext.user.is_superuser) ||
+                    (userContext.user.name === userRetrieveData.name)) && <div className="w-full mt-[5rem]">
+                    <button
+                        onClick={delete_nft}
+                        className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
+                        hover:bg-transparent hover: border hover: border-red-600 hover:text-white
+                        focus:outline-none
+                        text-sm font-MontSemiBold
+                        focus:ring-2 mx-auto
+                        focus:ring-gray-500
+                            py-1 text-white px-[1rem]
+                            rounded-lg">
+                        <IoTrash
+                            // color="white"
+                            size={17}
+                        /> <p>Supprimer le produit NFT</p>
+                    </button>
+                </div>
+            }
             <div className="flex gap-2 mt-[5rem] max-[700px]:flex-wrap justify-center items-center">
                 <figure className="w-[35vw]  max-[700px]:max-w-[100%] max-[700px]:w-[100%]
                  max-w-[700px] min-h-[500px] max-h-[550px] relative overflow-hidden
@@ -176,7 +207,7 @@ const DetailNft = () => {
                     {
                         ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
                             <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
-                                rounded-full border border-1 border-transparent p-4 bg-slate-900 shadow-lg">
+                                rounded-full border border-1 border-transparent p-3 bg-slate-900 shadow-lg">
                                 <IoFileTray
                                     // color="white"
                                     size={17}
@@ -197,7 +228,7 @@ const DetailNft = () => {
                                 <button
                                     onClick={() => setEditable(!editable)}
                                     className="absolute top-5 active:bg-slate-700 right-5 z-[2]
-                                rounded-full border border-1 border-transparent p-3 bg-slate-900 shadow-lg">
+                                rounded-full border border-1 border-transparent p-2 bg-slate-900 shadow-lg">
                                     <MdEdit
                                         // color="white"
                                         size={17}
@@ -236,13 +267,10 @@ const DetailNft = () => {
                                             color="white"
                                             size={18}
                                         /> */}
-                                                <input
-                                                    placeholder='Une description'
-                                                    type="text"
-                                                    defaultValue={nftContext?.nftData?.description}
-                                                    className="control-input-S"
-                                                // {...register("price", { required: true })} 
-                                                />
+                                                <textarea
+                                                    placeholder='Description'
+                                                    rows={4}
+                                                    className="control-input-S p-2" defaultValue={nftContext?.nftData?.description} />
                                             </div>
                                             {/* {errors.price && <ErrorText />} */}
                                         </div>

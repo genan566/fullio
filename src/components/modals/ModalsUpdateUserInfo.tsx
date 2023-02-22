@@ -38,7 +38,7 @@ const ModalsUpdateUserInfo = () => {
             .retrive_mee_update(token, dataSended)
             .then(data => {
                 Boolean(file.file) && authMee
-                    .upload_image_to_user(userContext.user.id, { image: file.file }, token)
+                    .upload_image_to_user({ image: file.file }, token)
                     .then(() => {
                         authMee
                             .retrive_me__account(token)
