@@ -17,6 +17,7 @@ import ISOTOP from "../imgs/istockphoto.jpg";
 import { UsersAPI } from '../APIs/UsersAPi'
 import { UserTypesValues } from '../types/UserTypeValues'
 import { useNavigate } from 'react-router-dom'
+import { IoArrowBack } from 'react-icons/io5'
 const containerVariants = {
 
 
@@ -63,7 +64,7 @@ const UsersList = () => {
                 // dispatch({ type: SET_FAQS, payload: data.results })
             })
         }
-        catch(error) {
+        catch (error) {
             console.log("Une erreur est survenue")
         }
     }
@@ -87,8 +88,29 @@ const UsersList = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            exit="exit" className='faqs'>
-            <h1 className="text-4xl font-MontBold mb-5">
+            exit="exit" className='px-[1rem]'>
+
+            <div className="">
+                <button
+                    // to={location.pathname === "/detailOwnNFT" ? "/manageNFTs" : "/nftMarketPlace"}
+                    onClick={() => window.history.back()}
+                    // onClick={handleLog}
+                    className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
+                        hover:bg-white hover:text-black
+
+                        focus:outline-none
+                        text-xs font-MontSemiBold
+                        focus:ring-2
+                        focus:ring-gray-500
+                        py-1 text-white px-3
+                            rounded-lg">
+                    <IoArrowBack
+                        // color="white"
+                        size={17}
+                    /> <p>Go Back</p>
+                </button>
+            </div>
+            <h1 className="text-4xl font-MontBold my-5 mt-[3rem]">
                 Users
             </h1>
 
