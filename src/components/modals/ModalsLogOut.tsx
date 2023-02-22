@@ -12,11 +12,10 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                     <>
                         <div className="cModals">
 
-                            <div className="cModals-container">
-                                
+                            <div className="cModals-container p0">                                
                                 <img src={LOGOPNG} className="mb-[1rem]" alt="Imgs" />
-                                <h2 className="text-md text-center text-white font-MontBold">Etes-vous sûr de vouloir vous déconnecter?</h2>
-                                <div className="flex row gap-4 justify-between flex-wrap px-2 w-full mt-5">
+                                <h2 className="text-sm text-white font-MontBold w-3/4 text-center">Etes-vous sûr de vouloir vous déconnecter?</h2>
+                                <div className="flex row gap-4 justify-between flex-wrap px-[1.5rem] w-full mt-3">
                                     <div style={{ flexGrow: 1 }}>
                                         <button
                                             onClick={toggleModalsOnLogout}
@@ -26,7 +25,7 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                                             focus:outline-none w-full
                                             focus:ring-2 text-xs
                                             focus:ring-violet-300 font-MontSemiBold
-                                                py-[.5rem] text-white px-5
+                                                py-[.35rem] text-white px-5
                                                 rounded-lg">
                                             Annuler
                                         </button>
@@ -36,13 +35,13 @@ const ModalsLogOut = ({ isShownModalsLogOut, toggleModalsOnLogout, handlerLogout
                                         <button
                                             onClick={handlerLogoutFunc}
                                             className="bg-red-500
-                    hover:bg-red-600
-                    active:bg-red-700 
-                    focus:outline-none w-full
-                    focus:ring-2 text-xs
-                    // focus:ring-red-300 font-MontSemiBold
-                        py-[.5rem] text-white px-5
-                        rounded-lg">
+                                            hover:bg-red-600
+                                            active:bg-red-700 
+                                            focus:outline-none w-full
+                                            focus:ring-2 text-xs
+                                            // focus:ring-red-300 font-MontSemiBold
+                                                py-[.35rem] text-white px-5
+                                                rounded-lg">
                                             Valider
                                         </button>
                                     </div>

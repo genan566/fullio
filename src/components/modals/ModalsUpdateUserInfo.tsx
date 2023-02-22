@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoClose, } from 'react-icons/io5'
+import { IoClose, IoFileTray, } from 'react-icons/io5'
 import { MdMail, MdOutlinePriceChange, MdPerson, MdTitle } from 'react-icons/md'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 
@@ -16,6 +16,7 @@ import { FaqsAPI } from '../../APIs/FaqsAPI'
 import { SET_FAQS } from '../../redux/constants/FAQsConstants'
 import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
+import { FileInterface } from '../../types/FileInterface'
 
 const ModalsUpdateUserInfo = () => {
 
@@ -23,15 +24,53 @@ const ModalsUpdateUserInfo = () => {
     const { showModalUpdateUserInfo } = useAppSelector((state: RootState) => state.modalsReducer)
     const dispatch = useAppDispatch();
     const userContext = React.useContext(RootUserContext)
-    const customDispatcher = () => dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
+    const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
+    const customDispatcher = () => {
+        setFile({} as FileInterface)
+        dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
+    }
 
     const updateUserInfo = (dataSended: any) => {
         let authMee = new AuthAPI()
         let token = userTokenContext.token
-        authMee.retrive_mee_update(token, dataSended).then(data => {
-            userContext.setUser(data)
-            dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
-        })
+
+        authMee
+            .retrive_mee_update(token, dataSended)
+            .then(data => {
+                Boolean(file.file) && authMee
+                    .upload_image_to_user(userContext.user.id, { image: file.file }, token)
+                    .then(() => {
+                        authMee
+                            .retrive_me__account(token)
+                            .then(data => {
+                                userContext.setUser(data)
+                                dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
+                            })
+                    })
+                if (!Boolean(file.file)) {
+                    userContext.setUser(data)
+                    dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
+                }
+            })
+
+        // Boolean(file.file) && authMee
+        //     .retrive_mee_update(token, {
+        //         ...dataSended,
+        //         image: new FormData().append("image", file.file),
+        //         // id: userContext.user.id
+        //     }, true)
+        //     .then(data => {
+        //         console.log("data IMG", data)
+        // userContext.setUser(data)
+        // dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
+        //     })
+
+        // !Boolean(file.file) && authMee
+        //     .retrive_mee_update(token, dataSended)
+        // // .then(data => {
+        // //     userContext.setUser(data)
+        // //     dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
+        // // })
     }
 
     const { register, handleSubmit,
@@ -44,6 +83,14 @@ const ModalsUpdateUserInfo = () => {
     const onSubmit: SubmitHandler<UserTypesValues> = data => {
         handleSuscribeToSale(data)
     };
+
+    function handleChange(e: any) {
+        console.log(e.target.files[0]);
+        setFile({
+            asPreview: URL.createObjectURL(e.target.files[0]),
+            file: e.target.files[0],
+        });
+    }
 
     return (
         <>
@@ -60,7 +107,8 @@ const ModalsUpdateUserInfo = () => {
                                     <h2 className="text-lg font-MontSemiBold text-white mt-5 
                                     mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Update Profile</h2>
                                 </div>
-                                <h2 className="text-sm font-Regular text-center mx-auto w-3/4 text-slate-200">Please follow this step to update your account please.</h2>
+                                <h2 className="text-sm font-Regular 
+                                    text-center mx-auto w-3/4 text-slate-200">Please follow this step to update your account please.</h2>
 
                                 <button
                                     onClick={customDispatcher} className="cModals-container-close">
@@ -72,22 +120,35 @@ const ModalsUpdateUserInfo = () => {
 
                                 <form id="form-scrollable"
                                     className='text-center w-full flex flex-col 
-                                    items-center max-h-[300px] overflow-y-scroll mt-[1rem]
+                                    items-center mt-[1rem]
                                  pt-[.5rem] border-b pb-[1.5rem] border-slate-700' onSubmit={handleSubmit(onSubmit)}>
-                                    {/* {
-                                        userContext?.user.id ? <>
 
-                                            <img
-                                                className="h-30 w-20 object-cover shadow-lg"
-                                                src={userContext?.user.image}
-                                                alt="user Profile" />
-                                        </> : <>
-                                            <img
-                                                className="h-30 w-20 object-cover shadow-lg"
-                                                src={CustomIMG2}
-                                                alt="user Profile" />
-                                        </>
-                                    } */}
+                                    <div className="w-full">
+                                        <figure className="corerImg">
+                                            <div className="corerImg-action">
+                                                <input type="file"
+                                                    onChange={handleChange}
+                                                    // {...register("title", { required: true })}
+                                                    className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
+                                                <IoFileTray
+                                                    // color="white"
+                                                    size={15}
+                                                />
+                                            </div>
+                                            {
+                                                userContext?.user.id ? <>
+
+                                                    <img
+                                                        src={file.asPreview || userContext?.user.image}
+                                                        alt="user Profile" />
+                                                </> : <>
+                                                    <img
+                                                        src={file.asPreview || CustomIMG2}
+                                                        alt="user Profile" />
+                                                </>
+                                            }
+                                        </figure>
+                                    </div>
 
                                     <div className='mt-[1.5rem] w-3/4 mx-auto'>
                                         <p className="text-xs text-center font-MontSemiBold text-white mb-4">Modify your email</p>

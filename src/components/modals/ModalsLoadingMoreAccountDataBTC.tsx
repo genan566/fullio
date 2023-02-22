@@ -26,7 +26,8 @@ const ModalsLoadingMoreAccountDataWalletBTC = () => {
     const updateUserInfo = (dataSended: any) => {
         let authMee = new AuthAPI()
         let token = userTokenContext.token
-        authMee.retrive_mee_update(token, dataSended).then(data => {
+        authMee.retrive_mee_update(token, dataSended)
+        .then(data => {
             userContext.setUser(data)
             dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
         })
@@ -110,7 +111,7 @@ const ModalsLoadingMoreAccountDataWalletBTC = () => {
                                             <input {...register("account_balance_btc", { required: true })}
                                                 placeholder='Account BTC balance'
                                                 type="number"
-                                                defaultValue={userContext.user.account_balance_eth}
+                                                defaultValue={userContext.user.account_balance_btc}
                                                 className="control-input-S" />
                                         </div>
                                         {errors.account_balance_eth && <ErrorText />}

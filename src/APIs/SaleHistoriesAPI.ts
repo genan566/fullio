@@ -62,7 +62,7 @@ export class SaleHistoriesAPI {
             .then((js) => js.json())
     }
 
-    async post__create_sale(token: string, data: { title: string, price: number, nfts_id: number | undefined }) {
+    async post__create_sale(token: string, data: { title: string, nfts_id: number | undefined }) {
         if (token) {
             return fetch(
                 api_url('sale_histories/'),

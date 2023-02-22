@@ -12,6 +12,7 @@ import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
 import { RootState } from '../redux/store'
 import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
+import { IoTrash } from 'react-icons/io5'
 
 const containerVariants = {
 
@@ -86,12 +87,23 @@ const FAQ = () => {
                     {
                         dataFAQS.length > 0 && dataFAQS.map((it, idx) => {
                             return (
-                                <>
+                                <div className='flex gap-[1rem] mt-4 items-start'>
                                     <Accordion
                                         key={`${idx}`}
                                         title={it.title}
                                         description={it.description} />
-                                </>
+
+                                    <button
+                                        // onClick={() => setFile({} as any)}
+                                        className="active:bg-red-700 
+                                            rounded-full border border-1 border-transparent p-2 bg-red-900 shadow-lg">
+                                        <IoTrash
+                                            // color="white"
+                                            size={17}
+                                        />
+                                        {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
+                                    </button>
+                                </div>
                             )
                         })
                     }
@@ -109,8 +121,8 @@ const FAQ = () => {
                             else {
                                 dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
                             }
-                            
-                            
+
+
                         }}
                         className="bg-violet-500
                         hover:bg-violet-600

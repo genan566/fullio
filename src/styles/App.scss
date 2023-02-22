@@ -692,6 +692,11 @@ select {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &-B {
         position: fixed;
@@ -757,7 +762,7 @@ select {
         // min-height: 500px;
         min-width: fit-content;
         max-width: 400px;
-        max-height: 98%;
+        // max-height: 98%;
         // overflow-y: scroll;
         justify-content: center;
         align-items: center;
@@ -880,5 +885,36 @@ select {
         background: linear-gradient(45deg, #4709b1b4, #75bd0991);
         background-size: 100% 200%;
         animation: none;
+    }
+}
+
+.corerImg {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+
+    &-action {
+        position: absolute;
+        bottom: -5px;
+        right: 5px;
+        padding: .5rem;
+        border-radius: 50rem;
+        background-color: white;
+        z-index: 2;
+        color: black;        
+        cursor: pointer;
+
+        &:active {
+            background-color: rgba(255,255,255,.5);
+        }
+    }
+
+    & img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
     }
 }

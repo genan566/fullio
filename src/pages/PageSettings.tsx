@@ -10,6 +10,7 @@ import { FaIcons, FaUncharted, FaUsers } from 'react-icons/fa';
 import { RootUserContext } from '../contexts';
 import { useAppDispatch } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC, TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH, TOGGLE_MODAL_UPDATE_USER_INFO } from '../redux/constants/ModalsConstants';
+import { Link } from 'react-router-dom';
 
 
 const containerVariants = {
@@ -154,47 +155,81 @@ const PageSettings = () => {
                             </div>
                         </button>
 
-                        <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+                        {
+                            !userContext.user.is_superuser && <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
 
-                            <div className="flex items-center justify-start gap-5">
-                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-                                    <GiCrenelCrown
-                                        color="black"
-                                        size={20}
-                                    />
+                                <div className="flex items-center justify-start gap-5">
+                                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                                        <GiCrenelCrown
+                                            color="black"
+                                            size={20}
+                                        />
+                                    </div>
+                                    <div className="columns gap-1">
+                                        <h3 className="text-md font-MontBold">Pro Subscription</h3>
+                                        <p className="text-sm">No subscription</p>
+                                    </div>
                                 </div>
-                                <div className="columns gap-1">
-                                    <h3 className="text-md font-MontBold">Pro Subscription</h3>
-                                    <p className="text-sm">No subscription</p>
-                                </div>
-                            </div>
 
-                            <div className="columns mt-4 gap-3">
-                                <p className="text-sm">How it works</p>
-                                <p className="text-sm">Upgrade to PRO</p>
-                            </div>
-                        </div>
-
-
-                        {/* <div className="bg-slate-700 h-48 hover:bg-gradient-to-r from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
-
-                            <div className="flex items-center justify-start gap-5">
-                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-                                    <FaUsers
-                                        color="black"
-                                        size={20}
-                                    />
-                                </div>
-                                <div className="columns gap-1">
-                                    <h3 className="text-md font-MontBold">Teams members</h3>
-                                    <p className="text-sm">No seats available</p>
+                                <div className="columns mt-4 gap-3">
+                                    <p className="text-sm">How it works</p>
+                                    <p className="text-sm">Upgrade to PRO</p>
                                 </div>
                             </div>
+                        }
 
-                            <div className="columns mt-4 gap-3">
-                                <p className="text-sm">Upgrade to Pro</p>
+
+                        {
+                            userContext.user.is_superuser && <Link to={"/userList"}>
+                                <div
+                                    className="bg-slate-700 h-48 hover:bg-gradient-to-r 
+                                    from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+
+                                    <div className="flex items-center justify-start gap-5">
+                                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                                            <FaUsers
+                                                color="black"
+                                                size={20}
+                                            />
+                                        </div>
+                                        <div className="columns gap-1">
+                                            <h3 className="text-md font-MontBold">Connected members</h3>
+                                            <p className="text-sm">20 Users counted</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="columns mt-4 gap-3">
+                                        <p className="text-sm">Manage users</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        }
+
+                        {/* <Link to={"/userList"}> */}
+                        {
+                            userContext.user.is_superuser && <div
+                                className="bg-slate-700 h-48 hover:bg-gradient-to-r 
+                        from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
+
+                                <div className="flex items-center justify-start gap-5">
+                                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+                                        <FaIcons
+                                            color="black"
+                                            size={20}
+                                        />
+                                    </div>
+                                    <div className="columns gap-1">
+                                        <h3 className="text-md font-MontBold">Core Categories</h3>
+                                        <p className="text-sm">2 categories managed</p>
+                                    </div>
+                                </div>
+
+                                <div className="columns mt-4 gap-3">
+                                    <p className="text-sm">Manage categories NFTs</p>
+                                </div>
                             </div>
-                        </div> */}
+                        }
+                        {/* </Link> */}
 
                     </div>
                 </>

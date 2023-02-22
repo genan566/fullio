@@ -2,13 +2,13 @@ import React from 'react'
 
 import { IoArrowBack, IoArrowForward, IoSearch } from "react-icons/io5";
 
-import { RiShoppingBasket2Line } from "react-icons/ri";
+import { RiAddFill, RiShoppingBasket2Line } from "react-icons/ri";
 
 
 import { motion } from "framer-motion"
 import { RootCreatorContext, RootUserContext, } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -242,6 +242,19 @@ const ContainerPrincipal = () => {
                     <h2 className="text-[1.8rem] font-MontBold text-white">Trending Auctions</h2>
                     <div className="flex mt-2 gap-4 row max-[900px]:flex-wrap align-center">
                         <div className="flex mt-2 gap-4 max-[900px]:gap-[1rem] flex-wrap row">
+
+                            {
+                                userContext.user.is_superuser && <button
+                                    // onClick={() => {
+                                    //     setActiveCategoriesTrending(0);
+                                    // }}
+                                    className={"bg-indigo-500 text-sm text-slate-200 p-[1rem] rounded-md shadow-sm font-MontSemiBold py-[.5rem] flex "
+                                    }>Add categorie<RiAddFill
+                                        // color="white"
+                                        size={17}
+                                    /> </button>
+                            }
+
                             <button
                                 onClick={() => {
                                     setActiveCategoriesTrending(0);
@@ -286,11 +299,11 @@ const ContainerPrincipal = () => {
                         </div>
                     </div>
                 </div>
+                
                 <div className="flex gap-5 mt-10 align-center pb-10 max-[898px]:overflow-x-scroll min-[900px]:flex-wrap max-[898px]:max-w-[80vw]">
                     <RenderingNFTs
                         with_slice={false}
                         nftsData={nftsData} />
-
                 </div>
 
 

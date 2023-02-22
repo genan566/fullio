@@ -26,7 +26,8 @@ const ModalsLoadingMoreAccountDataWalletETH = () => {
     const updateUserInfo = (dataSended: any) => {
         let authMee = new AuthAPI()
         let token = userTokenContext.token
-        authMee.retrive_mee_update(token, dataSended).then(data => {
+        authMee.retrive_mee_update(token, dataSended)
+        .then(data => {
             userContext.setUser(data)
             dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
         })

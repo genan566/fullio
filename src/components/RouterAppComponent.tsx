@@ -19,6 +19,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { RootUserContext } from '../contexts'
 import { useAppDispatch } from '../hooks/modalsHooks'
 import { TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH } from '../redux/constants/ModalsConstants'
+import UsersList from '../pages/UsersList'
 
 
 const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
@@ -35,8 +36,8 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
             id='principalContent'>
 
 
-            <div className="flex row align-center mb-8 flex-wrap gap-[1rem]">
-                <div
+            <div className="flex w-full justify-end mb-8 flex-wrap gap-[1rem]">
+                {/* <div
                     onClick={controlSearch}
                     className="control-container cursor-text" id='cPar'>
                     <IoSearch
@@ -45,7 +46,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     />
                     <div style={{ width: "30vw" }} className="text-white font-MontRegular text-sm">Rechercher</div>
 
-                </div>
+                </div> */}
 
                 <div className="flex row align-center gap-2">
                     <button
@@ -54,7 +55,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                         <IoFilter
                             color="white"
                             size={15}
-                        /> {userContext.user.account_balance_eth || 0} ETH</button>
+                        /> {userContext.user?.account_balance_eth || 0} ETH</button>
 
                     {/* <button className="customButtonFilterD p0">
                         <RiNotificationBadgeFill
@@ -79,6 +80,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     <Route path="/createNFt" element={<CreateNFt />} />
                     <Route path="/collectionsPage" element={<CollectionsPage />} />
                     <Route path="/aboutPage" element={<AboutPage />} />
+                    <Route path="/userList" element={<UsersList />} />
                     {/* <Route path="/virtualVisit" element={<VirtualVisit />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />

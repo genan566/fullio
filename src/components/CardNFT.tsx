@@ -1,12 +1,12 @@
 import React from 'react'
 import { AiTwotoneFire } from 'react-icons/ai';
-import { IoArrowForward, IoPeople } from 'react-icons/io5'
+import { IoArrowForward, IoPeople, IoTrash } from 'react-icons/io5'
 import { Link } from 'react-router-dom';
 import { routeAPIBaseImage } from '../APIs/APIRoutes';
 import { AuthAPI } from '../APIs/AuthApi';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
-import { RootNftContext, RootUserTokenContext, } from '../contexts';
+import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts';
 
 import ISOTOP from "../imgs/istockphoto.jpg";
 import { CategoriesTrending } from '../types/CategorieTrendingType';
@@ -21,6 +21,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
     categories_trending?: number[], rebirth?: string, data?: NftTypesValues, link?: boolean, customLink?: string
 }) => {
 
+    const userContext = React.useContext(RootUserContext)
 
     const [userRetrieveData, setuserRetrieveData] = React.useState<UserRetrieveInterface2>({} as UserRetrieveInterface2)
     const userTokenContext = React.useContext(RootUserTokenContext)
@@ -37,17 +38,22 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
             if (userTokenContext.token !== "") {
                 let token = userTokenContext.token
 
-                respAuth
-                    .retrive_account(token, owner)
-                    .then(res => {
-                        let formatedData = {
-                            email: res.email,
-                            name: res.name,
-                            pseudo: res.pseudo,
-                            image: ((res.image === null ? "" : routeAPIBaseImage + res.image.toString())),
-                        }
-                        setuserRetrieveData(formatedData)
-                    })
+                try {
+                    respAuth
+                        .retrive_account(token, owner)
+                        .then(res => {
+                            let formatedData = {
+                                email: res.email,
+                                name: res.name,
+                                pseudo: res.pseudo,
+                                image: ((res.image === null ? "" : routeAPIBaseImage + res.image.toString())),
+                            }
+                            setuserRetrieveData(formatedData)
+                        })
+                }
+                catch (error) {
+                    console.log("Une erreur est survenue")
+                }
             }
         }
     }, [owner])
@@ -87,7 +93,6 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
 
     React.useEffect(() => {
         load_sale_histories()
-        console.log("idiot")
     }, [data?.id])
 
     const load_sale_histories = async () => {
@@ -97,9 +102,8 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
             salesHistories_trendings
                 .get_multi_sales_by_nftID(sales_getted)
                 .then(datas => {
-                    if (datas.results.length > 0) {
-                        console.log('je suiss la', datas.results)
-                        setSaleHistories([...datas.results])
+                    if (datas.length > 0) {
+                        setSaleHistories([...datas])
                     }
                 })
         }
@@ -114,124 +118,23 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
         }
     }, [saleHistories])
 
-    // React.useEffect(() => {
-
-    //     if (categorie !== null) {
-    //         let checker = categories.filter(it => it.id === categorie.id)
-    //         if (checker.length === 0) {
-    //             setCategories([...categories, categorie])
-    //         }
-    //     }
-    // }, [categorie])
-
     return (
 
         <>
-            {/* {
-                link ? <>
-
-                    <div
-                        className='customNFTT'
-                    >
-                        <div className='w-[330px] bg-slate-900 shadow-md rounded-md overflow-hidden'>
-                            <img
-                                className="h-[300px] w-full rounded-sm object-cover bg-cover shadow-lg"
-                                src={image || ISOTOP}
-                                alt="user Profile" />
-                            <div className="p-5">
-                                <p className=" font-MontSemiBold text-md max-h-[2rem] truncate">{rebirth || "Non défini"}</p>
-
-                                <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
-                                    <img
-                                        className="h-10 w-10 rounded-full object-cover shadow-lg"
-                                        src={userRetrieveData.image || ISOTOP}
-                                        alt="user Profile" />
-                                    <p className="text-sm text-white font-MontBold max-h-[2rem] truncate w-3/4">{userRetrieveData.name || "Non défini"}</p>
-                                </div>
-
-                                <p className="text-[1.2rem] mb-1 mt-2 text-indigo-500 font-MontSemiBold">ETH {data?.price}</p>
-                                <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
-                                    <p className="text-white font-MontSemiBold text-xs">Nbr Follows</p>
-                                    <div className='flex gap-[.5rem]'>
-                                        <IoPeople
-                                            color="white"
-                                            size={15}
-                                        />
-                                        <h2
-                                            className={data?.sales_history.length !== 0 ? 'text-[.8rem] text-indigo-500 font-MontSemiBold' :
-                                                'text-[.8rem] text-red-500 font-MontSemiBold'}>{data?.sales_history.length}</h2>
-                                    </div>
-                                </div>
-
-                                <Link
-                                    to={customLink || "/detailNFT"}
-                                    onClick={(e) => {
-                                        data && nFTContext?.setNftData(data)
-                                    }}>
-                                    <button className='px-[.5rem] bg-indigo-500 text-white py-[.2rem] flex gap-[.25rem] mt-[.5rem] items-center justify-center rounded-lg'>
-                                        <p className=" font-MontSemiBold text-xs">View details</p>
-                                        <IoArrowForward
-                                            // color="white"
-                                            size={20}
-                                        />
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </> : <>
-                    <div className='min-w-[300px] w-[330px] bg-slate-900 shadow-md rounded-md overflow-hidden'>
-                        <img
-                            className="h-[300px] w-full rounded-sm object-cover bg-cover shadow-lg"
-                            src={image || ISOTOP}
-                            alt="user Profile" />
-                        <div className="p-5">
-                            <p className=" font-MontSemiBold text-md max-h-[2rem] truncate">{rebirth || "Non défini"}</p>
-
-                            <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
-                                <img
-                                    className="h-10 w-10 rounded-full object-cover shadow-lg"
-                                    src={userRetrieveData.image || ISOTOP}
-                                    alt="user Profile" />
-                                <p className="text-sm text-white font-MontBold max-h-[2rem] truncate w-3/4">{userRetrieveData.name || "Non défini"}</p>
-                            </div>
-
-                            <p className="text-[1.2rem] mb-1 mt-2 text-indigo-500 font-MontSemiBold">ETH {data?.price}</p>
-                            <div className="flex row justify-between mt-[.5rem] mb-[.5rem] items-center">
-                                <p className="text-white font-MontSemiBold text-xs">Nbr Follows</p>
-                                <div className='flex gap-[.5rem]'>
-                                    <IoPeople
-                                        color="white"
-                                        size={15}
-                                    />
-                                    <h2
-                                        className={data?.sales_history.length !== 0 ? 'text-[.8rem] text-indigo-500 font-MontSemiBold' :
-                                            'text-[.8rem] text-red-500 font-MontSemiBold'}>{data?.sales_history.length}</h2>
-                                </div>
-                            </div>
-
-                            <Link
-                                to={customLink || "/detailNFT"}
-                                onClick={(e) => {
-                                    data && nFTContext?.setNftData(data)
-                                }}>
-                                <button className='px-[.5rem] bg-indigo-500 text-white py-[.2rem] flex gap-[.25rem] mt-[.5rem] items-center justify-center rounded-lg'>
-                                    <p className=" font-MontSemiBold text-xs">View details</p>
-                                    <IoArrowForward
-                                        // color="white"
-                                        size={20}
-                                    />
-                                </button>
-                            </Link>
-                        </div>
-                    </div>
-                </>
-            } */}
-
             <div
                 className='customNFTT'
             >
-                <div className='w-[330px] bg-slate-900 shadow-md rounded-md overflow-hidden'>
+                <div className='w-[330px] bg-slate-900 shadow-md rounded-md overflow-hidden relative'>
+                    {
+                        userContext.user.is_superuser && <button
+                            className="absolute top-[.58rem] right-[.58rem] p-2 rounded-full bg-red-500 text-white 
+                            shadow-md active:text-red-500 active:bg-transparent border border-transparent active:border-red-500">
+                            <IoTrash
+                                // color="white"
+                                size={17}
+                            />
+                        </button>
+                    }
                     <img
                         className="h-[300px] w-full rounded-sm object-cover bg-cover shadow-lg"
                         src={image || ISOTOP}
@@ -247,7 +150,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
 
                                     return (
                                         <>
-                                            <p
+                                            <p key={`${item.id + new Date().getTime()}`}
                                                 className={item.name === "Not Disponible" ?
                                                     "hover:bg-red-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-red-600 hover:text-white focus:outline-none text-[.7rem] font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-[.25rem] text-red-500 px-3 rounded-full"
                                                     :
@@ -262,7 +165,7 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                                                             size={17} />
                                                     </>
                                                 }
-                                                <p>{item.name}</p>
+                                                <p key={`${item.id + new Date().getTime()}`}>{item.name}</p>
                                             </p>
                                         </>
                                     )
