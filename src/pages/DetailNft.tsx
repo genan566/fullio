@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts'
 
 import NFT10 from "../imgs/10.png";
-import ISOTOP from "../imgs/istockphoto.jpg";
+import ISOTOP from "../imgs/pexels-pixabay.jpg";
 
 import { RiCloseCircleLine, RiShoppingBasket2Line } from 'react-icons/ri';
 import { AiTwotoneFire } from 'react-icons/ai';
@@ -365,7 +365,7 @@ const DetailNft = () => {
                             <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
                                 <img
                                     className="h-12 w-12 rounded-full object-cover shadow-lg"
-                                    src={userRetrieveData.image || NFT10}
+                                    src={userRetrieveData.image || ISOTOP}
                                     alt="user Profile" />
                                 <p className="text-xs text-white font-MontBold">{userRetrieveData.name || "Non défini"}</p>
                             </div>

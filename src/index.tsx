@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
-import { RootCreatorProvider, RootNFTContextProvider, RootUserContextProvider } from './contexts';
+import { RootAdminEditableUserContextProvider, RootCreatorProvider, RootNFTContextProvider, RootUserContextProvider } from './contexts';
 import ScrollToTop from './components/ScrollToTop';
 import Initializer from './Initializer';
 
@@ -22,8 +22,9 @@ root.render(
   <Provider store={store}>
     <React.StrictMode>
       {/* <ChakraProvider> */}
-        <BrowserRouter>
-          <Initializer>
+      <BrowserRouter>
+        <Initializer>
+          <RootAdminEditableUserContextProvider>
             <RootCreatorProvider>
               <RootUserContextProvider>
                 <RootNFTContextProvider>
@@ -33,8 +34,9 @@ root.render(
                 </RootNFTContextProvider>
               </RootUserContextProvider>
             </RootCreatorProvider>
-          </Initializer>
-        </BrowserRouter>
+          </RootAdminEditableUserContextProvider>
+        </Initializer>
+      </BrowserRouter>
       {/* </ChakraProvider> */}
     </React.StrictMode>
   </Provider>

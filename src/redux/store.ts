@@ -2,12 +2,14 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware, le
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import thunk from "redux-thunk"
+import { editableUserReducer } from './reducers/EditableUserReducer'
 import { faqsReducer } from './reducers/FAQsReducer'
 import { modalsReducer } from './reducers/ModalsReducer'
 
 const reducer = combineReducers({
     modalsReducer: modalsReducer,
     faqsReducer: faqsReducer,
+    editableUserReducer: editableUserReducer
 })
 
 const middleware = [thunk]

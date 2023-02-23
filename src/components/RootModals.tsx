@@ -2,6 +2,8 @@ import React from 'react'
 import { RootModalsTypes } from '../types/RootModalsTypes';
 import ModalForUserNotStaff from './modals/ModalForUserNotStaff';
 import ModalAddingFAQs from './modals/ModalsAddingFAQs';
+import ModalsCategories from './modals/ModalsCategories';
+import ModalsEditUserByAdmin from './modals/ModalsEditUserByAdmin';
 import ModalsLoadingMoreAccountDataWalletBTC from './modals/ModalsLoadingMoreAccountDataBTC';
 import ModalsLoadingMoreAccountDataWalletETH from './modals/ModalsLoadingMoreAccountDataETH';
 import ModalsLogOut from './modals/ModalsLogOut';
@@ -11,8 +13,12 @@ import ModalsShowingSignin from './modals/ModalsShowingSignin';
 import ModalSubscription from './modals/ModalsSubscription';
 import ModalsUpdateUserInfo from './modals/ModalsUpdateUserInfo';
 
-const RootModals = ({ isShownModalsSignIn, isShownModalsFirstSignIn, toggleShowSignUpModal, isOpenResearch, isShownModalsLogOut, toggleShowSigninModal, navLogin, navSignin,
-    toggleModalsOnLogout, toggleOnResearch, errorFuncOnLogIn, responseGoogle, handlerLogoutFunc }:
+const RootModals = ({ isShownModalsSignIn,
+    isShownModalsFirstSignIn, toggleShowSignUpModal,
+    isOpenResearch, isShownModalsLogOut, toggleShowSigninModal,
+    navLogin, navSignin,
+    toggleModalsOnLogout, toggleOnResearch, errorFuncOnLogIn, 
+    responseGoogle, handlerLogoutFunc }:
     RootModalsTypes
 ) => {
 
@@ -21,8 +27,10 @@ const RootModals = ({ isShownModalsSignIn, isShownModalsFirstSignIn, toggleShowS
             <ModalsUpdateUserInfo />
             <ModalsLoadingMoreAccountDataWalletETH />
             <ModalsLoadingMoreAccountDataWalletBTC />
+            <ModalsCategories />
             <ModalSubscription />
             <ModalAddingFAQs />
+            <ModalsEditUserByAdmin />
             <ModalsShowingLogin
                 navSignin={navSignin}
                 errorFuncOnLogIn={errorFuncOnLogIn}

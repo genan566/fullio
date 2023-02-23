@@ -43,4 +43,20 @@ export class CategoriesTrendingAPI {
             .then((js) => js.json())
 
     }
+    async add_categorie(data: { name: string }, token: string) {
+
+        return fetch(
+            api_url(`categories_trending/`),
+            {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8",
+                    'Authorization': "Token " + JSON.parse(token),
+                },
+                body: JSON.stringify(data)
+            }
+        )
+            .then((js) => js.json())
+
+    }
 }

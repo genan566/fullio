@@ -8,7 +8,7 @@ import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
 import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts';
 
-import ISOTOP from "../imgs/istockphoto.jpg";
+import ISOTOP from "../imgs/pexels-pixabay.jpg";
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { NftTypesValues } from '../types/NFTTypes';
 import { SaleHistory } from '../types/SaleHistoryType';

@@ -10,7 +10,7 @@ import { motion } from "framer-motion"
 import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
 import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
 import { RootState } from '../redux/store'
-import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
+import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_CATEGORIES, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 
 import ISOTOP from "../imgs/istockphoto.jpg";
@@ -63,6 +63,8 @@ const AdminViewNFTs = () => {
     const [search, setSearch] = React.useState("")
     const dispatch = useAppDispatch();
     // const { stateFAQs } = useAppSelector((state: RootState) => state.faqsReducer)
+
+    const { showModalForCategories } = useAppSelector((state: RootState) => state.modalsReducer)
     const toast = useToast()
 
     const history = useNavigate()
@@ -175,11 +177,14 @@ const AdminViewNFTs = () => {
 
     React.useEffect(() => {
         initial_fetching_nfts()
+    }, [])
+
+    React.useEffect(() => {
         let categories_trendings = new CategoriesTrendingAPI()
         categories_trendings.get_all_categories().then(data => {
             setCategoriesTrending(data.results)
         })
-    }, [])
+    }, [showModalForCategories])
 
     React.useEffect(() => {
         activeCategorieFilteringCallbacks()
@@ -271,6 +276,8 @@ const AdminViewNFTs = () => {
                                 // onClick={() => {
                                 //     setActiveCategoriesTrending(0);
                                 // }}
+
+                                onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_CATEGORIES, payload: true })}
                                 className={"bg-indigo-500 text-sm text-slate-200 p-[1rem] rounded-md shadow-sm font-MontSemiBold py-[.5rem] flex "
                                 }>Add categorie<RiAddFill
                                     // color="white"

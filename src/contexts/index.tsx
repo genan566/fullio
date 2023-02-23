@@ -12,6 +12,12 @@ export interface ValuesTypes {
     setUser: React.Dispatch<React.SetStateAction<UserTypesValues>>
 }
 
+export interface ValuesTypes2 {
+    userEdited: UserTypesValues,
+    setUserEdited: React.Dispatch<React.SetStateAction<UserTypesValues>>
+}
+
+
 export interface ValuesNftDataTypes {
     nftData: NftTypesValues | null,
     setNftData: React.Dispatch<React.SetStateAction<NftTypesValues | null>>
@@ -29,6 +35,7 @@ export interface ValuesSetIsCreatorDataTypes {
 
 
 export const RootUserContext = React.createContext<ValuesTypes>({} as ValuesTypes)
+export const RootAdminEditableUserContext = React.createContext<ValuesTypes2 | null>(null)
 export const RootNftContext = React.createContext<ValuesNftDataTypes | null>(null)
 export const RootCreatorContext = React.createContext<ValuesSetIsCreatorDataTypes | null>(null)
 export const RootUserTokenContext = React.createContext<ValuesSetUserTokenDataTypes>({} as ValuesSetUserTokenDataTypes)
@@ -40,6 +47,14 @@ export const RootUserContextProvider = ({ children }: { children: React.ReactNod
     return <RootUserContext.Provider value={{ user, setUser }}>
         {children}
     </RootUserContext.Provider>
+}
+
+export const RootAdminEditableUserContextProvider = ({ children }: { children: React.ReactNode }) => {
+    const [userEdited, setUserEdited] = React.useState<UserTypesValues>({} as UserTypesValues)
+
+    return <RootAdminEditableUserContext.Provider value={{ userEdited, setUserEdited }}>
+        {children}
+    </RootAdminEditableUserContext.Provider>
 }
 
 

@@ -1,25 +1,22 @@
 import React from 'react'
 
-import Accordion from '../components/Accordion'
 import "../styles/FAQ.scss"
 
-import { RootUserContext, RootUserTokenContext } from '../contexts'
-import { FaqsAPI } from '../APIs/FaqsAPI'
+import { RootAdminEditableUserContext, RootUserContext, RootUserTokenContext } from '../contexts'
 
 import { motion } from "framer-motion"
-import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
-import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
-import { RootState } from '../redux/store'
-import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
+import { useAppDispatch, useAppSelector, } from '../hooks/modalsHooks'
+import { TOGGLE_MODALS_EDIT_USERS, } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 
-import ISOTOP from "../imgs/istockphoto.jpg";
+import ISOTOP from "../imgs/pexels-pixabay.jpg";
 import { UsersAPI } from '../APIs/UsersAPi'
 import { UserTypesValues } from '../types/UserTypeValues'
 import { useNavigate } from 'react-router-dom'
 import { IoArrowBack, IoTrash } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import { AuthAPI } from '../APIs/AuthApi'
+import { RootState } from '../redux/store'
 const containerVariants = {
 
 
@@ -44,20 +41,18 @@ const UsersList = () => {
     const [dataUsers, setDataUsers] = React.useState<UserTypesValues[]>([])
 
     const userContext = React.useContext(RootUserContext)
+    const userEditableContext = React.useContext(RootAdminEditableUserContext)
     const userToken = React.useContext(RootUserTokenContext)
     const dispatch = useAppDispatch();
-    // const { stateFAQs } = useAppSelector((state: RootState) => state.faqsReducer)
     const toast = useToast()
+    const { showModalEditUser, } = useAppSelector((state: RootState) => state.modalsReducer)
 
 
     const loadInitial = () => {
-
-        // dispatch({ type: TOGGLE_LOADING, payload: true })
         let resUsers = new UsersAPI()
         try {
             resUsers.get_all_users(userToken.token).then(data => {
                 setDataUsers(data.results)
-                // dispatch({ type: SET_FAQS, payload: data.results })
             })
         }
         catch (error) {
@@ -84,6 +79,10 @@ const UsersList = () => {
     React.useEffect(() => {
         loadInitial()
     }, [])
+
+    React.useEffect(() => {
+        loadInitial()
+    }, [showModalEditUser])
 
     React.useEffect(() => {
         check_user_can_create()
@@ -123,9 +122,11 @@ const UsersList = () => {
             {
                 userContext?.user && <>
                     {
-                        dataUsers.map(it => {
+                        dataUsers.length > 0 && dataUsers.map((it, idX) => {
                             return <>
-                                <div className="flex row justify-between items-center bottom-divider py-3  flex-wrap gap-2">
+                                <div
+                                    key={`${idX}`}
+                                    className="flex row justify-between items-center bottom-divider py-3  flex-wrap gap-2">
                                     <div className="flex row justify-center items-center flex-grow">
                                         <div className="flex gap-2 row items-center justify-start w-fit" >
                                             <img
@@ -135,12 +136,17 @@ const UsersList = () => {
                                             <p className="text-sm text-white font-MontSemiBold truncate ml-[1rem]">{it.email}</p>
                                         </div>
                                     </div>
+                                    <p className="text-white text-sm font-MontSemiBold flex-grow">{it.name || "Not defined"}</p>
+                                    <p className="text-white text-sm font-MontSemiBold flex-grow">{it.pseudo || "Not defined"}</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.is_staff ? "Active" : "Not Active"}</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.is_superuser ? "Super User" : "Not Super User"}</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.account_balance_eth} ETH</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.account_balance_btc} BTC</p>
                                     <button
-                                        // onClick={handleLog}
+                                        onClick={() => {
+                                            userEditableContext?.setUserEdited(it)
+                                            dispatch({ type: TOGGLE_MODALS_EDIT_USERS, payload: true })
+                                        }}
                                         className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                                                         hover:bg-white hover:text-black
                                             

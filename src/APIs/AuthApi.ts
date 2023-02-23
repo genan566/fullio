@@ -75,7 +75,7 @@ export class AuthAPI {
 
     }
 
-    async retrive_account_update(token: string, id: number, data: any) {
+    async retrive_account_update(token: string, id: number | undefined, data: any) {
         if (token && id) {
             return fetch(
                 api_url('user/retrieve/' + id.toString()),
