@@ -154,7 +154,8 @@ const CardNFT = ({ image, categories_trending, owner, rebirth, data, link = fals
                                                 className={item.name === "Not Disponible" ?
                                                     "hover:bg-red-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-red-600 hover:text-white focus:outline-none text-[.7rem] font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-[.25rem] text-red-500 px-3 rounded-full"
                                                     :
-                                                    "hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-violet-600 hover:text-white focus:outline-none text-[.7rem] font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-[.25rem] text-white px-3 rounded-full"}>
+                                                    item.name === "Featured Product" ? "hover:bg-cyan-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-cyan-600 hover:text-white focus:outline-none text-[.7rem] font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-[.25rem] text-white px-3 rounded-full"
+                                                        : "hover:bg-violet-600 flex row items-center justify-center gap-1 w-fit bg-transparent border border-violet-600 hover:text-white focus:outline-none text-[.7rem] font-MontSemiBold focus:ring-2 focus:ring-gray-500 py-[.25rem] text-white px-3 rounded-full"}>
 
 
                                                 {

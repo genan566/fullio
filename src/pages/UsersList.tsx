@@ -6,7 +6,7 @@ import { RootAdminEditableUserContext, RootUserContext, RootUserTokenContext } f
 
 import { motion } from "framer-motion"
 import { useAppDispatch, useAppSelector, } from '../hooks/modalsHooks'
-import { TOGGLE_MODALS_EDIT_USERS, } from '../redux/constants/ModalsConstants'
+import { TOGGLE_MODALS_EDIT_USERS, TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 
 import ISOTOP from "../imgs/pexels-pixabay.jpg";
@@ -45,7 +45,7 @@ const UsersList = () => {
     const userToken = React.useContext(RootUserTokenContext)
     const dispatch = useAppDispatch();
     const toast = useToast()
-    const { showModalEditUser, } = useAppSelector((state: RootState) => state.modalsReducer)
+    const { showModalEditUser, showModalForSignUpByAdmin } = useAppSelector((state: RootState) => state.modalsReducer)
 
 
     const loadInitial = () => {
@@ -82,7 +82,7 @@ const UsersList = () => {
 
     React.useEffect(() => {
         loadInitial()
-    }, [showModalEditUser])
+    }, [showModalEditUser, showModalForSignUpByAdmin])
 
     React.useEffect(() => {
         check_user_can_create()
@@ -138,8 +138,10 @@ const UsersList = () => {
                                     </div>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.name || "Not defined"}</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.pseudo || "Not defined"}</p>
-                                    <p className="text-white text-sm font-MontSemiBold flex-grow">{it.is_staff ? "Active" : "Not Active"}</p>
-                                    <p className="text-white text-sm font-MontSemiBold flex-grow">{it.is_superuser ? "Super User" : "Not Super User"}</p>
+                                    <p className={!it.is_staff ? "text-white text-sm font-MontSemiBold text-center p-1 px-3 bg-red-500 rounded-full" :
+                                        "text-white text-sm font-MontSemiBold text-center p-1 px-3 bg-green-500 rounded-full"}>{it.is_staff ? "Staff" : "Not staff"}</p>
+                                    <p className={!it.is_superuser ? "text-white text-sm font-MontSemiBold text-center p-1 px-3 bg-red-500 rounded-full" :
+                                        "text-white text-sm font-MontSemiBold text-center p-1 px-3 bg-green-500 rounded-full"}>{it.is_superuser ? "Super User" : "Not Super User"}</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.account_balance_eth} ETH</p>
                                     <p className="text-white text-sm font-MontSemiBold flex-grow">{it.account_balance_btc} BTC</p>
                                     <button
@@ -187,18 +189,7 @@ const UsersList = () => {
 
                     <button
 
-                        // onClick={() => {
-
-                        //     if (!Boolean(userContext.user.id)) {
-                        //         dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
-                        //         dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
-                        //     }
-                        //     else {
-                        //         dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
-                        //     }
-
-
-                        // }}
+                        onClick={() => dispatch({ type: TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, payload: true })}
 
                         className="bg-violet-500
                         hover:bg-violet-600
@@ -213,20 +204,6 @@ const UsersList = () => {
                     </button>
                 </>
             }
-
-            {/* {
-                !userContext?.user && <div className="text-center">
-                    <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée n'est à afficher pour l'instant.</h1>
-                    <p className="text-white text-sm">Veuillez bien vous connecter pour visualiser ici vos données.</p>
-                </div>
-            }
-
-            {
-                dataUsers
-                    .length === 0 && <div className="text-center">
-                    <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée FAQ n'est à afficher pour le moment.</h1>
-                </div>
-            } */}
         </motion.div>
     )
 }

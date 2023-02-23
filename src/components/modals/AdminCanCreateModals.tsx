@@ -3,12 +3,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoClose, IoPerson } from 'react-icons/io5'
 import { RiLockPasswordLine } from 'react-icons/ri'
 import { UsersAPI } from '../../APIs/UsersAPi';
-import { RootUserContext } from '../../contexts';
 import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks';
 import LOGOPNG from "../../imgs/nft.png";
-import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
+import { TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
 import { RootState } from '../../redux/store';
-import { ModalsShowingSigninTypes } from '../../types/ModalsShowingLoginTYpes copy';
+
 import ErrorText from '../ErrorText';
 
 type Inputs = {
@@ -18,11 +17,9 @@ type Inputs = {
     name: string,
 };
 
-const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, responseGoogle, errorFuncOnLogIn, navLogin }:
-    ModalsShowingSigninTypes) => {
+const AdminCanCreateModal = () => {
     const dispatch = useAppDispatch();
-    const userContext = React.useContext(RootUserContext)
-    const { showModalForSignUp } = useAppSelector((state: RootState) => state.modalsReducer)
+    const { showModalForSignUpByAdmin } = useAppSelector((state: RootState) => state.modalsReducer)
 
 
     const { register, handleSubmit, setValue,
@@ -33,7 +30,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
         let user_api = new UsersAPI()
             .create_user(gettedData)
             .then(res => {
-                dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                dispatch({ type: TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, payload: false })
             })
     }
 
@@ -43,25 +40,24 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
     return (
         <>
             {
-                showModalForSignUp && !userContext.user.id && (
+                showModalForSignUpByAdmin && (
                     <>
                         <div className="cModals">
 
                             <div className="cModals-container">
                                 <button
-                                    onClick={() => dispatch({ type: TOGGLE_MODAL_FOR_SIGNUP, payload: false })} className="cModals-container-close">
+                                    onClick={() => dispatch({ type: TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, payload: false })} className="cModals-container-close">
                                     <IoClose
                                         color="white"
                                         size={18}
                                     />
                                 </button>
                                 <img src={LOGOPNG} className="" alt="Imgs" />
-                                <h2 className="text-lg font-MontSemiBold text-white mt-5 mb-3">Sign Up</h2>
-                                <h2 className="text-sm font-Regular text-slate-200 mt-1">Create an account with your informations</h2>
+                                <h2 className="text-sm font-Regular text-slate-200 mt-1">Create an account with these informations</h2>
 
                                 <form action="" className='w-full mx-auto' onSubmit={handleSubmit(onSubmit)}>
                                     <div className="mt-5 w-full">
-                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter your pseudo</p>
+                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter the user pseudo</p>
 
                                         <div className="control-container-S mt-3 mb-2" id='cPar'>
                                             <IoPerson
@@ -79,7 +75,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
                                     </div>
 
                                     <div className="mt-5 w-full">
-                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter your name</p>
+                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter the user name</p>
 
                                         <div className="control-container-S mt-3 mb-2" id='cPar'>
                                             <IoPerson
@@ -96,7 +92,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
                                     </div>
 
                                     <div className="mt-5 w-full">
-                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter your mail</p>
+                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter the user mail</p>
 
                                         <div className="control-container-S mt-3 mb-2" id='cPar'>
                                             <IoPerson
@@ -113,7 +109,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
                                     </div>
 
                                     <div className="mt-3 w-full">
-                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter your password</p>
+                                        <p className="text-sxl font-MontBold text-white underline underline-offset-1 text-center">Enter the user password</p>
 
                                         <div className="control-container-S mt-3 mb-2" id='cPar'>
                                             <RiLockPasswordLine
@@ -161,15 +157,6 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
                                         </button>
                                     </div>
                                 </form>
-
-                                <h2 className="text-sm text-center font-Regular text-slate-200 mt-3">You have an account
-                                    <button
-                                        onClick={() => {
-                                            dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
-                                        }}
-                                        className="font-MontSemiBold"
-
-                                        style={{ textDecoration: "underline", marginLeft: ".5rem" }}>Sign In</button></h2>
                             </div>
                         </div>
                     </>
@@ -180,4 +167,4 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
     )
 }
 
-export default ModalsShowingSignin
+export default AdminCanCreateModal

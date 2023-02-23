@@ -3,7 +3,7 @@ import { IoClose, } from 'react-icons/io5'
 import { MdOutlinePriceChange, MdTitle } from 'react-icons/md'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 
-import { RootNftContext, RootUserTokenContext } from '../../contexts'
+import { RootNftContext, RootUserContext, RootUserTokenContext } from '../../contexts'
 import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks'
 import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_SUSCRIPTION } from '../../redux/constants/ModalsConstants'
 import { RootState } from '../../redux/store'
@@ -22,6 +22,7 @@ type Inputs = {
 const ModalAddingFAQs = () => {
 
     const userTokenContext = React.useContext(RootUserTokenContext)
+    const userContext = React.useContext(RootUserContext)
     const { showModalAddingFAQs } = useAppSelector((state: RootState) => state.modalsReducer)
     const dispatch = useAppDispatch();
     const customDispatcher = () => dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
@@ -59,7 +60,7 @@ const ModalAddingFAQs = () => {
     return (
         <>
             {
-                showModalAddingFAQs && (
+                showModalAddingFAQs && userContext.user.is_staff && (
                     <>
                         <div className="cModals">
 

@@ -35,6 +35,7 @@ const containerVariants = {
 
 
 interface FAQs {
+    id: number
     title: string,
     description: string
 }
@@ -42,7 +43,6 @@ interface FAQs {
 const FAQ = () => {
 
     const [dataFAQS, setDataFAQS] = React.useState<FAQs[]>([])
-
     const userContext = React.useContext(RootUserContext)
     const userToken = React.useContext(RootUserTokenContext)
     const dispatch = useAppDispatch();
@@ -57,6 +57,13 @@ const FAQ = () => {
         respFaqs.get_all_faqs().then(data => {
             setDataFAQS(data.results)
             dispatch({ type: SET_FAQS, payload: data.results })
+        })
+    }
+
+    const delete_FAQs = (id: number) => {
+        let respFaqs = new FaqsAPI()
+        respFaqs.delete_faq(userToken.token, id,).then(data => {
+            loadInitial()
         })
     }
 
@@ -93,16 +100,20 @@ const FAQ = () => {
                                         title={it.title}
                                         description={it.description} />
 
-                                    <button
-                                        // onClick={() => setFile({} as any)}
-                                        className="active:bg-red-700 
+                                    {
+                                        userContext.user.is_superuser && <button
+                                            onClick={() => {
+                                                delete_FAQs(it.id)
+                                            }}
+
+                                            className="active:bg-red-700 
                                             rounded-full border border-1 border-transparent p-2 bg-red-900 shadow-lg">
-                                        <IoTrash
-                                            // color="white"
-                                            size={17}
-                                        />
-                                        {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
-                                    </button>
+                                            <IoTrash
+                                                // color="white"
+                                                size={17}
+                                            />
+                                        </button>
+                                    }
                                 </div>
                             )
                         })
@@ -110,21 +121,22 @@ const FAQ = () => {
 
 
 
-                    <button
+                    {
+                        userContext.user.is_staff && <button
 
-                        onClick={() => {
+                            onClick={() => {
 
-                            if (!Boolean(userContext.user.id)) {
-                                dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
-                                dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
-                            }
-                            else {
-                                dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
-                            }
+                                if (!Boolean(userContext.user.id)) {
+                                    dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
+                                    dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                                }
+                                else {
+                                    dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: true })
+                                }
 
 
-                        }}
-                        className="bg-violet-500
+                            }}
+                            className="bg-violet-500
                         hover:bg-violet-600
                         active:bg-violet-700 
                         focus:outline-none mt-9
@@ -133,8 +145,9 @@ const FAQ = () => {
                         focus:ring-violet-300
                             py-2 text-white px-5
                             rounded-2xl">
-                        Ajouter une note à la FAQ
-                    </button>
+                            Ajouter une note à la FAQ
+                        </button>
+                    }
                 </>
             }
 

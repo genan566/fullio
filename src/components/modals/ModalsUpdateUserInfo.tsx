@@ -12,8 +12,7 @@ import { RootState } from '../../redux/store'
 import LOGOPNG from "../../imgs/nft.png";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorText from '../ErrorText'
-import { FaqsAPI } from '../../APIs/FaqsAPI'
-import { SET_FAQS } from '../../redux/constants/FAQsConstants'
+
 import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
 import { FileInterface } from '../../types/FileInterface'
@@ -52,25 +51,6 @@ const ModalsUpdateUserInfo = () => {
                     dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
                 }
             })
-
-        // Boolean(file.file) && authMee
-        //     .retrive_mee_update(token, {
-        //         ...dataSended,
-        //         image: new FormData().append("image", file.file),
-        //         // id: userContext.user.id
-        //     }, true)
-        //     .then(data => {
-        //         console.log("data IMG", data)
-        // userContext.setUser(data)
-        // dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
-        //     })
-
-        // !Boolean(file.file) && authMee
-        //     .retrive_mee_update(token, dataSended)
-        // // .then(data => {
-        // //     userContext.setUser(data)
-        // //     dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
-        // // })
     }
 
     const { register, handleSubmit,
@@ -139,7 +119,7 @@ const ModalsUpdateUserInfo = () => {
                                                 userContext?.user.id ? <>
 
                                                     <img
-                                                        src={file.asPreview || userContext?.user.image}
+                                                        src={file.asPreview || userContext?.user.image || CustomIMG2}
                                                         alt="user Profile" />
                                                 </> : <>
                                                     <img

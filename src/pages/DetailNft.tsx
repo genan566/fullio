@@ -15,14 +15,14 @@ import { SaleHistoriesAPI } from '../APIs/SaleHistoriesAPI';
 import { UserRetrieveInterface } from '../types/UserRetrieveTypes';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { SaleHistory } from '../types/SaleHistoryType';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../redux/store';
-import { actionShowModalForSuscription } from '../redux/actions/ModalsActions';
+
 import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 import { MdEdit } from 'react-icons/md';
 import { NftsAPI } from '../APIs/NftsAPI';
+
 const DetailNft = () => {
     const nftContext = React.useContext(RootNftContext)
     const userContext = React.useContext(RootUserContext)
@@ -436,7 +436,7 @@ const DetailNft = () => {
                                         <p className="text-orange-500 text-sm font-MontSemiBold flex-grow">{item?.price}ETH</p>
                                         <p className="text-white text-sm font-MontSemiBold flex-grow">{item.created_at}</p>
                                         <p className="text-white text-sm font-MontSemiBold flex-grow">{item.will_end_at}</p>
-                                        <button
+                                        {/* <button
                                             // onClick={handleLog}
                                             className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                                                     hover:bg-white hover:text-black
@@ -448,7 +448,7 @@ const DetailNft = () => {
                                                         text-white px-3
                                                         rounded-lg">
                                             Learn More
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </>
                             )

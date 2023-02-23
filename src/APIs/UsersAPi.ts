@@ -37,4 +37,25 @@ export class UsersAPI {
 
         }
     }
+
+    async create_user(data: any) {
+        if (data) {
+            return fetch(
+                api_url(`user/create/`),
+                {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                }
+            )
+                .then((js) => {
+                    if (js.ok)
+                        js.json()
+                        
+                })
+
+        }
+    }
 }

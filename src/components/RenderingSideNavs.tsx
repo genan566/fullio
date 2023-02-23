@@ -14,6 +14,7 @@ import { RootUserContext } from '../contexts';
 import { GiVirtualMarker } from 'react-icons/gi';
 import { useAppDispatch } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
+import { RiChatFollowUpLine } from 'react-icons/ri';
 
 
 
@@ -96,15 +97,15 @@ const RenderingSideNavs = ({ toggleIsOpen, closeIsOpen, isOpen, isActive, setIsA
                     </Link>
                 }
 
-                {/* <Link
-                                to={"/orders"}
-                                onClick={() => setIsActive("/orders")} className={isActive === "/orders" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
-                                <IoBusiness
-                                    color={isActive === "/orders" ? "black" : "white"}
-                                    size={18}
-                                />
-                                <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Mes Ordres</span>
-                            </Link> */}
+                <Link
+                    to={"/orders"}
+                    onClick={() => setIsActive("/orders")} className={isActive === "/orders" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
+                    <RiChatFollowUpLine
+                        color={isActive === "/orders" ? "black" : "white"}
+                        size={18}
+                    />
+                    <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Mes Ordres</span>
+                </Link>
 
                 {/* <Link
                                 to={"/strategies"}

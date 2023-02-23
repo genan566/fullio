@@ -92,7 +92,7 @@ const ModalsEditUserByAdmin = () => {
                                 <img src={LOGOPNG} className="" alt="Imgs" />
                                 <div className="min-[800px]:px-[2rem] px-[1rem] w-full mb-[1rem]">
                                     <h2 className="text-lg font-MontSemiBold text-white mt-5 
-                                    mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Update Profile</h2>
+                                    mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Update User Profile</h2>
                                 </div>
                                 <h2 className="text-sm font-Regular 
                                     text-center mx-auto w-3/4 text-slate-200">Please follow this step to update the account please.</h2>

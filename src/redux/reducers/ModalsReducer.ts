@@ -1,6 +1,7 @@
 import {
     EDITABLE_USER,
     TOGGLE_MODALS_EDIT_USERS,
+    TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN,
     TOGGLE_MODAL_ADDING_FAQS,
     TOGGLE_MODAL_FOR_CATEGORIES,
     TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_BTC,
@@ -17,6 +18,7 @@ export const modalsReducer = (state = {
     showModalUpdateUserInfo: false,
     showModalForLogin: false,
     showModalForSignUp: false,
+    showModalForSignUpByAdmin: false,
     showModalForLoadingMoreWalletETH: false,
     showModalForLoadingMoreWalletBTC: false,
     showModalForCategories: false,
@@ -38,6 +40,9 @@ export const modalsReducer = (state = {
 
         case TOGGLE_MODAL_FOR_SIGNUP:
             return { showModalForSignUp: action.payload, }
+
+        case TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN:
+            return { showModalForSignUpByAdmin: action.payload, }
 
         case TOGGLE_MODAL_FOR_LOADING_MORE_WALLET_ETH:
             return { showModalForLoadingMoreWalletETH: action.payload, }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { RootModalsTypes } from '../types/RootModalsTypes';
+import AdminCanCreateModal from './modals/AdminCanCreateModals';
 import ModalForUserNotStaff from './modals/ModalForUserNotStaff';
 import ModalAddingFAQs from './modals/ModalsAddingFAQs';
 import ModalsCategories from './modals/ModalsCategories';
@@ -29,6 +30,7 @@ const RootModals = ({ isShownModalsSignIn,
             <ModalsLoadingMoreAccountDataWalletBTC />
             <ModalsCategories />
             <ModalSubscription />
+            <AdminCanCreateModal />
             <ModalAddingFAQs />
             <ModalsEditUserByAdmin />
             <ModalsShowingLogin

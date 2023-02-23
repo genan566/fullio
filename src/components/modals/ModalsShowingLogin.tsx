@@ -6,7 +6,7 @@ import { ModalsShowingLoginTypes } from '../../types/ModalsShowingLoginTYpes';
 
 import LOGOPNG from "../../imgs/nft.png";
 import { isEmail } from '../../utilities';
-import { RootUserTokenContext } from '../../contexts';
+import { RootUserContext, RootUserTokenContext } from '../../contexts';
 import { AuthAPI } from '../../APIs/AuthApi';
 import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks';
 import { RootState } from '../../redux/store';
@@ -21,6 +21,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
     const [password, setPassword] = useState<string>("")
     const [errorOnLogin, setErrorOnLogin] = useState<string>("")
     const dispatch = useAppDispatch();
+    const userContext = React.useContext(RootUserContext)
     const gettingToken = useReadLocalStorage('userToken')
 
     React.useEffect(() => {
@@ -48,6 +49,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                         }, 1000)
                         setMail("")
                         setPassword("")
+                        
                         // setErrorOnLogin("")
                         //   localStorage.setItem('dataUser', JSON.stringify(dataStructured));
                     }
@@ -61,7 +63,7 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
     return (
         <>
             {
-                showModalForLogin && (
+                showModalForLogin && !userContext.user.id && (
                     <>
                         <div className="cModals">
 

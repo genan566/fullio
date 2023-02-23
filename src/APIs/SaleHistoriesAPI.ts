@@ -3,6 +3,22 @@ import { api_url } from "./APIRoutes";
 
 export class SaleHistoriesAPI {
 
+    async get_all_sales_by_mee(token: string) {
+        return fetch(
+            api_url(`sale_histories/list/`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "Token " + JSON.parse(token),
+                }
+
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
     async get_all_sales() {
         return fetch(
             api_url(`sale_histories/`),
