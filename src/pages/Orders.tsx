@@ -104,14 +104,14 @@ const Orders = () => {
             </h1>
             {
                 userContext?.user && <>
-                    <p className="text-sxl mt-1 w-full">{ordersData.length} ordres de trouvées</p>
+                    <p className="text-sm mt-5 w-full"><div className="inline font-MontBold">{saleHistories.length}</div> ordres de trouvées</p>
                     <div className="box-scrollContent">
 
                         {/* <div style={{ height: "1px", width:, backgroundColor: "red", marginBottom: "1rem", }} /> */}
 
                         <div className="box-table-data">
 
-                            <div className="box-title-table-P">
+                            {/* <div className="box-title-table-P">
                                 <div className="box-title-table-id">#021201</div>
                                 <div className="box-title-table-name">Name</div>
                                 <div className="box-title-table-address">Addresse</div>
@@ -119,7 +119,7 @@ const Orders = () => {
                                 <div className="box-title-table-price">Price</div>
                                 <div className="box-title-table-status">Status</div>
                                 <div className="box-title-table-action">Action</div>
-                            </div>
+                            </div> */}
 
 
                             {/* <div className="box-title-table">
