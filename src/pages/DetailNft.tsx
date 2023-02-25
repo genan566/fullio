@@ -22,6 +22,16 @@ import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 import { MdEdit } from 'react-icons/md';
 import { NftsAPI } from '../APIs/NftsAPI';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import ErrorText from '../components/ErrorText';
+import { NftTypesValues } from '../types/NFTTypes';
+
+type Inputs = {
+    title: string,
+    description: string,
+    // price: string,
+};
+
 
 const DetailNft = () => {
     const nftContext = React.useContext(RootNftContext)
@@ -34,6 +44,10 @@ const DetailNft = () => {
     const [saleHistories, setSaleHistories] = React.useState<SaleHistory[]>([])
     const [editable, setEditable] = React.useState(false)
     const userTokenContext = React.useContext(RootUserTokenContext)
+
+
+    const { register, handleSubmit,
+        resetField, formState: { errors } } = useForm<Inputs>();
 
     const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
     const location = useLocation();
@@ -52,21 +66,32 @@ const DetailNft = () => {
             })
     }
 
-    const load_categories = async () => {
-        let categories_getted = nftContext?.nftData?.categories_trending
-        if (Boolean(categories_getted?.length)) {
-            let categories_trendings = new CategoriesTrendingAPI()
-            categories_trendings
-                .get_multi_categorie(categories_getted)
-                .then(data => {
-                    if (data.results.length > 0) {
-                        setCategories([...data.results])
-                    }
-                })
+    const handlerForUpdate = (gettedData: Inputs) => {
+        let token = userTokenContext.token
+        let nft_update = new NftsAPI()
 
-
-        }
+        nft_update
+            .retrive_nft_update(userTokenContext.token, nftContext?.nftData?.id, gettedData)
+            .then((res) => {
+                // console.log("New Data", res)
+                let sendedData: NftTypesValues = {
+                    id: res.id,
+                    title: res.title,
+                    description: res.description,
+                    owner_id: res.owner,
+                    image: res.image,
+                    price: res.price,
+                    categories_trending: res.categories_trending,
+                    sales_history: res.sales_history,
+                }
+                nftContext?.setNftData(sendedData)
+                setEditable(!editable)
+            })
     }
+
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        handlerForUpdate(data)
+    };
 
     const load_sale_histories = async () => {
         let sales_getted = nftContext?.nftData?.id
@@ -145,12 +170,7 @@ const DetailNft = () => {
 
     React.useEffect(() => {
         load_sale_histories()
-        console.log("idiot")
     }, [nftContext?.nftData?.sales_history, showModalSuscription])
-
-    // console.log("Je suis fatigué", userContext.user.id === userRetrieveData.id)
-    // console.log("Je suis fatigué userContext", userContext.user.name)
-    // console.log("Je suis fatigué userRetrieveData", userRetrieveData.name)
 
     return (
         <div
@@ -176,7 +196,7 @@ const DetailNft = () => {
                 </button>
             </div>
             {
-                ((userContext.user.is_superuser) ||
+                nftContext?.nftData?.id && ((userContext.user.is_superuser) ||
                     (userContext.user.name === userRetrieveData.name)) && <div className="w-full mt-[5rem]">
                     <button
                         onClick={delete_nft}
@@ -205,7 +225,7 @@ const DetailNft = () => {
                         alt="user Profile" />
 
                     {
-                        ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
+                        nftContext?.nftData?.id && ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
                             <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-3 bg-slate-900 shadow-lg">
                                 <IoFileTray
@@ -224,7 +244,7 @@ const DetailNft = () => {
                 <div className="w-full max-w-[650px]">
                     <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px] relative">
                         {
-                            (((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (!editable)) && (
+                            nftContext?.nftData?.id && (((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (!editable)) && (
                                 <button
                                     onClick={() => setEditable(!editable)}
                                     className="absolute top-5 active:bg-slate-700 right-5 z-[2]
@@ -237,50 +257,53 @@ const DetailNft = () => {
                             )
                         }
                         {
-                            editable && (
+                            nftContext?.nftData?.id && editable && (
                                 <>
-                                    <div className="mt-[2rem]">
-                                        <div className='w-full'>
-                                            <p className="text-xs font-MontBold text-white mb-4">Edit your nft title</p>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <div className="mt-[2rem]">
+                                            <div className='w-full'>
+                                                <p className="text-xs font-MontBold text-white mb-4">Edit your nft title</p>
 
-                                            <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                                {/* <IoPerson
+                                                <div className="control-container-S mt-3 mb-1" id='cPar'>
+                                                    {/* <IoPerson
                                                 color="white"
                                                 size={18}
                                             /> */}
-                                                <input
-                                                    placeholder='title NFT'
-                                                    type="text"
-                                                    defaultValue={nftContext?.nftData?.title}
-                                                    className="control-input-S"
-                                                // {...register("title", { required: true })} 
-                                                />
+                                                    <input
+                                                        placeholder='title NFT'
+                                                        type="text"
+                                                        defaultValue={nftContext?.nftData?.title}
+                                                        className="control-input-S"
+                                                        {...register("title", { required: true })}
+                                                    />
+                                                </div>
+                                                {errors.title && <ErrorText />}
                                             </div>
-                                            {/* {errors.title && <ErrorText />} */}
+
+                                            <div className='w-full mt-[1rem]'>
+                                                <p className="text-xs font-MontBold text-white mb-4">Enter the description for your NFT</p>
+
+                                                <div className="control-container-S mt-3 mb-1" id='cPar'>
+
+                                                    <textarea
+                                                        placeholder='Description'
+                                                        rows={4}
+                                                        {...register("description", { required: true })}
+                                                        className="control-input-S p-2"
+                                                        style={{ borderRadius: "5px" }}
+                                                        defaultValue={nftContext?.nftData?.description} />
+                                                </div>
+                                                {errors.description && <ErrorText />}
+
+                                            </div>
                                         </div>
 
-                                        <div className='w-full mt-[1rem]'>
-                                            <p className="text-xs font-MontBold text-white mb-4">Enter the description for your NFT</p>
+                                        <div className="flex items-center justify-center gap-[1rem] flex-wrap mt-[1rem]">
+                                            <button
+                                                type='submit'
+                                                disabled={!Boolean(userContext.user.id)}
 
-                                            <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                                {/* <IoPerson
-                                            color="white"
-                                            size={18}
-                                        /> */}
-                                                <textarea
-                                                    placeholder='Description'
-                                                    rows={4}
-                                                    className="control-input-S p-2" defaultValue={nftContext?.nftData?.description} />
-                                            </div>
-                                            {/* {errors.price && <ErrorText />} */}
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center justify-center gap-[1rem] flex-wrap mt-[1rem]">
-                                        <button
-                                            disabled={!Boolean(userContext.user.id)}
-                                            // onClick={handleSuscribeToSale}
-                                            className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
+                                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                                     hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                                     focus:outline-none
                                                     text-sm font-MontSemiBold
@@ -288,16 +311,16 @@ const DetailNft = () => {
                                                     focus:ring-gray-500
                                                         py-1 text-white px-[1rem]
                                                         rounded-lg">
-                                            <IoCheckmark
-                                                // color="white"
-                                                size={17}
-                                            /> <p>Valider</p>
-                                        </button>
+                                                <IoCheckmark
 
-                                        <button
-                                            disabled={!Boolean(userContext.user.id)}
-                                            onClick={() => setEditable(!editable)}
-                                            className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
+                                                    size={17}
+                                                /> <p>Valider</p>
+                                            </button>
+
+                                            <button
+                                                disabled={!Boolean(userContext.user.id)}
+                                                onClick={() => setEditable(!editable)}
+                                                className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
                                                 hover:bg-transparent hover: border hover: border-red-600 hover:text-white
                                                 focus:outline-none
                                                 text-sm font-MontSemiBold
@@ -305,18 +328,19 @@ const DetailNft = () => {
                                                 focus:ring-gray-500
                                                     py-1 text-white px-[1rem]
                                                     rounded-lg">
-                                            <RiCloseCircleLine
-                                                // color="white"
-                                                size={17}
-                                            /> <p>Annuler</p>
-                                        </button>
-                                    </div>
+                                                <RiCloseCircleLine
+
+                                                    size={17}
+                                                /> <p>Annuler</p>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </>
                             )
                         }
 
                         {
-                            !editable && (
+                            nftContext?.nftData?.id && !editable && (
                                 <>
                                     <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
                                     <div className="flex row gap-2 w-fit mt-4">
@@ -379,7 +403,7 @@ const DetailNft = () => {
 
                         <div className="flex gap-5 justify-start items-center w-full mt-6">
                             {
-                                Boolean(userContext.user.id) && <button
+                                nftContext?.nftData?.id && Boolean(userContext.user.id) && <button
                                     disabled={!Boolean(userContext.user.id)}
                                     onClick={handleSuscribeToSale}
                                     className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 

@@ -67,6 +67,7 @@ const ModalSubscription = () => {
         handleSuscribeToSale(data)
     };
 
+    
     return (
         <>
             {

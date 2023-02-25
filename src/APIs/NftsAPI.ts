@@ -1,5 +1,4 @@
 import axios from "axios";
-import { idText } from "typescript";
 import { api_url } from "./APIRoutes";
 
 export class NftsAPI {
@@ -7,6 +6,20 @@ export class NftsAPI {
     async get_all_nfts(page = 1) {
         return fetch(
             api_url(`core_nfts/?page=${page}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.json())
+
+    }
+
+    async get_all_by_featured_cat() {
+        return fetch(
+            api_url(`core_nfts/?categories=13`),
             {
                 method: "GET",
                 headers: {
@@ -157,6 +170,30 @@ export class NftsAPI {
             }
         )
             .then((js) => js.json())
+
+    }
+
+    async retrive_nft_update(token: string, id: number | undefined, data: any) {
+        if (token && id) {
+            return fetch(
+                api_url(`core_nfts/${id}/`),
+                {
+                    method: "PATCH",
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: JSON.stringify(data)
+
+                }
+            )
+                .then((res) => {
+                    return res.json();
+                })
+                .catch(er => console.log("er on retrieve", er))
+
+        }
 
     }
 }

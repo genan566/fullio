@@ -23,14 +23,15 @@ import Partner6 from "../imgs/partner/partner-6.png";
 import { motion } from "framer-motion"
 
 import "../styles/HomeView.scss"
-import { RootCreatorContext, RootUserContext } from '../contexts';
-import { useNavigate } from 'react-router-dom';
+import { RootCreatorContext, RootNftContext, RootUserContext, RootUserTokenContext } from '../contexts';
+import { Link, useNavigate } from 'react-router-dom';
 import { NftsAPI } from '../APIs/NftsAPI';
 import { PaginatedData } from './ContainerPrincipal';
 import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
 import { useAppDispatch } from '../hooks/modalsHooks';
-import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
+import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
+import { NftsInterface } from '../types/NFTsInterface';
 
 
 
@@ -66,12 +67,42 @@ const containerVariants = {
 
 const HomeView = () => {
     const userContext = React.useContext(RootUserContext)
+    const nFTContext = React.useContext(RootNftContext)
     const creatorContext = React.useContext(RootCreatorContext)
     const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsBestSelled, setnftsBestSelled] = React.useState<NftsInterface>({} as NftsInterface)
+    const [nftsDataByFeatured, setnftsDataByFeatured] = React.useState<PaginatedData>({} as PaginatedData)
 
+    const userTokenContext = React.useContext(RootUserTokenContext)
     const history = useNavigate()
     const dispatch = useAppDispatch();
 
+    const handleSuscribeToSale = () => {
+        let filterd = nftsDataByFeatured.results.filter(i => i.price >= 100)
+        if (Boolean(filterd[0])) {
+            let sendedData: NftTypesValues = {
+                id: filterd[0].id,
+                title: filterd[0].title,
+                description: filterd[0].description,
+                owner_id: filterd[0].owner,
+                image: filterd[0].image,
+                price: filterd[0].price,
+                categories_trending: filterd[0].categories_trending,
+                sales_history: filterd[0].sales_history,
+            }
+            nFTContext?.setNftData(sendedData)
+
+            dispatch({ type: TOGGLE_MODAL_SUSCRIPTION, payload: true })
+        }
+    }
+
+    const loadBestSelled: NftsInterface = React.useMemo(() => {
+        if (Boolean(nftsDataByFeatured.results)) {
+            let filterd = nftsDataByFeatured.results.filter(i => i.price >= 100)
+            return filterd[0]
+        }
+        return {} as NftsInterface
+    }, [nftsDataByFeatured])
 
     React.useEffect(() => {
         let resNFTs = new NftsAPI()
@@ -79,6 +110,12 @@ const HomeView = () => {
             .get_filtered_by_trendingIDs_nfts(2)
             .then(data => {
                 setnftsData(data)
+            })
+
+        resNFTs
+            .get_all_by_featured_cat()
+            .then(data => {
+                setnftsDataByFeatured(data)
             })
     }, [])
 
@@ -260,39 +297,14 @@ const HomeView = () => {
                         nftsData={nftsData} />
                 </div>
 
-                <div className="mt-[5rem]">
-
-                    <button
-                        // onClick={handleLog}
-
-                        onClick={() => history("/nftMarketPlace")}
-                        className="bg-transparent mx-auto flex row items-center justify-center gap-1 w-fit border border-white
-                                        hover:bg-white hover:text-black
-                                        
-                                        focus:outline-none
-                                        text-sm font-MontSemiBold
-                                        focus:ring-2
-                                        focus:ring-gray-500
-                                            py-1 text-white px-3
-                                            rounded-lg">
-                        <IoArrowDown
-                            // color="white"
-                            size={17}
-                        /> <p>Check More</p>
-                    </button>
-                </div>
-
-                <div className="px-[1.5vw] mt-[10rem]">
-                    <div className="mt-[5rem] flex flex-wrap gap-[1rem] justify-between mb-[2rem]">
-                        <div className="flex rows gap-[1rem] items-center">
-                            <p className="text-xl font-MontSemiBold ">Featured Products</p>
-                            <span className="rounded-lg bg-indigo-600 text-white text-[.8rem] py-1 px-4 shadow-md flex items-center gap-[.25rem]">
-                                <div className='point'></div> The Best Choice</span>
-                        </div>
+                {
+                    Boolean(nftsData.results) && <div className="mt-[5rem]">
 
                         <button
                             // onClick={handleLog}
-                            className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
+
+                            onClick={() => history("/nftMarketPlace")}
+                            className="bg-transparent mx-auto flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
                                         
                                         focus:outline-none
@@ -301,47 +313,75 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                            <IoArrowForward
+                            <IoArrowDown
                                 // color="white"
                                 size={17}
-                            /> <p>Latest added</p>
+                            /> <p>Check More</p>
                         </button>
-
                     </div>
+                }
 
-                    <div className="flex justify-between flex-wrap items-center animated_gradient_bg shadow-md rounded-md overflow-hidden">
-                        <div className="w-[50%] h-full max-[750px]:w-[100%] max-[750px]:order-2 p-[1rem]">
-                            {/* <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
+                {
+                    loadBestSelled.id && <div className="px-[1.5vw] mt-[10rem]">
+                        <div className="mt-[5rem] flex flex-wrap gap-[1rem] justify-between mb-[2rem]">
+                            <div className="flex rows gap-[1rem] items-center">
+                                <p className="text-xl font-MontSemiBold ">Featured Products</p>
+                                <span className="rounded-lg bg-indigo-600 text-white text-[.8rem] py-1 px-4 shadow-md flex items-center gap-[.25rem]">
+                                    <div className='point'></div> The Best Choice</span>
+                            </div>
+
+                            <button
+                                // onClick={handleLog}
+                                className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
+                                        hover:bg-white hover:text-black
+                                        
+                                        focus:outline-none
+                                        text-sm font-MontSemiBold
+                                        focus:ring-2
+                                        focus:ring-gray-500
+                                            py-1 text-white px-3
+                                            rounded-lg">
+                                <IoArrowForward
+                                    // color="white"
+                                    size={17}
+                                /> <p>Latest added</p>
+                            </button>
+
+                        </div>
+
+                        <div className="flex justify-between flex-wrap items-center animated_gradient_bg shadow-md rounded-md overflow-hidden">
+                            <div className="w-[50%] h-full max-[750px]:w-[100%] max-[750px]:order-2 p-[1rem]">
+                                {/* <div className="flex gap-2 row mt-3 items-center justify-start w-fit " >
                                 <img
                                     className="h-10 w-10 rounded-full object-cover shadow-lg"
                                     src={ISOTOP}
                                     alt="user Profile" />
                                 <p className="text-sm text-white font-MontBold">Jean15</p>
                             </div> */}
-                            <div className="text-center">
-                                <div className="flex gap-[1rem] items-center text-center w-full">
-                                    <div className="rounded-lg bg-indigo-600 text-white text-[.8rem] 
+                                <div className="text-center">
+                                    <div className="flex gap-[1rem] items-center text-center w-full">
+                                        <div className="rounded-lg bg-indigo-600 text-white text-[.8rem] 
                                     py-1 px-4 shadow-md flex mx-auto items-center gap-[.25rem]">
-                                        <div className='point'></div>Best Popular</div>
+                                            <div className='point'></div>Best Popular</div>
+                                    </div>
+
+                                    <h2 className="text-[2rem] font-MontSemiBold text-white mt-[1rem]">{loadBestSelled?.title}</h2>
+
+                                    <p className="text-center text-white text-sm mt-[1rem]">{loadBestSelled?.description}</p>
                                 </div>
 
-                                <h2 className="text-[2rem] font-MontSemiBold text-white mt-[1rem]">Missing Puzzle</h2>
+                                <h2 className="text-[1rem] font-MontRegular text-white mt-[2rem] mb-[-.24rem] text-center uppercase">Price</h2>
+                                <div className="text-center mt-[1rem]">
+                                    <div className="text-[2rem] mb-1 text-white font-MontSemiBold">{loadBestSelled.price} ETH</div>
+                                </div>
 
-                                <p className="text-center text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae
-                                    obcaecati provident. Deserunt, sequi. Nulla, odio ea.</p>
-                            </div>
+                                <div className="mt-[1rem] flex items-center gap-[2rem] justify-center flex-wrap">
 
-                            <h2 className="text-[1rem] font-MontRegular text-white mt-[2rem] mb-[-.24rem] text-center">Missing Puzzle</h2>
-                            <div className="text-center">
-                                <div className="text-[2rem] mb-1 text-white font-MontSemiBold">25.00 ETH</div>
-                            </div>
-
-                            <div className="mt-[1rem] flex items-center gap-[2rem] justify-center flex-wrap">
-
-                                <button
-                                    // onClick={handleLog}
-                                    className="bg-indigo-500 flex row items-center justify-center gap-1 w-fit
+                                    {
+                                        loadBestSelled.id && <Link to={"/nftMarketPlace"}>
+                                            <button
+                                                // onClick={handleLog}
+                                                className="bg-indigo-500 flex row items-center justify-center gap-1 w-fit
                                         hover:bg-white hover:text-black
                                         
                                         focus:outline-none
@@ -350,15 +390,18 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                                    <IoArrowDown
-                                        // color="white"
-                                        size={17}
-                                    /> <p>Check More</p>
-                                </button>
+                                                <IoArrowDown
+                                                    // color="white"
+                                                    size={17}
+                                                /> <p>Check More</p>
+                                            </button>
+                                        </Link>
+                                    }
 
-                                <button
-                                    // onClick={handleLog}
-                                    className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-indigo-500
+                                    {
+                                        loadBestSelled.id && <button
+                                            onClick={handleSuscribeToSale}
+                                            className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-indigo-500
                                         hover:bg-white hover:text-black
                                         
                                         focus:outline-none
@@ -367,20 +410,26 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-indigo-500 px-3
                                             rounded-lg">
-                                    <IoArrowDown
-                                        // color="white"
-                                        size={17}
-                                    /> <p>Contact to Buy</p>
-                                </button>
+                                            <IoArrowDown
+                                                // color="white"
+                                                size={17}
+                                            /> <p>Contact to Buy</p>
+                                        </button>
+                                    }
+                                </div>
                             </div>
+                            <figure className='w-[50%] max-[750px]:w-[100%] max-[750px]:order-0 relative h-[500px] max-[750px]:h-[350px]'>
+                                <img
+                                    className="absolute top-0 left-0 right-0 w-[100%] h-[100%] bottom-0 object-fill shadow-lg bg-cover"
+                                    src={loadBestSelled.image || ISOTOP2} />
+                            </figure>
                         </div>
-                        <figure className='w-[50%] max-[750px]:w-[100%] max-[750px]:order-0 relative h-[500px] max-[750px]:h-[350px]'>
-                            <img
-                                className="absolute top-0 left-0 right-0 w-[100%] h-[100%] bottom-0 object-fill shadow-lg bg-cover"
-                                src={ISOTOP2} />
-                        </figure>
                     </div>
-                </div>
+                }
+
+                {
+                    !Boolean(loadBestSelled.id) && <h2 className="text-lg mt-[4rem] font-MontSemiBold text-center">Featured Products not set</h2>
+                }
 
                 <p className="text-xl font-MontSemiBold text-center mt-[7rem]">Ours Partners</p>
                 <p className="text-sm mt-[15px] font-MontSemiBold 

@@ -34,7 +34,7 @@ const ModalsCategories = () => {
     const { register, handleSubmit,
         resetField, formState: { errors } } = useForm<Inputs>();
 
-    const handleSuscribeToSale = (gettedData: { name: string, }) => {
+    const handlerForCategorie = (gettedData: { name: string, }) => {
         let token = userTokenContext.token
         let categories_trending = new CategoriesTrendingAPI()
 
@@ -47,7 +47,7 @@ const ModalsCategories = () => {
     }
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        handleSuscribeToSale(data)
+        handlerForCategorie(data)
     };
 
     return (
@@ -105,7 +105,7 @@ const ModalsCategories = () => {
                                     <div className="mt-5">
                                         <button
                                             type='submit'
-                                            // onClick={handleSuscribeToSale}
+                                            // onClick={handlerForCategorie}
                                             className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
                                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                                         focus:outline-none
