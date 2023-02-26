@@ -8,8 +8,9 @@ import { motion } from "framer-motion"
 import CardNFT from '../components/CardNFT'
 import { RootCreatorContext, RootUserContext, RootUserTokenContext } from '../contexts'
 import { NftsAPI } from '../APIs/NftsAPI'
-import { PaginatedData } from './ContainerPrincipal'
+
 import { NftTypesValues } from '../types/NFTTypes';
+import { PaginatedDataNFT } from '../types/PaginatedData';
 
 
 const containerVariants = {
@@ -34,7 +35,7 @@ const ManageNFTs = () => {
     const userContext = React.useContext(RootUserContext)
     const creatorContext = React.useContext(RootCreatorContext)
     const userToken = React.useContext(RootUserTokenContext)
-    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
 
     const history = useNavigate()
 

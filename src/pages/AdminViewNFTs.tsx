@@ -8,24 +8,21 @@ import { FaqsAPI } from '../APIs/FaqsAPI'
 
 import { motion } from "framer-motion"
 import { useAppDispatch, useAppSelector } from '../hooks/modalsHooks'
-import { SET_FAQS, TOGGLE_LOADING } from '../redux/constants/FAQsConstants'
 import { RootState } from '../redux/store'
 import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_CATEGORIES, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 
-import ISOTOP from "../imgs/istockphoto.jpg";
-import { UsersAPI } from '../APIs/UsersAPi'
 import { UserTypesValues } from '../types/UserTypeValues'
 import { useNavigate } from 'react-router-dom'
 import { IoArrowBack, IoArrowForward, IoSearch, IoTrash } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
-import { PaginatedData } from './ContainerPrincipal'
 import { CategoriesTrending } from '../types/CategorieTrendingType'
 import { NftsAPI } from '../APIs/NftsAPI'
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import RenderingNFTs from '../components/RenderingNFTs'
 import { RiAddFill, RiShoppingBasket2Line } from 'react-icons/ri'
+import { PaginatedDataNFT } from '../types/PaginatedData'
 const containerVariants = {
 
 
@@ -55,7 +52,7 @@ const AdminViewNFTs = () => {
 
     const userContext = React.useContext(RootUserContext)
     const userToken = React.useContext(RootUserTokenContext)
-    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
     const [castedCount, setCastedCount] = React.useState<number[]>([])
     const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
     const [activeCategoriesTrending, setActiveCategoriesTrending] = React.useState<number>(0)

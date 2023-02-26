@@ -5,7 +5,7 @@ export class SaleHistoriesAPI {
 
     async get_all_sales_by_mee(token: string) {
         return fetch(
-            api_url(`sale_histories/list/`),
+            api_url(`sale_histories/list_me/`),
             {
                 method: "GET",
                 headers: {

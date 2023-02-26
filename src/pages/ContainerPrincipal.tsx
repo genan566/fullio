@@ -8,7 +8,7 @@ import { RiAddFill, RiShoppingBasket2Line } from "react-icons/ri";
 import { motion } from "framer-motion"
 import { RootCreatorContext, RootUserContext, } from '../contexts';
 import { NftsAPI } from '../APIs/NftsAPI';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import CardNFT from '../components/CardNFT';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -18,6 +18,7 @@ import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
 import { useAppDispatch } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants';
+import { PaginatedDataNFT } from '../types/PaginatedData';
 
 
 const containerVariants = {
@@ -40,14 +41,6 @@ const containerVariants = {
 };
 
 
-
-export interface PaginatedData {
-    results: NftsInterface[],
-    count: number,
-    next: string,
-    previous: string,
-}
-
 type Inputs = {
     search: string,
 };
@@ -55,7 +48,7 @@ type Inputs = {
 const ContainerPrincipal = () => {
     const userContext = React.useContext(RootUserContext)
     const creatorContext = React.useContext(RootCreatorContext)
-    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
     const [castedCount, setCastedCount] = React.useState<number[]>([])
     const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
     const [activeCategoriesTrending, setActiveCategoriesTrending] = React.useState<number>(0)
@@ -242,7 +235,7 @@ const ContainerPrincipal = () => {
                     <h2 className="text-[1.8rem] font-MontBold text-white">Trending Auctions</h2>
                     <div className="flex mt-2 gap-4 row max-[900px]:flex-wrap align-center">
                         <div className="flex mt-2 gap-4 max-[900px]:gap-[1rem] flex-wrap row">
-                            
+
                             <button
                                 onClick={() => {
                                     setActiveCategoriesTrending(0);
@@ -287,7 +280,7 @@ const ContainerPrincipal = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="flex gap-5 mt-10 align-center pb-10 max-[898px]:overflow-x-scroll min-[900px]:flex-wrap max-[898px]:max-w-[80vw]">
                     <RenderingNFTs
                         with_slice={false}

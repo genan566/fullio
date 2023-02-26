@@ -9,13 +9,13 @@ import NFT8 from "../imgs/5.png";
 import NFT9 from "../imgs/6.png";
 import NFT12 from "../imgs/istockphoto-1367699775-612x612.jpg";
 import { NftsAPI } from '../APIs/NftsAPI';
-import { PaginatedData } from './ContainerPrincipal';
 import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
+import { PaginatedDataNFT } from '../types/PaginatedData';
 
 
 const AboutPage = () => {
-    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
 
 
     React.useEffect(() => {

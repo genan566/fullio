@@ -17,6 +17,22 @@ export class NftsAPI {
 
     }
 
+    async get_unique(id: number | undefined | null) {
+        if (id) {
+            return fetch(
+                api_url(`core_nfts/${id}/`),
+                {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': "application/json;charset=utf-8"
+                    },
+                }
+            )
+                .then((js) => js.json())
+        }
+
+    }
+
     async get_all_by_featured_cat() {
         return fetch(
             api_url(`core_nfts/?categories=13`),
@@ -154,22 +170,24 @@ export class NftsAPI {
 
     }
 
-    async upload_image_to_nft(id: number, data: any, token: string) {
+    async upload_image_to_nft(id: number | undefined | null, data: any, token: string) {
 
         let dataSent = new FormData()
         dataSent.append("image", data.image)
 
-        return fetch(
-            api_url(`core_nfts/${id}/upload-image/`),
-            {
-                method: "POST",
-                headers: {
-                    'Authorization': "Token " + JSON.parse(token),
-                },
-                body: dataSent
-            }
-        )
-            .then((js) => js.json())
+        if (id) {
+            return fetch(
+                api_url(`core_nfts/${id}/upload-image/`),
+                {
+                    method: "POST",
+                    headers: {
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: dataSent
+                }
+            )
+                .then((js) => js.json())
+        }
 
     }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoArrowBack, IoCheckmark, IoFileTray, IoTrash, } from 'react-icons/io5'
+import { IoArrowBack, IoCheckmark, IoFileTray, IoSend, IoTrash, } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
 import { RootNftContext, RootUserContext, RootUserTokenContext, } from '../contexts'
 
@@ -25,6 +25,8 @@ import { NftsAPI } from '../APIs/NftsAPI';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import ErrorText from '../components/ErrorText';
 import { NftTypesValues } from '../types/NFTTypes';
+import { FileInterface } from '../types/FileInterface';
+import { FaEdit } from 'react-icons/fa';
 
 type Inputs = {
     title: string,
@@ -44,15 +46,14 @@ const DetailNft = () => {
     const [saleHistories, setSaleHistories] = React.useState<SaleHistory[]>([])
     const [editable, setEditable] = React.useState(false)
     const userTokenContext = React.useContext(RootUserTokenContext)
+    const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
 
 
-    const { register, handleSubmit,
-        resetField, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit
+        , formState: { errors } } = useForm<Inputs>();
 
-    const [categoriesTrending, setCategoriesTrending] = React.useState<CategoriesTrending[]>([])
     const location = useLocation();
     const { showModalSuscription } = useAppSelector((state: RootState) => state.modalsReducer)
-    const [selectedCategorie, setSelectedCategorie] = React.useState<number>();
 
     const dispatch = useAppDispatch();
 
@@ -119,7 +120,8 @@ const DetailNft = () => {
                                             image: routeAPIBaseImage + res.image.toString(),
                                         }
 
-                                        setuserRetrieveDataListForSales([...userRetrieveDataListForSales, formatedData])
+                                        setuserRetrieveDataListForSales
+                                            ([...userRetrieveDataListForSales, formatedData])
 
                                     })
                             }
@@ -135,18 +137,28 @@ const DetailNft = () => {
         dispatch({ type: TOGGLE_MODAL_SUSCRIPTION, payload: true })
     }
 
-
-    React.useEffect(() => {
-
-        if (categorie !== null) {
-            let checker = categories.filter(it => it.id === categorie.id)
-            if (checker.length === 0) {
-                setCategories([...categories, categorie])
-            }
+    const upload_image_to_nft = () => {
+        if (file.file) {
+            let nftApi = new NftsAPI()
+            nftApi.upload_image_to_nft(nftContext?.nftData?.id, { image: file.file, }, userTokenContext.token)
+                .then((re) => {
+                    setFile({} as any)
+                    nftApi.get_unique(nftContext?.nftData?.id).then((data) => {
+                        nftContext?.setNftData(data)
+                    })
+                })
         }
-    }, [categorie])
+    }
 
-    React.useEffect(() => {
+    function handleChange(e: any) {
+        console.log(e.target.files[0]);
+        setFile({
+            asPreview: URL.createObjectURL(e.target.files[0]),
+            file: e.target.files[0],
+        });
+    }
+
+    const load_nft_owner = () => {
         if (nftContext?.nftData?.owner_id) {
             let respAuth = new AuthAPI()
             if (userTokenContext.token !== "") {
@@ -166,6 +178,21 @@ const DetailNft = () => {
                     })
             }
         }
+    }
+
+
+    React.useEffect(() => {
+
+        if (categorie !== null) {
+            let checker = categories.filter(it => it.id === categorie.id)
+            if (checker.length === 0) {
+                setCategories([...categories, categorie])
+            }
+        }
+    }, [categorie])
+
+    React.useEffect(() => {
+        load_nft_owner()
     }, [nftContext?.nftData?.owner_id])
 
     React.useEffect(() => {
@@ -221,11 +248,13 @@ const DetailNft = () => {
                 rounded-lg min-w-[280px] bg-zinc-700 shadow-md flex items-center justify-center">
                     <img
                         className="h-full w-full absolute inset-0 z-[1] object-cover "
-                        src={nftContext?.nftData?.image || NFT10}
+                        src={file.asPreview || nftContext?.nftData?.image || NFT10}
                         alt="user Profile" />
 
                     {
-                        nftContext?.nftData?.id && ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
+                        !file.asPreview &&
+                        nftContext?.nftData?.id
+                        && ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
                             <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-3 bg-slate-900 shadow-lg">
                                 <IoFileTray
@@ -233,9 +262,41 @@ const DetailNft = () => {
                                     size={17}
                                 />
                                 <input type="file"
-                                    // onChange={handleChange}
+                                    onChange={handleChange}
                                     // {...register("title", { required: true })}
                                     className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" />
+                            </button>
+                        )
+                    }
+
+                    {
+                        file.asPreview && (
+                            <button
+                                onClick={() => setFile({} as any)}
+                                className="absolute top-5 active:bg-red-700 right-5 z-[2]
+                                rounded-full border border-1 border-transparent p-3 bg-red-900 shadow-lg">
+                                <IoTrash
+                                    // color="white"
+                                    size={17}
+                                />
+                                {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
+                            </button>
+                        )
+                    }
+
+                    {
+                        file.asPreview && (
+                            <button
+                                onClick={upload_image_to_nft}
+                                className="absolute top-5 hover:bg-violet-700 left-5 z-[2] flex gap-[.5rem] 
+                                items-center justify-center py-[.2rem] px-[1rem] text-sm font-MontSemiBold
+                                rounded-md border border-1 border-transparent bg-transparent border-1 border-violet-500 shadow-lg">
+                                <MdEdit
+                                    // color="white"
+                                    size={17}
+                                />
+                                Update
+                                {/* <input type="file" onChange={() => setFile("")} className='opacity-0 absolute top-0 left-0 right-0 bottom-0' name="" id="" /> */}
                             </button>
                         )
                     }

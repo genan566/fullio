@@ -57,10 +57,10 @@ const Orders = () => {
 
         let order_mee = new SaleHistoriesAPI()
         let token = userTokenContext.token
-        order_mee
+        Boolean(token) && order_mee
             .get_all_sales_by_mee(token)
             .then(data => {
-                if (data.length > 0) {
+                if (Boolean(data)) {
                     setSaleHistories([...data])
                     data.map((item: any) => {
                         let respAuth = new AuthAPI()
@@ -86,7 +86,8 @@ const Orders = () => {
                     })
                 }
             })
-    }, [])
+
+    }, [userTokenContext.token])
 
     // React.useEffect(() => {
     //     console.log("data", ordersData)

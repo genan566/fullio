@@ -26,12 +26,13 @@ import "../styles/HomeView.scss"
 import { RootCreatorContext, RootNftContext, RootUserContext, RootUserTokenContext } from '../contexts';
 import { Link, useNavigate } from 'react-router-dom';
 import { NftsAPI } from '../APIs/NftsAPI';
-import { PaginatedData } from './ContainerPrincipal';
+
 import { NftTypesValues } from '../types/NFTTypes';
 import RenderingNFTs from '../components/RenderingNFTs';
 import { useAppDispatch } from '../hooks/modalsHooks';
 import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_SUSCRIPTION } from '../redux/constants/ModalsConstants';
 import { NftsInterface } from '../types/NFTsInterface';
+import { PaginatedDataNFT } from '../types/PaginatedData';
 
 
 
@@ -69,9 +70,9 @@ const HomeView = () => {
     const userContext = React.useContext(RootUserContext)
     const nFTContext = React.useContext(RootNftContext)
     const creatorContext = React.useContext(RootCreatorContext)
-    const [nftsData, setnftsData] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
     const [nftsBestSelled, setnftsBestSelled] = React.useState<NftsInterface>({} as NftsInterface)
-    const [nftsDataByFeatured, setnftsDataByFeatured] = React.useState<PaginatedData>({} as PaginatedData)
+    const [nftsDataByFeatured, setnftsDataByFeatured] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
 
     const userTokenContext = React.useContext(RootUserTokenContext)
     const history = useNavigate()
@@ -300,11 +301,21 @@ const HomeView = () => {
                 {
                     Boolean(nftsData.results) && <div className="mt-[5rem]">
 
-                        <button
-                            // onClick={handleLog}
+                        <Link
+                            to={"/nftMarketPlace"}
+                            state={{
+                                id: "13"
+                            }}
+                        >
+                            <button
+                                // onClick={handleLog}
 
-                            onClick={() => history("/nftMarketPlace")}
-                            className="bg-transparent mx-auto flex row items-center justify-center gap-1 w-fit border border-white
+                                // onClick={() => history("/nftMarketPlace", {
+                                //     state: {
+
+                                //     }
+                                // })}
+                                className="bg-transparent mx-auto flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
                                         
                                         focus:outline-none
@@ -313,11 +324,12 @@ const HomeView = () => {
                                         focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                            <IoArrowDown
-                                // color="white"
-                                size={17}
-                            /> <p>Check More</p>
-                        </button>
+                                <IoArrowDown
+                                    // color="white"
+                                    size={17}
+                                /> <p>Check More</p>
+                            </button>
+                        </Link>
                     </div>
                 }
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { PaginatedData } from '../pages/ContainerPrincipal'
 import { NftTypesValues } from '../types/NFTTypes'
+import { PaginatedDataNFT } from '../types/PaginatedData'
 import CardNFT from './CardNFT'
 import FlatedNFT from './FlatedNFT'
 
 const RenderingNFTs = ({ nftsData, with_slice, render_type = "default", custom_func }:
-    { nftsData: PaginatedData, with_slice: boolean, render_type?: "default" | "flated", custom_func?: () => void }) => {
+    { nftsData: PaginatedDataNFT, with_slice: boolean, render_type?: "default" | "flated", custom_func?: () => void }) => {
     let data_renderring_likes = Boolean(nftsData.results) ?
         !Boolean(with_slice) ? nftsData.results : nftsData.results.slice(0, 5) : nftsData.results
     return (
