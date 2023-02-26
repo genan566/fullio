@@ -16,7 +16,7 @@ export class OrdersAPI {
 
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 }

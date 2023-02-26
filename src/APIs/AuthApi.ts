@@ -43,9 +43,7 @@ export class AuthAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }
@@ -66,9 +64,7 @@ export class AuthAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }
@@ -90,9 +86,7 @@ export class AuthAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }
@@ -131,9 +125,7 @@ export class AuthAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }
@@ -157,7 +149,7 @@ export class AuthAPI {
                 body: dataSent
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 }

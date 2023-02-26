@@ -13,7 +13,7 @@ export class FaqsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -32,9 +32,7 @@ export class FaqsAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }

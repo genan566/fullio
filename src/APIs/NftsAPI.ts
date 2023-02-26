@@ -13,7 +13,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -28,7 +28,7 @@ export class NftsAPI {
                     },
                 }
             )
-                .then((js) => js.json())
+                .then((js) => js.ok && js.json())
         }
 
     }
@@ -43,7 +43,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -75,7 +75,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -91,7 +91,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -106,7 +106,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -121,7 +121,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -135,7 +135,7 @@ export class NftsAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -166,7 +166,7 @@ export class NftsAPI {
                 })
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -186,7 +186,7 @@ export class NftsAPI {
                     body: dataSent
                 }
             )
-                .then((js) => js.json())
+                .then((js) => js.ok && js.json())
         }
 
     }
@@ -206,9 +206,7 @@ export class NftsAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on retrieve", er))
 
         }

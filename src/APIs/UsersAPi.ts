@@ -12,7 +12,7 @@ export class UsersAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -33,7 +33,7 @@ export class UsersAPI {
                     body: dataSent
                 }
             )
-                .then((js) => js.json())
+                .then((js) => js.ok && js.json())
 
         }
     }
@@ -50,11 +50,7 @@ export class UsersAPI {
                     body: JSON.stringify(data),
                 }
             )
-                .then((js) => {
-                    if (js.ok)
-                        js.json()
-                        
-                })
+            .then((js) => js.ok && js.json())
 
         }
     }

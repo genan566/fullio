@@ -15,8 +15,7 @@ export class SaleHistoriesAPI {
 
             }
         )
-            .then((js) => js.json())
-
+            .then((js) => js.ok && js.json())
     }
 
     async get_all_sales() {
@@ -31,8 +30,7 @@ export class SaleHistoriesAPI {
 
             }
         )
-            .then((js) => js.json())
-
+            .then((js) => js.ok && js.json())
     }
 
     async get_sales_by_ID(id: number) {
@@ -47,8 +45,7 @@ export class SaleHistoriesAPI {
 
             }
         )
-            .then((js) => js.json())
-
+            .then((js) => js.ok && js.json())
     }
 
 
@@ -62,7 +59,7 @@ export class SaleHistoriesAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
     }
 
     async get_multi_sales_by_nftID(idx: number | undefined) {
@@ -75,7 +72,7 @@ export class SaleHistoriesAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
     }
 
     async post__create_sale(token: string, data: { title: string, nfts_id: number | undefined }) {
@@ -93,9 +90,7 @@ export class SaleHistoriesAPI {
 
                 }
             )
-                .then((res) => {
-                    return res.json();
-                })
+                .then((js) => js.ok && js.json())
                 .catch(er => console.log("er on create sale", er))
 
         }

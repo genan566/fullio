@@ -13,7 +13,7 @@ export class CategoriesTrendingAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 
@@ -27,7 +27,7 @@ export class CategoriesTrendingAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
     async get_multi_categorie(idx: number[] | undefined) {
@@ -40,7 +40,7 @@ export class CategoriesTrendingAPI {
                 },
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
     async add_categorie(data: { name: string }, token: string) {
@@ -56,7 +56,7 @@ export class CategoriesTrendingAPI {
                 body: JSON.stringify(data)
             }
         )
-            .then((js) => js.json())
+            .then((js) => js.ok && js.json())
 
     }
 }
