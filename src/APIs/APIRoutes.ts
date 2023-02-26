@@ -1,4 +1,4 @@
-export const routeAPIBase = "http://127.0.0.1:8080/api/v1/"
-export const routeAPIBaseImage = "http://127.0.0.1:8080"
+export const routeAPIBase = process.env.REACT_APP_API_ROUTE_URL
+export const routeAPIBaseImage = process.env.REACT_APP_API_ROUTE_ROOT
 
 export const api_url = (endpoint: string) => routeAPIBase + endpoint

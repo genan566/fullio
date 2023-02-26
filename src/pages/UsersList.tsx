@@ -17,6 +17,7 @@ import { IoArrowBack, IoTrash } from 'react-icons/io5'
 import { MdEdit } from 'react-icons/md'
 import { AuthAPI } from '../APIs/AuthApi'
 import { RootState } from '../redux/store'
+import { notify } from '../utilities/Toaster'
 const containerVariants = {
 
 
@@ -72,6 +73,7 @@ const UsersList = () => {
             .delete_account(userToken.token, id)
             .then(data => {
                 loadInitial()
+                notify("Suppression réussie")
                 // setnftsData(data)
             })
     }

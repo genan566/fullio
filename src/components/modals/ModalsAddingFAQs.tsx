@@ -13,6 +13,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorText from '../ErrorText'
 import { FaqsAPI } from '../../APIs/FaqsAPI'
 import { SET_FAQS } from '../../redux/constants/FAQsConstants'
+import { notify } from '../../utilities/Toaster'
 
 type Inputs = {
     title: string,
@@ -47,6 +48,8 @@ const ModalAddingFAQs = () => {
         }, token).then(data => {
             loadInitial()
             dispatch({ type: TOGGLE_MODAL_ADDING_FAQS, payload: false })
+
+            notify("Création de note FAQ réussie")
 
             resetField("description")
             resetField("title")

@@ -27,6 +27,8 @@ import ErrorText from '../components/ErrorText';
 import { NftTypesValues } from '../types/NFTTypes';
 import { FileInterface } from '../types/FileInterface';
 import { FaEdit } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { notify } from '../utilities/Toaster';
 
 type Inputs = {
     title: string,
@@ -49,6 +51,9 @@ const DetailNft = () => {
     const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
 
 
+
+
+
     const { register, handleSubmit
         , formState: { errors } } = useForm<Inputs>();
 
@@ -63,6 +68,7 @@ const DetailNft = () => {
             .delete_nft(userTokenContext.token, nftContext?.nftData?.id)
             .then(data => {
                 window.history.back()
+                notify("Suppression réussie")
                 // setnftsData(data)
             })
     }
@@ -87,6 +93,8 @@ const DetailNft = () => {
                 }
                 nftContext?.setNftData(sendedData)
                 setEditable(!editable)
+
+                notify("Edition réussie")
             })
     }
 
@@ -145,6 +153,7 @@ const DetailNft = () => {
                     setFile({} as any)
                     nftApi.get_unique(nftContext?.nftData?.id).then((data) => {
                         nftContext?.setNftData(data)
+                        notify("Edition réussie")
                     })
                 })
         }

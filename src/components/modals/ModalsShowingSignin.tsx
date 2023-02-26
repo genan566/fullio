@@ -9,6 +9,7 @@ import LOGOPNG from "../../imgs/nft.png";
 import { TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
 import { RootState } from '../../redux/store';
 import { ModalsShowingSigninTypes } from '../../types/ModalsShowingLoginTYpes copy';
+import { notify } from '../../utilities/Toaster';
 import ErrorText from '../ErrorText';
 
 type Inputs = {
@@ -34,6 +35,7 @@ const ModalsShowingSignin = ({ isShownModalsFirstSignIn, toggleShowSignUpModal, 
             .create_user(gettedData)
             .then(res => {
                 dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: true })
+                notify("Création de compte avec succès")
             })
     }
 

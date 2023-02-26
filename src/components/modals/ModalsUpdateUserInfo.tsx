@@ -16,6 +16,7 @@ import ErrorText from '../ErrorText'
 import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
 import { FileInterface } from '../../types/FileInterface'
+import { notify } from '../../utilities/Toaster'
 
 const ModalsUpdateUserInfo = () => {
 
@@ -44,10 +45,12 @@ const ModalsUpdateUserInfo = () => {
                             .then(data => {
                                 userContext.setUser(data)
                                 dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
+                                notify("Modification réussie")
                             })
                     })
                 if (!Boolean(file.file)) {
                     userContext.setUser(data)
+                    notify("Modification réussie")
                     dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
                 }
             })

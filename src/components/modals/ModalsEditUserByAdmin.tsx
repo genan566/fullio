@@ -16,6 +16,7 @@ import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
 import { FileInterface } from '../../types/FileInterface'
 import { UsersAPI } from '../../APIs/UsersAPi'
+import { notify } from '../../utilities/Toaster'
 
 const ModalsEditUserByAdmin = () => {
 
@@ -42,9 +43,11 @@ const ModalsEditUserByAdmin = () => {
                     .retrieve_update_user(userTokenContext.token, userEditableContext?.userEdited.id, { image: file.file })
                     .then(() => {
                         customDispatcher()
+                        notify("Modification réussie")
                     })
                 if (!Boolean(file.file)) {
                     customDispatcher()
+                    notify("Modification réussie")
                 }
             })
     }

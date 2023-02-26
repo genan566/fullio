@@ -13,6 +13,7 @@ import { RootState } from '../redux/store'
 import { TOGGLE_MODAL_ADDING_FAQS, TOGGLE_MODAL_FOR_LOGIN } from '../redux/constants/ModalsConstants'
 import { useToast } from '@chakra-ui/react'
 import { IoTrash } from 'react-icons/io5'
+import { notify } from '../utilities/Toaster'
 
 const containerVariants = {
 
@@ -64,6 +65,7 @@ const FAQ = () => {
         let respFaqs = new FaqsAPI()
         respFaqs.delete_faq(userToken.token, id,).then(data => {
             loadInitial()
+            notify("Suppression réussie")
         })
     }
 

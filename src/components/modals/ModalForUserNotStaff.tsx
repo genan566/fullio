@@ -4,6 +4,7 @@ import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { routeAPIBaseImage } from '../../APIs/APIRoutes'
 import { AuthAPI } from '../../APIs/AuthApi'
 import { RootCreatorContext, RootUserContext, RootUserTokenContext } from '../../contexts'
+import { notify } from '../../utilities/Toaster'
 const ModalForUserNotStaff = () => {
     const userContext = React.useContext(RootUserContext)
     const creatorContext = React.useContext(RootCreatorContext)
@@ -27,9 +28,13 @@ const ModalForUserNotStaff = () => {
                         account_balance_btc: data?.account_balance_btc,
                         pseudo: data.pseudo,
                     })
+                    notify("Demande réussie")
                     creatorContext?.setisCreator(!creatorContext.isCreator)
                 }
-            });
+            })
+            .catch(e =>
+                notify("Une erreur est survenue", "error"));
+
     }
 
     return (

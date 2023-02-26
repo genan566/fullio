@@ -15,6 +15,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorText from '../ErrorText'
 import { AuthAPI } from '../../APIs/AuthApi'
 import { CategoriesTrendingAPI } from '../../APIs/CategoriesTrending'
+import { notify } from '../../utilities/Toaster'
 
 type Inputs = {
     name: string,
@@ -43,6 +44,7 @@ const ModalsCategories = () => {
             .then(() => {
                 resetField("name")
                 customDispatcher()
+                notify("Création de catégorie réussie")
             })
     }
 

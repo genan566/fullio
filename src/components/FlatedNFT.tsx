@@ -15,6 +15,7 @@ import { CategoriesTrending } from '../types/CategorieTrendingType';
 import { NftTypesValues } from '../types/NFTTypes';
 import { SaleHistory } from '../types/SaleHistoryType';
 import { UserRetrieveInterface2 } from '../types/UserRetrieveTypes';
+import { notify } from '../utilities/Toaster';
 
 
 
@@ -112,6 +113,7 @@ const FlatedNFT = ({ image, categories_trending, owner, rebirth, data, link = fa
             .delete_nft(userTokenContext.token, data?.id)
             .then(data => {
                 custom_call()
+                notify("Suppression réussie")
                 // setnftsData(data)
             })
     }

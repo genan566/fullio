@@ -14,6 +14,7 @@ import LOGOPNG from "../../imgs/nft.png";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorText from '../ErrorText'
 import { AuthAPI } from '../../APIs/AuthApi'
+import { notify } from '../../utilities/Toaster'
 
 type Inputs = {
     title: string,
@@ -54,7 +55,10 @@ const ModalSubscription = () => {
                         .retrive_me__account(token)
                         .then(data => {
                             userContext.setUser(data)
+                            notify("Souscription réussie")
                         })
+                        .catch(er =>
+                            notify("Une erreur est survenue", "error"))
                 }
 
                 console.log(res);
@@ -67,7 +71,7 @@ const ModalSubscription = () => {
         handleSuscribeToSale(data)
     };
 
-    
+
     return (
         <>
             {

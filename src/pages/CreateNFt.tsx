@@ -12,6 +12,7 @@ import { FileInterface } from '../types/FileInterface';
 import { CategoriesTrendingAPI } from '../APIs/CategoriesTrending';
 import { CategoriesTrending } from '../types/CategorieTrendingType';
 import ErrorText from '../components/ErrorText';
+import { notify } from '../utilities/Toaster';
 
 const containerVariants = {
 
@@ -95,7 +96,10 @@ const CreateNFt = () => {
                 .then(data => {
                     if (data.id) {
                         respFaqs.upload_image_to_nft(data.id, { image: file.file, }, userTokenContext.token)
-                            .then((re) => history("/manageNFTs"))
+                            .then((re) => {
+                                notify("Création réussie")
+                                history("/manageNFTs")
+                            })
                     }
                 })
         }

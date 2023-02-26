@@ -13,6 +13,7 @@ import { user_ID } from './components/constants/constants';
 
 import { AuthAPI } from './APIs/AuthApi';
 import { UserTypesValues } from './types/UserTypeValues';
+import { toast } from 'react-toastify';
 type toggleIsOpen = () => void;
 
 function App() {

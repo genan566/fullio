@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/modalsHooks';
 import LOGOPNG from "../../imgs/nft.png";
 import { TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, TOGGLE_MODAL_FOR_LOGIN, TOGGLE_MODAL_FOR_SIGNUP } from '../../redux/constants/ModalsConstants';
 import { RootState } from '../../redux/store';
+import { notify } from '../../utilities/Toaster';
 
 import ErrorText from '../ErrorText';
 
@@ -30,6 +31,8 @@ const AdminCanCreateModal = () => {
         let user_api = new UsersAPI()
             .create_user(gettedData)
             .then(res => {
+
+                notify("Création réussie")
                 dispatch({ type: TOGGLE_MODALS_FOR_CREATING_USER_BY_ADMIN, payload: false })
             })
     }

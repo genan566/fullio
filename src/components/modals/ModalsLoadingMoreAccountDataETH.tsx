@@ -14,6 +14,7 @@ import ErrorText from '../ErrorText'
 
 import { UserTypesValues } from '../../types/UserTypeValues'
 import { AuthAPI } from '../../APIs/AuthApi'
+import { notify } from '../../utilities/Toaster'
 
 const ModalsLoadingMoreAccountDataWalletETH = () => {
 
@@ -29,6 +30,7 @@ const ModalsLoadingMoreAccountDataWalletETH = () => {
         authMee.retrive_mee_update(token, dataSended)
         .then(data => {
             userContext.setUser(data)
+            notify("Chargement réussie")
             dispatch({ type: TOGGLE_MODAL_UPDATE_USER_INFO, payload: false })
         })
     }
