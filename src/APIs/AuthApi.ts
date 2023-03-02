@@ -1,4 +1,5 @@
 import axios from "axios";
+import { notify } from "../utilities/Toaster";
 import { api_url } from "./APIRoutes";
 
 interface DataForm {
@@ -112,21 +113,26 @@ export class AuthAPI {
 
     async retrive_mee_update(token: string, data: any, formed?: boolean) {
         if (token && data) {
-            return fetch(
-                api_url('user/mee/'),
-                {
-                    method: "PATCH",
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': "Token " + JSON.parse(token),
-                    },
-                    body: JSON.stringify(data)
+            try {
+                return fetch(
+                    api_url('user/mee/'),
+                    {
+                        method: "PATCH",
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': "Token " + JSON.parse(token),
+                        },
+                        body: JSON.stringify(data)
 
-                }
-            )
-                .then((js) => js.ok && js.json())
-                .catch(er => console.log("er on retrieve", er))
+                    }
+                )
+                    .then((js) => js.ok && js.json())
+                // .catch(er => console.log("er on retrieve", er))
+            } catch (error) {
+                console.log("er on retrieve", error)
+            }
+
 
         }
 
@@ -138,18 +144,22 @@ export class AuthAPI {
         dataSent.append("image", data.image)
         console.log(dataSent.get("image"))
 
-        return fetch(
-            api_url(`user/retrieve/upload-image/`),
-            {
-                method: "PUT",
-                headers: {
-                    // "content-type": "application/x-www-form-urlencoded",
-                    'Authorization': "Token " + JSON.parse(token),
-                },
-                body: dataSent
-            }
-        )
-            .then((js) => js.ok && js.json())
+        try {
+            return fetch(
+                api_url(`user/retrieve/upload-image/`),
+                {
+                    method: "PUT",
+                    headers: {
+                        // "content-type": "application/x-www-form-urlencoded",
+                        'Authorization': "Token " + JSON.parse(token),
+                    },
+                    body: dataSent
+                }
+            )
+                .then((js) => js.ok && js.json())
+        } catch (error) {
+            console.log("er on retrieve", error)
+        }
 
     }
 }

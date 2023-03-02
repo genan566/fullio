@@ -194,7 +194,7 @@ const PageSettings = () => {
                                         </div>
                                         <div className="columns gap-1">
                                             <h3 className="text-md font-MontBold">Connected members</h3>
-                                            <p className="text-sm">20 Users counted</p>
+                                            {/* <p className="text-sm">20 Users counted</p> */}
                                         </div>
                                     </div>
 
@@ -220,7 +220,7 @@ const PageSettings = () => {
                                         </div>
                                         <div className="columns gap-1">
                                             <h3 className="text-md font-MontBold">Products edit</h3>
-                                            <p className="text-sm">20 products counted</p>
+                                            {/* <p className="text-sm">20 products counted</p> */}
                                         </div>
                                     </div>
 
@@ -246,7 +246,7 @@ const PageSettings = () => {
                                     </div>
                                     <div className="columns gap-1">
                                         <h3 className="text-md font-MontBold">Core Categories</h3>
-                                        <p className="text-sm">2 categories managed</p>
+                                        {/* <p className="text-sm">2 categories managed</p> */}
                                     </div>
                                 </div>
 

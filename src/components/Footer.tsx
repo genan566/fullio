@@ -1,17 +1,44 @@
 import React from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { IoArrowDown, IoArrowForward, IoMail, IoPerson, IoSearch, IoSend } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom';
+import { CoreContactsAPI } from '../APIs/CoreContacts';
 import { RootUserContext } from '../contexts';
 
 import ISOTOP from "../imgs/vadim-bogulov-lG4A4GmcYYg-unsplash.jpg";
+import ErrorText from './ErrorText';
+
+type Inputs = {
+    name: string,
+    firstname: string,
+    email: string,
+    // price: string,
+};
+
+
 const Footer = () => {
 
     const location = useLocation();
     const userContext = React.useContext(RootUserContext)
+
+    const { register, handleSubmit,
+        resetField, formState: { errors } } = useForm<Inputs>();
+
+    const handlerForCategorie = (gettedData: Inputs) => {
+        let core_contacts = new CoreContactsAPI()
+
+        core_contacts
+            .create_subscription(gettedData)
+    }
+
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        handlerForCategorie(data)
+    };
+
     return (
         <>
-            <div className="mt-[10rem]">
-                <div className="animated_gradient_bg animFalse max-[800px]:w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative">
+            <div className="mt-[10rem] ">
+                <div className="animated_gradient_bg animFalse max-[800px]:w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative fixed-w">
                     <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
                                 overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
 
@@ -49,7 +76,8 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div
+            <form
+                onSubmit={handleSubmit(onSubmit)}
                 id='mailing'
                 className="mt-[7rem] bg-slate-800 max-[1000px]:w-[95%] w-fit mx-auto max-[500px]:p-[1.8rem] min-[510px]:p-[1.5rem] min-[1000px]:p-[3rem] rounded-xl shadow-2xl">
                 <div className="min-[1000px]:px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
@@ -73,11 +101,12 @@ const Footer = () => {
                                     color="white"
                                     size={18}
                                 />
-                                <input
+                                <input {...register("name", { required: true })}
                                     placeholder='Your name'
                                     type="text"
                                     className="control-input-S" />
                             </div>
+                            {errors.name && <ErrorText />}
                         </div>
 
                         <div className='w-full'>
@@ -88,11 +117,12 @@ const Footer = () => {
                                     color="white"
                                     size={18}
                                 />
-                                <input
+                                <input {...register("firstname", { required: true })}
                                     placeholder='Your firstname'
                                     type="text"
                                     className="control-input-S" />
                             </div>
+                            {errors.firstname && <ErrorText />}
                         </div>
                     </div>
 
@@ -106,13 +136,13 @@ const Footer = () => {
                                 color="white"
                                 size={18}
                             />
-                            <input
+                            <input {...register("email", { required: true })}
                                 placeholder='Your mail'
                                 type="email"
                                 className="control-input-S" />
-                        </div>
+                        </div>{errors.email && <ErrorText />}
                     </div>
-
+                    {/* 
                     <div className='w-full mt-[1rem]'>
                         <p className="text-xs font-MontBold text-white mb-4">Enter your message</p>
 
@@ -122,11 +152,12 @@ const Footer = () => {
                                 rows={8}
                                 className="control-input-S" />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <button
                     // onClick={handleLog}
+                    type='submit'
                     className="bg-violet-600 flex row items-center justify-center gap-1 w-fit  mx-auto mt-[2rem]
                         hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
                         focus:outline-none
@@ -135,13 +166,13 @@ const Footer = () => {
                         focus:ring-gray-500
                             py-1 text-white px-[2rem]
                             rounded-lg">
-                    <p className='mr-[.5rem]'>Send message</p>
+                    <p className='mr-[.5rem]'>Suscribe Now</p>
                     <IoSend
                         // color="white"
                         size={17}
                     />
                 </button>
-            </div>
+            </form>
             <div className="flex max-w-[1300px] mx-auto justify-between gap-[1rem] px-[1rem] mt-[5rem] max-[600px]:flex-wrap">
                 <div className="gap-[1rem]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Fullio</p>

@@ -28,6 +28,13 @@ body {
   animation: gradient 15s ease infinite;
 }
 
+
+.fixed-w {
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+
 HTML {
   scroll-behavior: smooth;
 }

@@ -125,7 +125,7 @@ const HomeView = () => {
             <div className="w-full">
                 <div className="animated_gradient_bg h-fit rounded-lg shadow-xl
                      max-[800px]:p-[1.9rem] p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
-                    <div className="flex gap-[1rem] justify-between w-full">
+                    <div className="flex gap-[1rem] justify-between w-full fixed-w">
                         <motion.div
                             initial="hidden"
                             animate="visible"
@@ -195,7 +195,7 @@ const HomeView = () => {
                 </div>
             </div>
 
-            <div className="homeView-products px-[.25rem] min-[1400px]:px-[4.2rem]">
+            <div className="homeView-products px-[.25rem] min-[1400px]:px-[4.2rem] fixed-w">
 
                 <div className="flex flex-row justify-center gap-[1rem] items-center max-[500px]:flex-wrap">
                     <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
