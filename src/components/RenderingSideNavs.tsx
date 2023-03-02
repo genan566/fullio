@@ -97,7 +97,7 @@ const RenderingSideNavs = ({ toggleIsOpen, closeIsOpen, isOpen, isActive, setIsA
                     </Link>
                 }
 
-                <Link
+                {/* <Link
                     to={"/orders"}
                     onClick={() => setIsActive("/orders")} className={isActive === "/orders" ? "customButtonFilterD-S p0 active" : "customButtonFilterD-S p0"}>
                     <RiChatFollowUpLine
@@ -105,7 +105,7 @@ const RenderingSideNavs = ({ toggleIsOpen, closeIsOpen, isOpen, isActive, setIsA
                         size={18}
                     />
                     <span id={isOpen ? "onHovP act" : 'onHovP'} className="text-sm font-MontSemiBold" style={{ fontSize: '.8rem' }}>Mes Ordres</span>
-                </Link>
+                </Link> */}
 
                 {/* <Link
                                 to={"/strategies"}

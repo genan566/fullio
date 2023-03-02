@@ -39,7 +39,7 @@ const Page404 = () => {
                 <img src={CustomIMG2} alt="user Profile" />
             </figure> */}
 
-            < h1 className="text-white text-9xl font-MontBold" > 404.</h1 >
+            < h1 className="text-white text-8xl font-MontBold" > 404.</h1 >
             <h1 className="text-white text-2xl font-MontBold">Ouuups ce contenu n'existe pas.</h1>
             <p className="text-white">Veuillez bien revenir en lieu sûr.</p>
 

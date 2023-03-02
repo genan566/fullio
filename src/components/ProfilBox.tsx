@@ -97,7 +97,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                             />
                         </div>
 
-                        <div className="flex gap-2 mt-5 align-center row px-3">
+                        <div className="flex gap-2 mt-5 items-center justify-center px-3">
                             {/* <button className="bg-violet-500
                         hover:bg-violet-600
                         active:bg-violet-700 
@@ -110,7 +110,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                                 Save changes
                             </button> */}
 
-                            <button className="customButtonFilterD p0">
+                            {/* <button className="customButtonFilterD p0">
                                 <IoHeart
                                     color="white"
                                     size={15}
@@ -125,7 +125,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                                     size={15}
                                 />
 
-                            </button>
+                            </button> */}
 
 
                             <button
