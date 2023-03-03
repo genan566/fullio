@@ -42,7 +42,7 @@ const AboutPage = () => {
                     </div>
 
                     <div className="">
-                        <figure className="w-full bg-zinc-700 rounded-md mt-[3rem] max-w-[100%] relative h-[350px] overflow-hidden ">
+                        <figure className="w-full bg-zinc-700 rounded-md mt-[3rem] max-w-[100%] max-[700px]:w-[98%] relative h-[350px] overflow-hidden ">
                             <img
                                 className="h-full w-full absolute inset-0 z-[1] object-cover"
                                 src={NFT11}

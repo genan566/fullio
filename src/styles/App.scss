@@ -44,6 +44,10 @@ select {
     background-position: center center;
     overflow: hidden;
 
+    @media (max-width: 700px) {
+        width: 97%;
+    }
+
 
     // &::before {
     //     position: absolute;
@@ -626,11 +630,11 @@ select {
     padding: .8rem 1.2rem;
     border-radius: .9rem;
     box-shadow: 0 0 1.5rem rgba(0, 0, 0, .5);
-    background-color: rgba(30, 30, 30, 0.938);
+    background-color: rgba(30, 30, 30, 0.63);
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     gap: .9rem;
 
     & img {
@@ -902,11 +906,11 @@ select {
         border-radius: 50rem;
         background-color: white;
         z-index: 2;
-        color: black;        
+        color: black;
         cursor: pointer;
 
         &:active {
-            background-color: rgba(255,255,255,.5);
+            background-color: rgba(255, 255, 255, .5);
         }
     }
 

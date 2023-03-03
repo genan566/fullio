@@ -38,7 +38,7 @@ const Footer = () => {
     return (
         <>
             <div className="mt-[10rem] ">
-                <div className="animated_gradient_bg animFalse max-[800px]:w-full rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative fixed-w">
+                <div className="animated_gradient_bg animFalse max-[800px]:w-full  max-[700px]:w-[95%] rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative fixed-w">
                     <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
                                 overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
 

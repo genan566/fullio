@@ -6,4 +6,5 @@ export interface SaleHistory {
     price: string,
     created_at: string,
     will_end_at: string,
+    nfts_id: number,
 }

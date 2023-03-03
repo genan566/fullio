@@ -33,6 +33,20 @@ export class NftsAPI {
 
     }
 
+    async get_multi_NFT_by_ID(idx: number[] | undefined) {
+        return fetch(
+            api_url(`core_nfts/?search_multi=${idx?.toString()}`),
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': "application/json;charset=utf-8"
+                },
+            }
+        )
+            .then((js) => js.ok && js.json())
+
+    }
+
     async get_all_by_featured_cat() {
         return fetch(
             api_url(`core_nfts/?categories=13`),
