@@ -89,9 +89,7 @@ const FAQ = () => {
 
             {
                 userContext?.user && <>
-                    <p className="text-sm mt-6 mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Veritatis ab, iure sint magni tempora architecto ducimus assumenda reprehenderit!
-                        Reprehenderit voluptatem illum architecto cum cupiditate! Ea modi a doloribus excepturi fuga?</p>
+                    <p className="text-sm mt-6 mb-5">This page relate to the frequents questions asked on NFT Project. And we often trying to answer on it.</p>
 
                     {
                         dataFAQS.length > 0 && dataFAQS.map((it, idx) => {

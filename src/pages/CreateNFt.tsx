@@ -218,13 +218,11 @@ const CreateNFt = () => {
                 <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md">
                     <div className="px-[1.5vw] max-w-[900px] mx-auto flex flex-row justify-center gap-[1rem] items-center max-[800px]:flex-wrap">
                         <h2 className="text-white after:content-[''] after:w-[15%] after:h-[1px] after:shadow-md font-MontSemiBold
-                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.6rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
+                        after:absolute after:top-0 after:left-0 after:bg-indigo-500 relative text-[1.5rem] leading-[2.5rem] py-4 w-[50%] max-[800px]:w-full">
                             Create your NFT by entering these informations
                         </h2>
 
-                        <p className='text-white text-[1rem] w-[50%] max-[800px]:w-full'>Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
-                            libero fugiat! Itaque.</p>
+                        <p className='text-white text-[1rem] w-[50%] max-[800px]:w-full'>Follow theses steps to create your own NFT</p>
                     </div>
 
                     <form action="" className='' onSubmit={handleSubmit(onSubmit)}>

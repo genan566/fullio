@@ -132,9 +132,7 @@ const HomeView = () => {
                             variants={containerVariants}
                             className="flex flex-col gap-1 justify-center">
                             <p className="text-dynamique font-MontBold mt-1 max-w-[500px] max-[500px]:w-full">Create/Manage <span>NFTs</span> for your digital products/clients.</p>
-                            <p className='mt-2 text-sm inline-block max-w-[500px] max-[500px]:w-full'>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dicta quam numquam fuga
-                                libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+                            <p className='mt-2 text-sm inline-block max-w-[500px] max-[500px]:w-full'>Unlock the world of digital ownership. Craft unique NFT experiences for your clients and celebrate your creative visions.</p>
 
                             <div className="flex gap-4 mt-[2rem] flex-wrap">
                                 <button
@@ -203,9 +201,8 @@ const HomeView = () => {
                         Discover a unique <span className="block">collection artistic works</span>
                     </h2>
 
-                    <p className='text-white text-sm w-1/2 max-[500px]:w-full'>Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
-                        libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+                    <p className='text-white text-sm w-1/2 max-[500px]:w-full'>
+                        Our platform connects exceptional creators, giving a new meaning to art and artistic works. Noplomi - Purchase & Sell NFT!</p>
                 </div>
 
                 <div className="mt-[5rem] flex max-[1400px]:flex-wrap gap-[2rem] gap-y-[3rem] min-[1000px]:justify-center">
@@ -221,10 +218,8 @@ const HomeView = () => {
                             />
                         </div>
                         <div className="mt-[2rem]">
-                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">Lorem ipsum dolor sit amet <span className="text-indigo-500">consectetur</span></p>
-                            <p className='mt-2 text-black text-sm'>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dicta <span className="text-black font-MontSemiBold">quam numquam fuga </span>
-                                libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">Everything you need in one <span className="text-indigo-500">platform place.</span></p>
+                            <p className='mt-2 text-black text-sm'>Our mission is to support creators and show new possibilities in rendering <div className="span text-black font-MontSemiBold">3D models</div> and their interesting proposals in various forms.</p>
                         </div>
                     </div>
 
@@ -240,10 +235,8 @@ const HomeView = () => {
                             />
                         </div>
                         <div className="mt-[2rem]">
-                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">Lorem ipsum dolor sit amet <span className="text-indigo-500">consectetur</span></p>
-                            <p className='mt-2 text-black text-sm'>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dicta <span className="text-black font-MontSemiBold">quam numquam fuga </span>
-                                libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">You will find only selected products on our platform.</p>
+                            <p className='mt-2 text-black text-sm'><span className="text-black font-MontSemiBold">Our platform</span> is a collection of professional creators only. We do not want to create a marketplace, we only want to show unique works of artistic.</p>
                         </div>
 
 
@@ -278,10 +271,8 @@ const HomeView = () => {
                             />
                         </div>
                         <div className="mt-[2rem]">
-                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">Lorem ipsum dolor sit amet <span className="text-indigo-500">consectetur</span></p>
-                            <p className='mt-2 text-black text-sm'>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dicta <span className="text-black font-MontSemiBold">quam numquam fuga </span>
-                                libero fugiat! Itaque, esse neque. Fugit animi quis ut. Eligendi id temporibus voluptas vel ratione!</p>
+                            <p className="text-lg font-MontSemiBold text-black mb-[1rem]">Establish permanent cooperation and get attractive sales offers.</p>
+                            <p className='mt-2 text-black text-sm'>We focus on the development platform of the application and good contact in the sell and purchase products.</p>
                         </div>
                     </div>
 
@@ -289,8 +280,6 @@ const HomeView = () => {
 
                 <p className="text-xl font-MontSemiBold text-center mt-[10rem]">Collections Products
                     <span className="rounded-lg border border-white text-[.8rem] py-1 px-4 ml-3 shadow-md">20</span></p>
-                <p className="text-sm mt-[15px] font-MontSemiBold text-center text-slate-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-
 
                 <div className="mt-[50px] flex gap-[25px] items-center w-full flex-wrap justify-center">
                     <RenderingNFTs
@@ -444,8 +433,6 @@ const HomeView = () => {
                 }
 
                 <p className="text-xl font-MontSemiBold text-center mt-[7rem]">Ours Partners</p>
-                <p className="text-sm mt-[15px] font-MontSemiBold 
-                        text-center text-slate-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
                 <div className="mt-[50px] flex gap-[5rem] items-center w-full flex-wrap justify-center">
                     <img

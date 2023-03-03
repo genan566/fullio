@@ -37,14 +37,12 @@ const AboutPage = () => {
                         <h2 className="text-[3rem] font-MontBold w-full capitalize">About us</h2>
                         <div className="w-full">
                             <h2 className="font-MontBold mb-[.5rem]">Extra Biling data on search <span className="text-indigo-300">nfts products manager</span> info</h2>
-                            <h4 className="text-xs text-slate-400 font-MontSemiBold w-full">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Placeat modi deleniti dolor distinctio esse! Nisi explicabo, tempore magnam eos provident deleniti
-                                nesciunt, minima officia reiciendis natus ut ipsam reprehenderit distinctio!</h4>
+                            <h4 className="text-xs text-slate-400 font-MontSemiBold w-full">Unlocking valuable data insights with extra biling. NFTs and product management made easy! Let's get your business organized and running efficiently.</h4>
                         </div>
                     </div>
 
                     <div className="">
-                        <figure className="w-full bg-zinc-700 rounded-md mt-[3rem] max-w-[100%] relative h-[300px] overflow-hidden ">
+                        <figure className="w-full bg-zinc-700 rounded-md mt-[3rem] max-w-[100%] relative h-[350px] overflow-hidden ">
                             <img
                                 className="h-full w-full absolute inset-0 z-[1] object-cover"
                                 src={NFT11}
@@ -69,63 +67,42 @@ const AboutPage = () => {
                                 Your business is significant <span className="block">numbers</span>
                             </h2>
 
-                            <p className='text-white text-[1rem] w-[50%] max-[800px]:w-full'>Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
-                                libero fugiat! Itaque.</p>
+                            <p className='text-white text-[1rem] w-[50%] max-[800px]:w-full'>Numbers tell stories. We help you make sense of <span className="text-white font-MontSemiBold">the numbers that matter to your business. </span>Unlocking valuable insights for success.
+                            </p>
                         </div>
 
                         <div className="flex justify-center max-[1200px]:justify-start max-[1200px]:flex-wrap items-start mt-[1.5rem] gap-[1rem]">
                             <div className="bg-zinc-800 rounded-md border border-indigo-600 transition-all hover:border-transparent shadow-2xl p-5 w-full max-w-[400px]">
                                 <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">20k+</h2>
 
-                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[.2rem] leading-[1.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h4>
+                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[.2rem] leading-[1.5rem]">Create on Viewship. Our platform generate a lot of views.</h4>
 
-                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem] ">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                    Placeat modi deleniti dolor distinctio esse! Nisi explicabo, <span className="text-zinc-200 font-MontBold">tempore magnam eos provident deleniti </span>
-                                    nesciunt, minima officia reiciendis natus ut ipsam reprehenderit distinctio! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente earum, officia sunt, voluptas officiis alias at laboriosam rem esse minima repellat vitae ea reprehenderit labore tenetur unde illo asperiores fuga.</h4>
+                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem] ">We're on a mission to create views that matter. Join us on Viewship to get more eyes, engage more people, and reach your audience. #CreateOnViewship
+
+                                    —
+
+                                    We help turn your creative dreams into reality with our innovative platform that delivers high-quality views. Let's create together on Viewship!</h4>
                             </div>
-                            <div className="bg-zinc-800 rounded-md border border-indigo-600 transition-all hover:border-transparent  shadow-2xl p-5 w-full max-w-[400px]">
+
+                            <div className="bg-zinc-800 border border-indigo-600 transition-all hover:border-transparent rounded-md shadow-2xl p-5 w-full max-w-[400px]">
+
                                 <img
                                     className="h-[100px] w-[100px] rounded-full object-cover shadow-lg"
                                     src={NFT11}
                                     alt="user Profile" />
 
-                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[1rem] leading-[1.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h4>
+                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[.2rem] leading-[1.5rem]">We create meets with fans and special events.</h4>
 
-                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[1rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                    Placeat modi deleniti dolor distinctio esse! Nisi explicabo, <span className="text-zinc-200 font-MontBold">tempore magnam eos provident deleniti </span>
-                                    nesciunt, minima officia reiciendis natus ut ipsam reprehenderit distinctio!</h4>
+                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem]">Bringing people together through special experiences. We create unforgettable moments with fans and artists alike. #LiveLifeLoud
 
+                                    —
 
-                                <div className="mt-5">
-                                    <button
-                                        // onClick={handleLog}
-                                        className="bg-indigo-600 flex items-center justify-center gap-1 w-fit
-                            hover:bg-transparent hover:text-indigo-600 hover:border border-violet-600
-                            focus:outline-none
-                            text-sm font-MontSemiBold
-                            focus:ring-2
-                            focus:ring-gray-500
-                                py-1 text-white px-3
-                                rounded-lg"><p>Follow Now</p>
-                                        <RiShoppingBasket2Line
-                                            // color="white"
-                                            size={17}
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="bg-zinc-800 border border-indigo-600 transition-all hover:border-transparent rounded-md shadow-2xl p-5 w-full max-w-[400px]">
-                                <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">40k+</h2>
+                                    Making connections one event at a time! We bring fans closer to their favorite celebrities through exclusive meet-and-greet events and special experiences.
 
-                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[.2rem] leading-[1.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</h4>
-
-                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[.5rem]">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                    Placeat modi deleniti dolor distinctio esse! Nisi explicabo, <span className="text-zinc-200 font-MontBold">tempore magnam eos provident deleniti </span>
-                                    nesciunt, minima officia reiciendis natus ut ipsam reprehenderit distinctio!</h4>
+                                    —</h4>
 
 
-                                <div className="mt-5">
+                                {/* <div className="mt-5">
                                     <button
                                         // onClick={handleLog}
                                         className="bg-indigo-600 flex items-center justify-center gap-1 w-fit
@@ -141,13 +118,40 @@ const AboutPage = () => {
                                             size={17}
                                         />
                                     </button>
-                                </div>
+                                </div> */}
+                            </div>
+
+                            <div className="bg-zinc-800 rounded-md border border-indigo-600 transition-all hover:border-transparent  shadow-2xl p-5 w-full max-w-[400px]">
+                                <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">40k+</h2>
+
+                                <h4 className="text-[1.1rem] text-white font-MontBold w-full mt-[1rem] leading-[1.5rem]">Experience in the business of online contracts.</h4>
+
+                                <h4 className="text-[.7rem] text-zinc-300 font-Regular w-full mt-[1rem]">We have been working on the application about combines opportunities for personal development and helps you learn to code at every stage.</h4>
+
+
+                                {/* <div className="mt-5">
+                                    <button
+                                        // onClick={handleLog}
+                                        className="bg-indigo-600 flex items-center justify-center gap-1 w-fit
+                            hover:bg-transparent hover:text-indigo-600 hover:border border-violet-600
+                            focus:outline-none
+                            text-sm font-MontSemiBold
+                            focus:ring-2
+                            focus:ring-gray-500
+                                py-1 text-white px-3
+                                rounded-lg"><p>Follow Now</p>
+                                        <RiShoppingBasket2Line
+                                            // color="white"
+                                            size={17}
+                                        />
+                                    </button>
+                                </div> */}
                             </div>
                         </div>
 
                         <p className="text-xl font-MontSemiBold text-center mt-[10rem]">Yours Collections Products For the moment
                             <span className="rounded-lg border border-white text-[.8rem] py-1 px-4 ml-3 shadow-md">20</span></p>
-                        <p className="text-sm mt-[15px] font-MontSemiBold text-center text-slate-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        {/* <p className="text-sm mt-[15px] font-MontSemiBold text-center text-slate-500">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> */}
 
                         <div className="mt-[50px] flex gap-[25px] items-center w-full flex-wrap justify-center">
 

@@ -86,8 +86,7 @@ const Footer = () => {
                         Send us a mail
                     </h2>
 
-                    <p className='text-white text-sm w-[50%] max-[800px]:w-full'>Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Nobis error neque dicta <span className="text-white font-MontSemiBold">quam numquam fuga </span>
+                    <p className='text-white text-right text-sm w-[50%] max-[800px]:w-full'>If you are already here, you are probably interested in our product. Use the form below and <span className="text-white font-MontSemiBold">submit a purchase proposal.</span>
                         libero fugiat! Itaque.</p>
                 </div>
                 <div className="min-[1000px]:px-[1.5vw] max-w-[900px] mx-auto">
@@ -173,15 +172,14 @@ const Footer = () => {
                     />
                 </button>
             </form>
-            <div className="flex max-w-[1300px] mx-auto justify-between gap-[1rem] px-[1rem] mt-[5rem] max-[600px]:flex-wrap">
-                <div className="gap-[1rem]">
+            <hr className='bg-gray-600 mt-[5rem] mx-auto'/>
+            <div className="flex max-w-[1300px] mx-auto justify-center gap-[1rem] px-[1rem] mt-[2rem]  max-[600px]:flex-wrap border-1">
+                <div className="gap-[1rem] max-w-[250px]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Fullio</p>
-                    <p className="text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Exercitationem repellendus saepe quaerat vel ducimus nostrum eos magnam nulla, beatae molestiae
-                        obcaecati <span className="font-MontSemiBold">alias voluptate quis</span> provident. Deserunt, sequi. Nulla, odio ea.</p>
+                    <p className="text-white text-sm mt-[1rem]"><span className="font-MontSemiBold">Fullio</span> is a template created with the STUDIO tool. All information contained here is fictional and preview to create your own website.</p>
                 </div>
 
-                <div className="gap-[1rem]">
+                <div className="gap-[1rem]  max-w-[250px]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Navigation</p>
                     <div className="flex flex-wrap gap-4 min-w-[250px]">
                         <Link to={"/"}>
@@ -213,20 +211,17 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="gap-[1rem]">
-                    <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Categories</p>
-                    <p className="text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae
-                        obcaecati provident. Deserunt, sequi. Nulla, odio ea.</p>
-                </div>
-
-                <div className="gap-[1rem]">
+                <div className="gap-[1rem]  max-w-[250px]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Send Message</p>
-                    <p className="text-white text-sm mt-[1rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Exercitationem repellendus saepe quaerat alias voluptate quis vel ducimus nostrum eos magnam nulla, beatae molestiae
-                        obcaecati provident. Deserunt, sequi. Nulla, odio ea.</p>
+                    <p className="text-white text-sm mt-[1rem]">
+                        Privacy Policy
+                        Our publishers
+                        Contact
+                        Send message
 
-                    <a href="#mailing"
+                        If you need help or have a question about Noplomi, please contact us and use our advanced form.</p>
+
+                    {/* <a href="#mailing"
 
                         className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                         hover:bg-white hover:text-black mt-4
@@ -241,7 +236,7 @@ const Footer = () => {
                             // color="white"
                             size={17}
                         />
-                    </a>
+                    </a> */}
                 </div>
             </div>
             <div className="flex justify-center">

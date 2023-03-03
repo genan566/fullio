@@ -232,7 +232,7 @@ const PageSettings = () => {
                         }
 
                         {/* <Link to={"/userList"}> */}
-                        {
+                        {/* {
                             userContext.user.is_superuser && <div
                                 className="bg-slate-700 h-48 hover:bg-gradient-to-r 
                         from-green-400 to-blue-500 p-8 md:p-5 sm:p-2 rounded-md cursor-pointer shadow-lg">
@@ -246,7 +246,7 @@ const PageSettings = () => {
                                     </div>
                                     <div className="columns gap-1">
                                         <h3 className="text-md font-MontBold">Core Categories</h3>
-                                        {/* <p className="text-sm">2 categories managed</p> */}
+                                        
                                     </div>
                                 </div>
 
@@ -254,7 +254,7 @@ const PageSettings = () => {
                                     <p className="text-sm">Manage categories NFTs</p>
                                 </div>
                             </div>
-                        }
+                        } */}
                         {/* </Link> */}
 
                     </div>

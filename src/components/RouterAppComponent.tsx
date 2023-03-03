@@ -83,6 +83,7 @@ const RouterAppComponent = ({ isOpen, isOpenUser, controlSearch }:
                     <Route path="/aboutPage" element={<AboutPage />} />
                     <Route path="/userList" element={<UsersList />} />
                     <Route path="/adminViewNFTs" element={<AdminViewNFTs />} />
+                    
                     {/* <Route path="/virtualVisit" element={<VirtualVisit />} />
                       <Route path="/login" element={<Login />} />
                       <Route path="/register" element={<Register />} />
