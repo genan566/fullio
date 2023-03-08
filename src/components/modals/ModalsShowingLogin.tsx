@@ -44,9 +44,9 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                         dispatch({ type: TOGGLE_MODAL_FOR_LOGIN, payload: false })
                         userTokenContext?.setToken(JSON.stringify(res.token))
                         localStorage.setItem('userToken', JSON.stringify(res.token));
-                        setTimeout(() => {
-                            document.location.reload()
-                        }, 1000)
+                        // setTimeout(() => {
+                        //     document.location.reload()
+                        // }, 1000)
                         setMail("")
                         setPassword("")
                         

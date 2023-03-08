@@ -45,7 +45,7 @@ export class AuthAPI {
                 }
             )
                 .then((js) => js.ok && js.json())
-                .catch(er => console.log("er on retrieve", er))
+                // .catch(er => console.log("er on retrieve", er))
 
         }
 
@@ -66,7 +66,7 @@ export class AuthAPI {
                 }
             )
                 .then((js) => js.ok && js.json())
-                .catch(er => console.log("er on retrieve", er))
+                // .catch(er => console.log("er on retrieve", er))
 
         }
 
@@ -88,7 +88,7 @@ export class AuthAPI {
                 }
             )
                 .then((js) => js.ok && js.json())
-                .catch(er => console.log("er on retrieve", er))
+                // .catch(er => console.log("er on retrieve", er))
 
         }
 

@@ -1,0 +1,1 @@
+'0.0.0.0', 'localhost', '127.0.0.1', 'genan566.pythonanywhere.com', 'https://frolicking-jalebi-2d6068.netlify.app', 'https://frolicking-jalebi-2d6068.netlify.app/', 'http://frolicking-jalebi-2d6068.netlify.app', 'http://frolicking-jalebi-2d6068.netlify.app/'

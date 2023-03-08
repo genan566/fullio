@@ -232,8 +232,8 @@ const DetailNft = () => {
                 </button>
             </div>
             {
-                nftContext?.nftData?.id && ((userContext.user.is_superuser) ||
-                    (userContext.user.name === userRetrieveData.name)) && <div className="w-full mt-[5rem]">
+                nftContext?.nftData?.id
+                && ((userContext.user.is_superuser) || ((userContext.user.name === userRetrieveData.name)) && userRetrieveData.name !== undefined) && <div className="w-full mt-[5rem]">
                     <button
                         onClick={delete_nft}
                         className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
@@ -263,7 +263,7 @@ const DetailNft = () => {
                     {
                         !file.asPreview &&
                         nftContext?.nftData?.id
-                        && ((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (
+                        && ((userContext.user.is_superuser) || ((userContext.user.name === userRetrieveData.name)) && userRetrieveData.name !== undefined) && (
                             <button className="absolute top-5 active:bg-slate-700 right-5 z-[2]
                                 rounded-full border border-1 border-transparent p-3 bg-slate-900 shadow-lg">
                                 <IoFileTray
@@ -314,7 +314,7 @@ const DetailNft = () => {
                 <div className="w-full max-w-[650px]">
                     <div className="p-[2rem] bg-slate-800 rounded-lg shadow-md w-full max-[700px]:max-w-[100%] max-w-[650px] relative">
                         {
-                            nftContext?.nftData?.id && (((userContext.user.is_superuser) || (userContext.user.name === userRetrieveData.name)) && (!editable)) && (
+                            nftContext?.nftData?.id && (((userContext.user.is_superuser) || ((userContext.user.name === userRetrieveData.name)) && userRetrieveData.name !== undefined) && (!editable)) && (
                                 <button
                                     onClick={() => setEditable(!editable)}
                                     className="absolute top-5 active:bg-slate-700 right-5 z-[2]

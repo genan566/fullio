@@ -71,7 +71,7 @@ const AboutPage = () => {
                             </p>
                         </div>
 
-                        <div className="flex justify-center max-[1200px]:justify-start max-[1200px]:flex-wrap items-start mt-[1.5rem] gap-[1rem]">
+                        <div className="flex justify-center max-[1200px]:items-center max-[930px]:justify-start max-[1200px]:flex-wrap items-start mt-[1.5rem] gap-[1rem]">
                             <div className="bg-zinc-800 rounded-md border border-indigo-600 transition-all hover:border-transparent shadow-2xl p-5 w-full max-w-[400px]">
                                 <h2 className="font-MontBold text-indigo-300 text-[5.5rem]">20k+</h2>
 
