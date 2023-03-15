@@ -37,45 +37,7 @@ const Footer = () => {
 
     return (
         <>
-            <div className="mt-[10rem] ">
-                <div className="animated_gradient_bg animFalse max-[800px]:w-full  max-[700px]:w-[95%] rounded-lg shadow-lg p-2 py-[4rem] mt-[5rem] relative fixed-w">
-                    <div className="p-[.25rem] rounded-full animated_gradient_bg text w-fit translate-x-[-50%]
-                                overflow-hidden absolute top-[-2rem] left-[50%] shadow-lg">
-
-                        <img
-                            className="h-20 w-20 rounded-full object-cover shadow-lg"
-                            src={ISOTOP}
-                            alt="user Profile" />
-                    </div>
-                    <div className="px-[4rem] flex flex-row max-[600px]:justify-center justify-between gap-[1rem] items-center flex-wrap">
-                        <h2 className="text-white after:content-[''] after:w-[25%] after:h-[1px] after:shadow-md font-MontBold max-[600px]:w-full max-[600px]:text-center
-                            after:absolute after:top-0 after:left-0 max-[600px]:after:left-[50%] max-[600px]:my-[1.5rem] max-[600px]:after:translate-x-[-50%] after:bg-white relative text-[1.8rem] leading-[2.5rem] py-4 ">
-                            Discover a unique <span className="block">collection artistic works</span>
-                        </h2>
-
-                        <div className="">
-                            <button
-                                // onClick={handleLog}
-                                className="bg-transparent flex items-center justify-center gap-1 w-[200px] border border-white
-                                    hover:bg-white hover:text-black                                         
-                                    focus:outline-none
-                                    text-sm font-MontSemiBold
-                                    focus:ring-2
-                                    focus:ring-gray-500
-                                        py-1 text-white px-3
-                                        rounded-lg">
-                                <p>Check More</p>
-                                <IoArrowForward
-                                    className='ml-1'
-                                    // color="white"
-                                    size={17}
-                                />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 id='mailing'

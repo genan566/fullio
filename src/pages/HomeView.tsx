@@ -241,7 +241,7 @@ const HomeView = () => {
 
 
 
-                        <button
+                        {/* <button
                             // onClick={handleLog}
                             className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-indigo-500
                                         hover:bg-white hover:text-black mt-[1.5rem]
@@ -256,7 +256,7 @@ const HomeView = () => {
                                 // color="white"
                                 size={17}
                             /> <p>Discover More</p>
-                        </button>
+                        </button> */}
                     </div>
 
                     <div className="min-w-[300px] max-w-[400px] bg-white p-[1.5rem] rounded-md relative">
@@ -331,22 +331,15 @@ const HomeView = () => {
                                     <div className='point'></div> The Best Choice</span>
                             </div>
 
-                            <button
+                            <div
                                 // onClick={handleLog}
                                 className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
                                         hover:bg-white hover:text-black
-                                        
-                                        focus:outline-none
                                         text-sm font-MontSemiBold
-                                        focus:ring-2
-                                        focus:ring-gray-500
                                             py-1 text-white px-3
                                             rounded-lg">
-                                <IoArrowForward
-                                    // color="white"
-                                    size={17}
-                                /> <p>Latest added</p>
-                            </button>
+                                <p>Latest added</p>
+                            </div>
 
                         </div>
 
