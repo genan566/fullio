@@ -24,7 +24,7 @@ const Footer = () => {
     const { register, handleSubmit,
         resetField, formState: { errors } } = useForm<Inputs>();
 
-    const handlerForCategorie = (gettedData: Inputs) => {
+    const handlerForContacts = (gettedData: Inputs) => {
         let core_contacts = new CoreContactsAPI()
 
         core_contacts
@@ -32,7 +32,7 @@ const Footer = () => {
     }
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        handlerForCategorie(data)
+        handlerForContacts(data)
     };
 
     return (
