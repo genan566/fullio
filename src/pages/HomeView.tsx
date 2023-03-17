@@ -123,7 +123,7 @@ const HomeView = () => {
     return (
         <div className="homeView">
             <div className="w-full">
-                <div className="animated_gradient_bg h-fit max-[950px]:h-[50vh] max-[550px]:h-[60vh] rounded-lg shadow-xl
+                <div className="animated_gradient_bg h-fit max-[950px]:h-[50vh] max-[550px]:h-[70vh] rounded-lg shadow-xl
                      max-[800px]:p-[1.9rem] p-[4rem] py-[3rem] flex justify-between mb-[10rem]">
                     <div className="flex gap-[1rem] justify-between items-center w-full fixed-w">
                         <motion.div

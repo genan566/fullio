@@ -327,7 +327,7 @@ const AdminViewNFTs = () => {
                 </div>
             </div>
 
-            <div className="flex gap-5 mt-10 align-center pb-10 max-[899px]:overflow-x-scroll min-[900px]:flex-wrap max-[899px]:max-w-[95vw]">
+            <div className="flex gap-5 mt-10 align-center pb-10 max-[899px]:overflow-x-scroll min-[900px]:flex-wrap max-[899px]:max-w-[95vw] max-[500px]:max-w-[90vw]">
                 <RenderingNFTs
                     custom_func={initial_fetching_nfts}
                     render_type='flated'

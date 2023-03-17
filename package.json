@@ -44,6 +44,7 @@
     "build:css": "node-sass src/styles -o src/styles ",
     "watch:css": "npm run build:css && node-sass src/styles -o src/styles -w -r",
     "start:js": "react-scripts start",
+    "build-deploy": "npm run build && firebase deploy",
     "start": "npm-run-all -p watch:css start:js",
     "build:js": "react-scripts build",
     "build": "npm-run-all build:*",
