@@ -203,7 +203,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="flex justify-center">
-                <p className="text-sm text-white font-MontSemiBold mt-7">Fullio@ 2022, All right reserved</p>
+                <p className="text-sm text-white font-MontSemiBold mt-7">Fullio@ 2022, @avodagbejeangontran@ All right reserved</p>
             </div>
         </>
     )
