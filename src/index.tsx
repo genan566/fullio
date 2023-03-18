@@ -34,7 +34,9 @@ root.render(
                 </RootNFTContextProvider>
               </RootUserContextProvider>
               <ToastContainer
+                className="mx-auto text-center"
                 position="bottom-center"
+                style={{ maxWidth: "300px", }}
                 theme="dark" />
             </RootCreatorProvider>
           </RootAdminEditableUserContextProvider>

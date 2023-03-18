@@ -26,6 +26,7 @@ const RenderingNFTs = ({ nftsData, with_slice, render_type = "default", custom_f
                             }
                             return (
                                 <>
+                                    {/* {console.log(item.categories_trending, "df")} */}
                                     {
                                         render_type === "default" &&
                                         <CardNFT

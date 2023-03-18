@@ -6,6 +6,7 @@ import { CoreContactsAPI } from '../APIs/CoreContacts';
 import { RootUserContext } from '../contexts';
 
 import ISOTOP from "../imgs/vadim-bogulov-lG4A4GmcYYg-unsplash.jpg";
+import { notify } from '../utilities/Toaster';
 import ErrorText from './ErrorText';
 
 type Inputs = {
@@ -37,7 +38,7 @@ const Footer = () => {
 
     return (
         <>
-            
+
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 id='mailing'
@@ -134,7 +135,7 @@ const Footer = () => {
                     />
                 </button>
             </form>
-            <hr className='bg-gray-600 mt-[5rem] mx-auto'/>
+            <hr className='bg-gray-600 mt-[5rem] mx-auto' />
             <div className="flex max-w-[1300px] mx-auto justify-center gap-[1rem] px-[1rem] mt-[2rem]  max-[600px]:flex-wrap border-1">
                 <div className="gap-[1rem] max-w-[250px]">
                     <p className="text-white font-MontSemiBold text-sm mb-[2rem]">Fullio</p>

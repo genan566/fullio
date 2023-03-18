@@ -117,7 +117,7 @@ const ManageNFTs = () => {
                     </div> */}
                 </div>
 
-                <div className="flex max-[500px]:overflow-x-scroll min-[505px]:flex-wrap max-[500px]:max-w-[80vw] py-[1rem] items-center gap-[2rem] mt-[3rem]">
+                <div className="flex gap-5 mt-10 align-center pb-10 max-[899px]:overflow-x-scroll min-[900px]:flex-wrap max-[899px]:max-w-[95vw] max-[500px]:max-w-[95vw]">
                     {
                         nftsData.results && <>
                             {
@@ -153,7 +153,7 @@ const ManageNFTs = () => {
                     }
 
                     {
-                        (Boolean(nftsData.results)) && <div className="text-center w-full">
+                        !Boolean(nftsData.results) && <div className="text-center w-full">
                             <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
                         </div>
                     }

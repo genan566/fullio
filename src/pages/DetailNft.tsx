@@ -29,6 +29,7 @@ import { FileInterface } from '../types/FileInterface';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { notify } from '../utilities/Toaster';
+import SaleComponent from '../components/SaleComponent';
 
 type Inputs = {
     title: string,
@@ -188,6 +189,39 @@ const DetailNft = () => {
             }
         }
     }
+
+    const load_categories = async () => {
+        if (Boolean(nftContext?.nftData?.categories_trending?.length)) {
+            {
+
+                // categories_trending.map(it => {
+                //     let idX = it
+                //     let categories_trendings = new CategoriesTrendingAPI()
+                //     categories_trendings
+                //         .get_categorie(idX)
+                //         .then(data => {
+                //             let checker = { id: data.id, name: data.name }
+                //             if ((categorie?.id !== checker.id) && categorie?.name !== checker.name) {
+                //                 setCategorie(data)
+                //             }
+                //         })
+                // })
+
+                let categories_trendings = new CategoriesTrendingAPI()
+                categories_trendings
+                    .get_multi_categorie(nftContext?.nftData?.categories_trending)
+                    .then(data => {
+                        if (data.results.length > 0) {
+                            setCategories([...data.results])
+                        }
+                    })
+            }
+        }
+    }
+
+    React.useEffect(() => {
+        load_categories()
+    }, [nftContext?.nftData?.categories_trending])
 
 
     React.useEffect(() => {
@@ -441,6 +475,7 @@ const DetailNft = () => {
                                                 )
                                             })
                                         }
+                                        {/* {console.log(nftContext.nftData)} */}
 
                                         {
                                             categories.length === 0 && <div className="text-center w-full">
@@ -512,38 +547,12 @@ const DetailNft = () => {
 
                     {
                         saleHistories.map((item) => {
-                            let retrievingUser = userRetrieveDataListForSales.find((it => it.id === item.user_suscribed))
 
                             return (
                                 <>
-                                    <div className="flex row justify-between items-center bottom-divider py-3  flex-wrap gap-2">
-                                        <div className="flex row justify-center items-center max-w-[200px] flex-grow">
-                                            <div className="flex gap-2 row items-center justify-start w-fit" >
-                                                <img
-                                                    className="h-10 w-10 rounded-full object-cover bg-cover shadow-lg"
-                                                    src={retrievingUser?.image || ISOTOP}
-                                                    alt="user Profile" />
-                                                <p className="text-sm text-white font-MontSemiBold max-w-[120px] truncate">{item.title}</p>
-                                            </div>
-                                        </div>
-                                        <p className="text-white text-sm font-MontSemiBold flex-grow">{retrievingUser?.email || "Anonyme"}</p>
-                                        <p className="text-orange-500 text-sm font-MontSemiBold flex-grow">{item?.price}ETH</p>
-                                        <p className="text-white text-sm font-MontSemiBold flex-grow">{item.created_at}</p>
-                                        <p className="text-white text-sm font-MontSemiBold flex-grow">{item.will_end_at}</p>
-                                        {/* <button
-                                            // onClick={handleLog}
-                                            className="bg-transparent flex row items-center justify-center gap-1 w-fit border border-white
-                                                    hover:bg-white hover:text-black
-                                                    
-                                                    focus:outline-none
-                                                    text-xs font-MontSemiBold
-                                                    focus:ring-2 py-2
-                                                    focus:ring-gray-500
-                                                        text-white px-3
-                                                        rounded-lg">
-                                            Learn More
-                                        </button> */}
-                                    </div>
+                                    <SaleComponent
+                                        item={item}
+                                        key={`${item?.created_at}`} />
                                 </>
                             )
                         })
