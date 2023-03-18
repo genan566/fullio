@@ -135,26 +135,17 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                         Log In
                     </button>
                 }
-
-
-                {
-                    !userContext?.user.id && <>
-                        <p className="text-slate-400 font-MontSemiBold text-sm mt-12">Recent Activity</p>
-                        <p className="text-slate-500 font-MontRegular text-sxl align-center my-5">Nothing to show now</p>
-                    </>
-                }
-
                 {
                     userContext?.user.id && <>
 
-                        <h3 className="text-xl font-MontBold text-slate-200">{userContext?.user?.name}</h3>
+                        <h3 className="text-xl font-MontBold text-slate-100">{userContext?.user?.name}</h3>
                         <div className="flex mt-3 gap-2 align-center"
                             style={{ textAlign: 'center', justifyContent: "center" }}>
-                            <p className="text-sxl text-slate-500">{userContext?.user?.email}</p>
-                            <IoCopy
+                            <p className="text-sxl text-slate-300">{userContext?.user?.email}</p>
+                            {/* <IoCopy
                                 color="rgba(255,255,255,.5)"
                                 size={15}
-                            />
+                            /> */}
                         </div>
 
                         <div className="flex gap-2 mt-5 items-center justify-center px-3">
@@ -210,11 +201,7 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
 
                         {
                             saleHistories.map((item) => {
-                                // useLoadNFT(item.nfts_id)
                                 let retrieveNFT = sale_Set_NFT.find((it) => item.nfts_id === it.id);
-                                console.log("Retrieve", retrieveNFT)
-                                let retrievingUser = userRetrieveDataListForSales
-                                    .find((it => it.id === item.user_suscribed))
                                 return (
                                     <>
                                         <div className="custom-userStatus mt-3">
@@ -230,6 +217,14 @@ const ProfilBox = ({ handleLog, handlShow, handleLogOut }: { handleLog: () => vo
                                         </div>
                                     </>)
                             })
+                        }
+
+
+                        {
+                            saleHistories.length < 1 && <>
+                                <p className="text-slate-200 font-MontSemiBold text-sm mt-12">Recent Activity</p>
+                                <p className="text-slate-300 font-MontRegular text-sxl align-center my-5">Nothing to show now</p>
+                            </>
                         }
                     </>
                 }
