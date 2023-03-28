@@ -447,7 +447,7 @@ const DetailNft = () => {
                             nftContext?.nftData?.id && !editable && (
                                 <>
                                     <h1 className="text-white text-2xl font-MontBold">{nftContext?.nftData?.title || "Non défini"}</h1>
-                                    <div className="flex row gap-2 w-fit mt-4">
+                                    <div className="flex row gap-2 flex-wrap w-fit mt-4">
 
                                         {
                                             categories.map(item => {

@@ -7,7 +7,11 @@ import FlatedNFT from './FlatedNFT'
 const RenderingNFTs = ({ nftsData, with_slice, render_type = "default", custom_func }:
     { nftsData: PaginatedDataNFT, with_slice: boolean, render_type?: "default" | "flated", custom_func?: () => void }) => {
     let data_renderring_likes = Boolean(nftsData.results) ?
-        !Boolean(with_slice) ? nftsData.results : nftsData.results.slice(0, 5) : nftsData.results
+        !Boolean(with_slice) ? nftsData.results?.sort((a, b) => {
+            return new Date(a.created_at) <= new Date(b.created_at) ? -1 : 1
+        }) : nftsData.results.slice(0, 5) : nftsData.results?.sort((a, b) => {
+            return new Date(a.created_at) <= new Date(b.created_at) ? -1 : 1
+        })
     return (
         <>
             {

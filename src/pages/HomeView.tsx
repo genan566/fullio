@@ -10,7 +10,7 @@ import NFT11 from "../imgs/istockphoto.jpg";
 import NFT12 from "../imgs/istockphoto-1367699775-612x612.jpg";
 
 
-import ISOTOP from "../imgs/vadim-bogulov-lG4A4GmcYYg-unsplash.jpg";
+import ISOTOP from "../imgs/nftsImgs/teso.jpeg";
 import ISOTOP2 from "../imgs/5348934.jpg";
 import Partner1 from "../imgs/partner/partner-1.png";
 import Partner2 from "../imgs/partner/partner-2.png";
