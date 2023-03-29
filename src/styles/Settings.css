@@ -1,6 +1,5 @@
 .settings {
   padding: 1rem; }
-
-@media only screen and (max-width: 600px) {
-  .settings {
-    padding: 0; } }
+  @media only screen and (max-width: 600px) {
+    .settings {
+      padding: 0; } }

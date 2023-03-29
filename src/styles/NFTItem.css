@@ -8,25 +8,23 @@
   min-width: 250px;
   max-width: 350px;
   background-position: center; }
-
-.NFTS-details {
-  padding: 1rem;
-  border-radius: 1rem;
-  width: 100%;
-  background-color: #110525;
-  position: relative;
-  box-shadow: 0 0 1rem black; }
-
-.NFTS-details .nftsUserImg {
-  border-radius: 10rem;
-  object-fit: fill;
-  height: 60px;
-  box-shadow: 0 0 1rem black;
-  width: 60px;
-  top: 0;
-  position: absolute;
-  transform: translateY(-50%);
-  right: 1rem; }
+  .NFTS-details {
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: #110525;
+    position: relative;
+    box-shadow: 0 0 1rem black; }
+    .NFTS-details .nftsUserImg {
+      border-radius: 10rem;
+      object-fit: fill;
+      height: 60px;
+      box-shadow: 0 0 1rem black;
+      width: 60px;
+      top: 0;
+      position: absolute;
+      transform: translateY(-50%);
+      right: 1rem; }
 
 .currentDataBox {
   display: flex;
