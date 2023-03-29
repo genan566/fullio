@@ -17,7 +17,7 @@ const RenderingNFTs = ({ nftsData, with_slice, render_type = "default", custom_f
             {
                 nftsData.results && <>
                     {
-                        data_renderring_likes.map(item => {
+                        nftsData?.results?.reverse().map(item => {
                             let sendedData: NftTypesValues = {
                                 id: item.id,
                                 title: item.title,

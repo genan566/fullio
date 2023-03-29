@@ -122,7 +122,7 @@ const FAQ = () => {
 
 
                     {
-                        userContext.user.is_staff && <button
+                        userContext.user.is_superuser && <button
 
                             onClick={() => {
 

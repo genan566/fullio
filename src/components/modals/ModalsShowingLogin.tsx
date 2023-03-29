@@ -138,13 +138,13 @@ const ModalsShowingLogin = ({ isShownModalsSignIn, toggleShowSigninModal, respon
                                         style={{ textDecoration: "underline", marginLeft: ".5rem" }}>Sign Up</button></h2>
 
 
-                                <div className="mt-4">
+                                {/* <div className="mt-4">
                                     <GoogleLogin
                                         onSuccess={responseGoogle}
                                         onError={errorFuncOnLogIn}
 
                                     />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </>
