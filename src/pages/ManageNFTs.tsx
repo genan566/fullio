@@ -1,5 +1,5 @@
 import React from 'react'
-import { IoArrowForward, IoFilter } from 'react-icons/io5'
+import { IoArrowBack, IoArrowForward, IoFilter } from 'react-icons/io5'
 import { RiShoppingBasket2Line } from 'react-icons/ri'
 import { Link, useNavigate } from 'react-router-dom'
 import NFT11 from "../imgs/istockphoto.jpg";
@@ -11,6 +11,7 @@ import { NftsAPI } from '../APIs/NftsAPI'
 
 import { NftTypesValues } from '../types/NFTTypes';
 import { PaginatedDataNFT } from '../types/PaginatedData';
+import useAssignesNftHooks from '../hooks/useUserAssignedNFT';
 
 
 const containerVariants = {
@@ -36,6 +37,13 @@ const ManageNFTs = () => {
     const creatorContext = React.useContext(RootCreatorContext)
     const userToken = React.useContext(RootUserTokenContext)
     const [nftsData, setnftsData] = React.useState<PaginatedDataNFT>({} as PaginatedDataNFT)
+
+
+    const { data, activePage,
+        loadingData,
+        initial_fetching_nfts,
+        prefixedPaginate, callingTheNestedData, castedCount,
+    } = useAssignesNftHooks()
 
     const history = useNavigate()
 
@@ -95,33 +103,13 @@ const ManageNFTs = () => {
                                 size={17}
                             /> <p>Create One</p>
                         </button></Link>
-                    {/* <div className="flex mt-[1.5rem] gap-4 row align-center ">
-                        <div className="flex mt-2 gap-4 row">
-                            <button className="p-[1rem] rounded-md 
-                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                            <button className="p-[1rem] rounded-md 
-                                shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                            <button className="p-[1rem] rounded-md 
-                                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-
-                            <button className="p-[1rem] rounded-md 
-                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                        </div>
-                        <button className="p-[1rem] rounded-md 
-                                shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem]
-                                 hover:bg-indigo-500 flex justify-evenly gap-2 items-center text-sm">
-                            <IoFilter
-                                color="white"
-                                size={15}
-                            /> On sale</button>
-                    </div> */}
                 </div>
 
                 <div className="flex gap-5 mt-10 align-center pb-10 max-[899px]:overflow-x-scroll min-[900px]:flex-wrap max-[899px]:max-w-[95vw] max-[500px]:max-w-[95vw]">
                     {
-                        nftsData.results && <>
+                        data.results && <>
                             {
-                                nftsData.results.map(item => {
+                                data.results.map(item => {
                                     let sendedData: NftTypesValues = {
                                         id: item.id,
                                         title: item.title,
@@ -153,53 +141,46 @@ const ManageNFTs = () => {
                     }
 
                     {
-                        !Boolean(nftsData.results) && <div className="text-center w-full">
+                        !Boolean(data.results) && <div className="text-center w-full">
                             <h1 className="text-white text-lg font-MontBold mt-10">Aucune donnée NFTs n'est à afficher pour le moment.</h1>
                         </div>
                     }
-
                 </div>
 
-                {/* <div className="mb-3 mt-[5rem]">
-                    <h2 className="text-[1.8rem] font-MontBold text-white">Top Collections</h2>
-                    <div className="flex mt-[1.5rem] gap-4 row align-center ">
-                        <div className="flex mt-2 gap-4 row">
-                            <button className="p-[1rem] rounded-md 
-                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                            <button className="p-[1rem] rounded-md 
-                                shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                            <button className="p-[1rem] rounded-md 
-                                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-
-                            <button className="p-[1rem] rounded-md 
-                        shadow-sm text-slate-200 bg-slate-800 font-MontSemiBold py-[.5rem] hover:bg-indigo-500 text-sm">On sale</button>
-                        </div>
-                        <Link to={"/nftMarketPlace"}>
-                            <button
-                            
-                                className="bg-violet-600 flex row items-center justify-center gap-1 w-fit 
-                            hover:bg-transparent hover: border hover: border-violet-600 hover:text-white
-                            focus:outline-none
-                            text-sm font-MontSemiBold
-                            focus:ring-2
-                            focus:ring-gray-500
-                                py-1 text-white px-3
-                                rounded-lg"> <p>View all</p>
-                                <IoArrowForward
-                                
-                                    size={17}
+                {
+                    !(Object.keys(data).length === 0) && <div className="mx-auto flex flex-wrap gap-2 items-center justify-center mt-[1rem]">
+                        {
+                            data.previous && <button
+                                onClick={() => callingTheNestedData(activePage - 1)}
+                                className="bg-indigo-500 w-fit px-2 h-[2rem] gap-[.25rem] rounded-full text-white flex items-center justify-center shadow-md">
+                                <IoArrowBack
+                                    color="white"
+                                    size={15}
                                 />
-                            </button></Link>
+                                <p className=" font-MontSemiBold text-xs">Previous</p>
+                            </button>
+                        }
+                        {
+                            castedCount.map(it => (<>
+                                <button
+                                    onClick={() => prefixedPaginate(it)}
+                                    className={activePage === it ? "bg-white w-[2rem] h-[2rem] rounded-full text-black shadow-md" :
+                                        "bg-indigo-500 w-[2rem] h-[2rem] rounded-full text-white shadow-md"}>{it}</button>
+                            </>))
+                        }
+                        {
+                            data.next && <button
+                                onClick={() => callingTheNestedData(activePage + 1)}
+                                className="bg-indigo-500 w-fit gap-[.25rem] px-2 h-[2rem] rounded-full text-white flex items-center justify-center shadow-md">
+                                <p className=" font-MontSemiBold text-xs">Next</p>
+                                <IoArrowForward
+                                    color="white"
+                                    size={15}
+                                />
+                            </button>
+                        }
                     </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-[2rem] mt-[3rem]">
-
-                    <CardNFT image={NFT11} />
-                    <CardNFT image={NFT11} />
-                    <CardNFT image={NFT11} />
-
-                </div> */}
+                }
             </div>
 
         </motion.div>

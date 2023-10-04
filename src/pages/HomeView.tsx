@@ -186,7 +186,7 @@ const HomeView = () => {
                                 initial="inverseexit"
                                 animate="inversevisible"
                                 variants={containerVariants}
-                                className="min-h-[470px] max-h-[450px] min-w-[450px] max-w-[450px] object-center shadow-2xl rounded-lg bg-cover"
+                                className="min-h-[470px] max-h-[450px] min-w-[380px] max-[1000px]:max-w-[420px] max-[1000px]:max-h-[430px] max-w-[450px] object-center shadow-2xl rounded-lg bg-cover"
                                 src={ISOTOP}></motion.img>
                         </div>
                     </div>

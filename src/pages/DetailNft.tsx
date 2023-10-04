@@ -51,10 +51,6 @@ const DetailNft = () => {
     const userTokenContext = React.useContext(RootUserTokenContext)
     const [file, setFile] = React.useState<FileInterface>({} as FileInterface);
 
-
-
-
-
     const { register, handleSubmit
         , formState: { errors } } = useForm<Inputs>();
 
@@ -267,7 +263,8 @@ const DetailNft = () => {
             </div>
             {
                 nftContext?.nftData?.id
-                && ((userContext.user.is_superuser) || ((userContext.user.name === userRetrieveData.name)) && userRetrieveData.name !== undefined) && <div className="w-full mt-[5rem]">
+                && ((userContext.user.is_superuser) || ((userContext.user.name === userRetrieveData.name))
+                    && userRetrieveData.name !== undefined) && <div className="w-full mt-[5rem]">
                     <button
                         onClick={delete_nft}
                         className="bg-red-600 flex row items-center justify-center gap-1 w-fit 
