@@ -45,7 +45,7 @@ const SaleComponent = ({ item }: { item: SaleHistory }) => {
                             className="h-10 w-10 rounded-full object-cover bg-cover shadow-lg"
                             src={userRetrieveData?.image || ISOTOP}
                             alt="user Profile" />
-                        <p className="text-sm text-white font-MontSemiBold max-w-[120px] truncate">{item.title}</p>
+                        <p className="text-sm text-white font-MontSemiBold max-w-[120px] truncate">{userRetrieveData?.name || "Non défini"}</p>
                     </div>
                 </div>
                 <p className="text-white text-sm font-MontSemiBold flex-grow">{userRetrieveData?.email || "Anonyme"}</p>

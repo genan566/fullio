@@ -34,13 +34,13 @@ const ModalSubscription = () => {
     const { register, handleSubmit,
         resetField, formState: { errors } } = useForm<Inputs>();
 
-    const handleSuscribeToSale = (gettedData: { title: string, }) => {
+    const handleSuscribeToSale = () => {
         let token = userTokenContext.token
         let sale_posting = new SaleHistoriesAPI()
         if (Boolean(nftContext?.nftData?.id)) {
             let rootNFTID = nftContext?.nftData?.id
             console.log("nft context", rootNFTID)
-            let data = { title: gettedData.title, nfts_id: rootNFTID }
+            let data = { title: userTokenContext.token, nfts_id: rootNFTID }
             sale_posting.post__create_sale(token, data).then(res => {
                 // 
                 if (Boolean(res.non_field_errors))
@@ -67,8 +67,8 @@ const ModalSubscription = () => {
         }
     }
 
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        handleSuscribeToSale(data)
+    const onSubmit = () => {
+        handleSuscribeToSale()
     };
 
 
@@ -85,7 +85,7 @@ const ModalSubscription = () => {
                                 <div className="min-[800px]:px-[2rem] px-[1rem] w-full mb-[1rem]">
                                     <h2 className="text-lg font-MontSemiBold text-white mt-5 mb-2 pb-[1rem] text-center border-b w-full border-slate-700">Subscription Form</h2>
                                 </div>
-                                <h2 className="text-sm font-Regular text-center text-slate-200">Please follow this step to subscribe.</h2>
+                                <h2 className="text-sm font-Regular text-center text-slate-200">Well you can subscribe now </h2>
 
                                 <div className="w-full max-w-[200px]">
                                     {
@@ -106,41 +106,6 @@ const ModalSubscription = () => {
                                 </button>
 
                                 <form className='text-center w-full flex flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
-
-
-                                    <div className='mt-[1.5rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Enter any title to your subscription</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdTitle
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("title", { required: true })}
-                                                placeholder='Your title'
-                                                type="text"
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.title && <ErrorText />}
-                                    </div>
-                                    {/* 
-
-                                    <div className='mt-[1.2rem] w-3/4 mx-auto'>
-                                        <p className="text-xs text-center font-MontSemiBold text-white mb-4">Enter any price to your subscription</p>
-
-                                        <div className="control-container-S mt-3 mb-1" id='cPar'>
-                                            <MdOutlinePriceChange
-                                                color="white"
-                                                size={18}
-                                            />
-                                            <input {...register("price", { required: true })}
-                                                placeholder='Your price'
-                                                type="number"
-                                                className="control-input-S" />
-                                        </div>
-                                        {errors.price && <ErrorText />}
-                                    </div> */}
-
                                     <div className="mt-5">
                                         <button
                                             type='submit'
